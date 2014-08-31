@@ -1,30 +1,16 @@
-PixivAPI_iOS
-============
+//
+//  IllustModel.h
+//  PixivDaily
+//
+//  Created by Zhou Hao on 14-8-29.
+//  Copyright (c) 2014年 Kastark. All rights reserved.
+//
 
-# Pixiv API for iOS
+#import <Foundation/Foundation.h>
 
-## Pixiv API Usage:
+#define PIXIV_ID_INVALID   (0)
+#define MIN_PIXIV_RECORD_FIELDS_NUM (30)
 
-1. Simplely drag PixivFetcher to your project, and call Pixiv API like this:
-
-```objective-c
-#import "PixivFetcher.h"
-
-- (void)getDailyRanking
-{
-    [PixivFetcher API_getRanking:1 mode:PIXIV_RANKING_MODE_DAY content:PIXIV_RANKING_CONTENT_ALL
-                       onSuccess:^(NSArray *illusts, BOOL isIllust) {
-                           NSLog(@"%@", illusts);
-                       }
-                       onFailure:^(NSURLResponse *response, NSInteger responseCode, NSData *data, NSError *connectionError) {
-                           NSLog(@"[HTTP %d] %@", responseCode, connectionError);
-                       }];
-}
-```
-
-2. API_getRanking:onSuccess:^() will return NSArray of IllustModels:
-
-```
 @interface IllustModel : NSObject
 
 // export Model to NSArray
@@ -60,14 +46,3 @@ PixivAPI_iOS
 - (NSArray *)pageURLs;
 
 @end
-```
-
-## Demo - PixivDaily
-
-Fetch Pixiv daily ranking and list illusts in a UITableView (cache supported by [SDWebImage](https://github.com/rs/SDWebImage))
-
-![PixivDaily Screenshot1](https://raw.github.com/upbit/PixivAPI_iOS/master/examples/screenshots/PixivDaily_01.png)
-
-![PixivDaily Screenshot2](https://raw.github.com/upbit/PixivAPI_iOS/master/examples/screenshots/PixivDaily_02.png)
-
-![PixivDaily Screenshot3](https://raw.github.com/upbit/PixivAPI_iOS/master/examples/screenshots/PixivDaily_03.png)

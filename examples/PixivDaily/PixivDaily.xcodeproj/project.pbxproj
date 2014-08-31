@@ -1,0 +1,575 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		CB0E663519B34B82005567D4 /* PixivIllustsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB0E663419B34B82005567D4 /* PixivIllustsTableViewController.m */; };
+		CB0E663819B34C02005567D4 /* DailyRankingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB0E663719B34C02005567D4 /* DailyRankingViewController.m */; };
+		CB0E663B19B34CCB005567D4 /* RecentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB0E663A19B34CCB005567D4 /* RecentsViewController.m */; };
+		CB7144A519B069AD003AE281 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB7144A419B069AD003AE281 /* Foundation.framework */; };
+		CB7144A719B069AD003AE281 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB7144A619B069AD003AE281 /* CoreGraphics.framework */; };
+		CB7144A919B069AD003AE281 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB7144A819B069AD003AE281 /* UIKit.framework */; };
+		CB7144AF19B069AD003AE281 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CB7144AD19B069AD003AE281 /* InfoPlist.strings */; };
+		CB7144B119B069AD003AE281 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CB7144B019B069AD003AE281 /* main.m */; };
+		CB7144B519B069AD003AE281 /* PixivDailyAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CB7144B419B069AD003AE281 /* PixivDailyAppDelegate.m */; };
+		CB7144B819B069AD003AE281 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB7144B619B069AD003AE281 /* Main_iPhone.storyboard */; };
+		CB7144BB19B069AD003AE281 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB7144B919B069AD003AE281 /* Main_iPad.storyboard */; };
+		CB7144C019B069AD003AE281 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB7144BF19B069AD003AE281 /* Images.xcassets */; };
+		CB7144C719B069AD003AE281 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB7144C619B069AD003AE281 /* XCTest.framework */; };
+		CB7144C819B069AD003AE281 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB7144A419B069AD003AE281 /* Foundation.framework */; };
+		CB7144C919B069AD003AE281 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB7144A819B069AD003AE281 /* UIKit.framework */; };
+		CB7144D119B069AD003AE281 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CB7144CF19B069AD003AE281 /* InfoPlist.strings */; };
+		CB7144D319B069AD003AE281 /* PixivDailyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CB7144D219B069AD003AE281 /* PixivDailyTests.m */; };
+		CB7144E219B07077003AE281 /* SDWebImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB7144E119B07077003AE281 /* SDWebImageViewController.m */; };
+		CB92AE6119B365EF007DCD50 /* IllustModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CB92AE5E19B365EF007DCD50 /* IllustModel.m */; };
+		CB92AE6219B365EF007DCD50 /* PixivFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = CB92AE6019B365EF007DCD50 /* PixivFetcher.m */; };
+		DCCAC210FAED47219CAE29F7 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 342ABEE81D70452D9181DC3A /* libPods.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		CB7144CA19B069AD003AE281 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CB71449919B069AD003AE281 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CB7144A019B069AD003AE281;
+			remoteInfo = PixivDaily;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		3244198820FD409987BAD787 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		342ABEE81D70452D9181DC3A /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		CB0E663319B34B82005567D4 /* PixivIllustsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PixivIllustsTableViewController.h; sourceTree = "<group>"; };
+		CB0E663419B34B82005567D4 /* PixivIllustsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PixivIllustsTableViewController.m; sourceTree = "<group>"; };
+		CB0E663619B34C02005567D4 /* DailyRankingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DailyRankingViewController.h; sourceTree = "<group>"; };
+		CB0E663719B34C02005567D4 /* DailyRankingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DailyRankingViewController.m; sourceTree = "<group>"; };
+		CB0E663919B34CCB005567D4 /* RecentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentsViewController.h; sourceTree = "<group>"; };
+		CB0E663A19B34CCB005567D4 /* RecentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecentsViewController.m; sourceTree = "<group>"; };
+		CB7144A119B069AD003AE281 /* PixivDaily.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PixivDaily.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CB7144A419B069AD003AE281 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		CB7144A619B069AD003AE281 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		CB7144A819B069AD003AE281 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		CB7144AC19B069AD003AE281 /* PixivDaily-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PixivDaily-Info.plist"; sourceTree = "<group>"; };
+		CB7144AE19B069AD003AE281 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		CB7144B019B069AD003AE281 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		CB7144B219B069AD003AE281 /* PixivDaily-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PixivDaily-Prefix.pch"; sourceTree = "<group>"; };
+		CB7144B319B069AD003AE281 /* PixivDailyAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PixivDailyAppDelegate.h; sourceTree = "<group>"; };
+		CB7144B419B069AD003AE281 /* PixivDailyAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PixivDailyAppDelegate.m; sourceTree = "<group>"; };
+		CB7144B719B069AD003AE281 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
+		CB7144BA19B069AD003AE281 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
+		CB7144BF19B069AD003AE281 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		CB7144C519B069AD003AE281 /* PixivDailyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PixivDailyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CB7144C619B069AD003AE281 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		CB7144CE19B069AD003AE281 /* PixivDailyTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PixivDailyTests-Info.plist"; sourceTree = "<group>"; };
+		CB7144D019B069AD003AE281 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		CB7144D219B069AD003AE281 /* PixivDailyTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PixivDailyTests.m; sourceTree = "<group>"; };
+		CB7144E019B07077003AE281 /* SDWebImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDWebImageViewController.h; sourceTree = "<group>"; };
+		CB7144E119B07077003AE281 /* SDWebImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDWebImageViewController.m; sourceTree = "<group>"; };
+		CB92AE5D19B365EF007DCD50 /* IllustModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IllustModel.h; sourceTree = "<group>"; };
+		CB92AE5E19B365EF007DCD50 /* IllustModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IllustModel.m; sourceTree = "<group>"; };
+		CB92AE5F19B365EF007DCD50 /* PixivFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PixivFetcher.h; sourceTree = "<group>"; };
+		CB92AE6019B365EF007DCD50 /* PixivFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PixivFetcher.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CB71449E19B069AD003AE281 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CB7144A719B069AD003AE281 /* CoreGraphics.framework in Frameworks */,
+				CB7144A919B069AD003AE281 /* UIKit.framework in Frameworks */,
+				CB7144A519B069AD003AE281 /* Foundation.framework in Frameworks */,
+				DCCAC210FAED47219CAE29F7 /* libPods.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CB7144C219B069AD003AE281 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CB7144C719B069AD003AE281 /* XCTest.framework in Frameworks */,
+				CB7144C919B069AD003AE281 /* UIKit.framework in Frameworks */,
+				CB7144C819B069AD003AE281 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		CB71449819B069AD003AE281 = {
+			isa = PBXGroup;
+			children = (
+				CB7144AA19B069AD003AE281 /* PixivDaily */,
+				CB7144CC19B069AD003AE281 /* PixivDailyTests */,
+				CB7144A319B069AD003AE281 /* Frameworks */,
+				CB7144A219B069AD003AE281 /* Products */,
+				3244198820FD409987BAD787 /* Pods.xcconfig */,
+			);
+			sourceTree = "<group>";
+		};
+		CB7144A219B069AD003AE281 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CB7144A119B069AD003AE281 /* PixivDaily.app */,
+				CB7144C519B069AD003AE281 /* PixivDailyTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CB7144A319B069AD003AE281 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CB7144A419B069AD003AE281 /* Foundation.framework */,
+				CB7144A619B069AD003AE281 /* CoreGraphics.framework */,
+				CB7144A819B069AD003AE281 /* UIKit.framework */,
+				CB7144C619B069AD003AE281 /* XCTest.framework */,
+				342ABEE81D70452D9181DC3A /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CB7144AA19B069AD003AE281 /* PixivDaily */ = {
+			isa = PBXGroup;
+			children = (
+				CB7144E019B07077003AE281 /* SDWebImageViewController.h */,
+				CB7144E119B07077003AE281 /* SDWebImageViewController.m */,
+				CB0E663319B34B82005567D4 /* PixivIllustsTableViewController.h */,
+				CB0E663419B34B82005567D4 /* PixivIllustsTableViewController.m */,
+				CB92AE5C19B365EF007DCD50 /* PixivFetcher */,
+				CB0E663619B34C02005567D4 /* DailyRankingViewController.h */,
+				CB0E663719B34C02005567D4 /* DailyRankingViewController.m */,
+				CB0E663919B34CCB005567D4 /* RecentsViewController.h */,
+				CB0E663A19B34CCB005567D4 /* RecentsViewController.m */,
+				CB7144B619B069AD003AE281 /* Main_iPhone.storyboard */,
+				CB7144B919B069AD003AE281 /* Main_iPad.storyboard */,
+				CB7144BF19B069AD003AE281 /* Images.xcassets */,
+				CB7144AB19B069AD003AE281 /* Supporting Files */,
+			);
+			path = PixivDaily;
+			sourceTree = "<group>";
+		};
+		CB7144AB19B069AD003AE281 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				CB7144B319B069AD003AE281 /* PixivDailyAppDelegate.h */,
+				CB7144B419B069AD003AE281 /* PixivDailyAppDelegate.m */,
+				CB7144AC19B069AD003AE281 /* PixivDaily-Info.plist */,
+				CB7144AD19B069AD003AE281 /* InfoPlist.strings */,
+				CB7144B019B069AD003AE281 /* main.m */,
+				CB7144B219B069AD003AE281 /* PixivDaily-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		CB7144CC19B069AD003AE281 /* PixivDailyTests */ = {
+			isa = PBXGroup;
+			children = (
+				CB7144D219B069AD003AE281 /* PixivDailyTests.m */,
+				CB7144CD19B069AD003AE281 /* Supporting Files */,
+			);
+			path = PixivDailyTests;
+			sourceTree = "<group>";
+		};
+		CB7144CD19B069AD003AE281 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				CB7144CE19B069AD003AE281 /* PixivDailyTests-Info.plist */,
+				CB7144CF19B069AD003AE281 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		CB92AE5C19B365EF007DCD50 /* PixivFetcher */ = {
+			isa = PBXGroup;
+			children = (
+				CB92AE5D19B365EF007DCD50 /* IllustModel.h */,
+				CB92AE5E19B365EF007DCD50 /* IllustModel.m */,
+				CB92AE5F19B365EF007DCD50 /* PixivFetcher.h */,
+				CB92AE6019B365EF007DCD50 /* PixivFetcher.m */,
+			);
+			path = PixivFetcher;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		CB7144A019B069AD003AE281 /* PixivDaily */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CB7144D619B069AD003AE281 /* Build configuration list for PBXNativeTarget "PixivDaily" */;
+			buildPhases = (
+				38617B31D36E48D293103722 /* Check Pods Manifest.lock */,
+				CB71449D19B069AD003AE281 /* Sources */,
+				CB71449E19B069AD003AE281 /* Frameworks */,
+				CB71449F19B069AD003AE281 /* Resources */,
+				AF3DF1997B134265BDA4A82E /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PixivDaily;
+			productName = PixivDaily;
+			productReference = CB7144A119B069AD003AE281 /* PixivDaily.app */;
+			productType = "com.apple.product-type.application";
+		};
+		CB7144C419B069AD003AE281 /* PixivDailyTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CB7144D919B069AD003AE281 /* Build configuration list for PBXNativeTarget "PixivDailyTests" */;
+			buildPhases = (
+				CB7144C119B069AD003AE281 /* Sources */,
+				CB7144C219B069AD003AE281 /* Frameworks */,
+				CB7144C319B069AD003AE281 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CB7144CB19B069AD003AE281 /* PBXTargetDependency */,
+			);
+			name = PixivDailyTests;
+			productName = PixivDailyTests;
+			productReference = CB7144C519B069AD003AE281 /* PixivDailyTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CB71449919B069AD003AE281 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = PixivDaily;
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = Kastark;
+				TargetAttributes = {
+					CB7144C419B069AD003AE281 = {
+						TestTargetID = CB7144A019B069AD003AE281;
+					};
+				};
+			};
+			buildConfigurationList = CB71449C19B069AD003AE281 /* Build configuration list for PBXProject "PixivDaily" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = CB71449819B069AD003AE281;
+			productRefGroup = CB7144A219B069AD003AE281 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CB7144A019B069AD003AE281 /* PixivDaily */,
+				CB7144C419B069AD003AE281 /* PixivDailyTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		CB71449F19B069AD003AE281 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CB7144BB19B069AD003AE281 /* Main_iPad.storyboard in Resources */,
+				CB7144C019B069AD003AE281 /* Images.xcassets in Resources */,
+				CB7144B819B069AD003AE281 /* Main_iPhone.storyboard in Resources */,
+				CB7144AF19B069AD003AE281 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CB7144C319B069AD003AE281 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CB7144D119B069AD003AE281 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		38617B31D36E48D293103722 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		AF3DF1997B134265BDA4A82E /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CB71449D19B069AD003AE281 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CB7144E219B07077003AE281 /* SDWebImageViewController.m in Sources */,
+				CB0E663519B34B82005567D4 /* PixivIllustsTableViewController.m in Sources */,
+				CB92AE6219B365EF007DCD50 /* PixivFetcher.m in Sources */,
+				CB0E663819B34C02005567D4 /* DailyRankingViewController.m in Sources */,
+				CB92AE6119B365EF007DCD50 /* IllustModel.m in Sources */,
+				CB0E663B19B34CCB005567D4 /* RecentsViewController.m in Sources */,
+				CB7144B119B069AD003AE281 /* main.m in Sources */,
+				CB7144B519B069AD003AE281 /* PixivDailyAppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CB7144C119B069AD003AE281 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CB7144D319B069AD003AE281 /* PixivDailyTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CB7144CB19B069AD003AE281 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CB7144A019B069AD003AE281 /* PixivDaily */;
+			targetProxy = CB7144CA19B069AD003AE281 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		CB7144AD19B069AD003AE281 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CB7144AE19B069AD003AE281 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		CB7144B619B069AD003AE281 /* Main_iPhone.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CB7144B719B069AD003AE281 /* Base */,
+			);
+			name = Main_iPhone.storyboard;
+			sourceTree = "<group>";
+		};
+		CB7144B919B069AD003AE281 /* Main_iPad.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CB7144BA19B069AD003AE281 /* Base */,
+			);
+			name = Main_iPad.storyboard;
+			sourceTree = "<group>";
+		};
+		CB7144CF19B069AD003AE281 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CB7144D019B069AD003AE281 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		CB7144D419B069AD003AE281 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		CB7144D519B069AD003AE281 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		CB7144D719B069AD003AE281 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3244198820FD409987BAD787 /* Pods.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PixivDaily/PixivDaily-Prefix.pch";
+				INFOPLIST_FILE = "PixivDaily/PixivDaily-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		CB7144D819B069AD003AE281 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3244198820FD409987BAD787 /* Pods.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PixivDaily/PixivDaily-Prefix.pch";
+				INFOPLIST_FILE = "PixivDaily/PixivDaily-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		CB7144DA19B069AD003AE281 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/PixivDaily.app/PixivDaily";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PixivDaily/PixivDaily-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "PixivDailyTests/PixivDailyTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		CB7144DB19B069AD003AE281 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/PixivDaily.app/PixivDaily";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PixivDaily/PixivDaily-Prefix.pch";
+				INFOPLIST_FILE = "PixivDailyTests/PixivDailyTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CB71449C19B069AD003AE281 /* Build configuration list for PBXProject "PixivDaily" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CB7144D419B069AD003AE281 /* Debug */,
+				CB7144D519B069AD003AE281 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CB7144D619B069AD003AE281 /* Build configuration list for PBXNativeTarget "PixivDaily" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CB7144D719B069AD003AE281 /* Debug */,
+				CB7144D819B069AD003AE281 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CB7144D919B069AD003AE281 /* Build configuration list for PBXNativeTarget "PixivDailyTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CB7144DA19B069AD003AE281 /* Debug */,
+				CB7144DB19B069AD003AE281 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = CB71449919B069AD003AE281 /* Project object */;
+}
