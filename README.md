@@ -5,8 +5,9 @@ PixivAPI_iOS currently only supported non-login API, do nothing about pixiv OAut
 
 ## Pixiv API Usage:
 
-1. Simplely drag PixivFetcher to your project, and call Pixiv API like [PixivFetcher API_getRanking:...];
-2. API_getRanking:onSuccess:^() will return NSArray of IllustModels
+1. Simplely drag **PixivFetcher/** to your project;
+2. Call Pixiv API like **[PixivFetcher API_getRanking:...]**;
+3. **API_getRanking:onSuccess:^()** will return **NSArray of IllustModels**;
 
 ```objective-c
 #import "PixivFetcher.h"
@@ -23,7 +24,7 @@ PixivAPI_iOS currently only supported non-login API, do nothing about pixiv OAut
 }
 ```
 
-IllustModel propertys:
+**IllustModel** propertys:
 
 ```objective-c
 @interface IllustModel : NSObject
