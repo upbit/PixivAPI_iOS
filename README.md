@@ -1,11 +1,12 @@
-PixivAPI_iOS
+Pixiv API for iOS
 ============
 
-# Pixiv API for iOS
+PixivAPI_iOS currently only supported non-login API, do nothing about pixiv OAuth2...
 
 ## Pixiv API Usage:
 
-1. Simplely drag PixivFetcher to your project, and call Pixiv API like this:
+1. Simplely drag PixivFetcher to your project, and call Pixiv API like [PixivFetcher API_getRanking:...];
+2. API_getRanking:onSuccess:^() will return NSArray of IllustModels
 
 ```objective-c
 #import "PixivFetcher.h"
@@ -22,9 +23,9 @@ PixivAPI_iOS
 }
 ```
 
-2. API_getRanking:onSuccess:^() will return NSArray of IllustModels:
+IllustModel propertys:
 
-```
+```objective-c
 @interface IllustModel : NSObject
 
 // export Model to NSArray
