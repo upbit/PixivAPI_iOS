@@ -74,7 +74,7 @@
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="sBJ-e1-epy">
                         <autoresizingMask key="autoresizingMask"/>
                         <connections>
-                            <action selector="getRanking" destination="S1I-A2-Ws9" eventType="valueChanged" id="VYf-Ye-H3m"/>
+                            <action selector="getPixivDailyRanking" destination="S1I-A2-Ws9" eventType="valueChanged" id="JCi-Vn-Qbz"/>
                         </connections>
                     </refreshControl>
                 </tableViewController>
@@ -192,7 +192,13 @@
                             <constraint firstItem="IiR-Tk-5HO" firstAttribute="top" secondItem="y14-Z1-m7x" secondAttribute="top" id="zbg-vd-Obr"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="sNb-V0-sH1"/>
+                    <navigationItem key="navigationItem" id="sNb-V0-sH1">
+                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="jiR-WY-5M7">
+                            <connections>
+                                <action selector="exportIllustToDocuments:" destination="2LU-jl-GGB" id="128-Ge-n4x"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="scrollView" destination="IiR-Tk-5HO" id="qW5-I5-uR1"/>
                         <outlet property="spinner" destination="cYc-1w-awa" id="GY1-ys-iUn"/>
@@ -235,7 +241,13 @@
                             <constraint firstAttribute="centerY" secondItem="4HE-4e-lhU" secondAttribute="centerY" id="rOx-Hd-hX4"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="nkj-3a-82A"/>
+                    <navigationItem key="navigationItem" id="nkj-3a-82A">
+                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="DUt-XW-7V1">
+                            <connections>
+                                <action selector="exportIllustToDocuments:" destination="6Y3-bH-xQP" id="5dF-C3-aS8"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="scrollView" destination="49o-uU-czB" id="E63-Ng-jr0"/>
                         <outlet property="spinner" destination="4HE-4e-lhU" id="YgU-93-8h9"/>

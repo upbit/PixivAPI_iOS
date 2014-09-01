@@ -10,7 +10,11 @@
 #import "PixivFetcher.h"
 #import "RecentsViewController.h"
 
+#define MAX_FETCH_RANKING_PAGE_NUM (5)
+
 @interface DailyRankingViewController ()
+
+@property (nonatomic) NSUInteger currentPage;
 
 @end
 
@@ -19,21 +23,51 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self getRanking];
+    [self getPixivDailyRanking];
 }
 
-- (IBAction)getRanking
+- (IBAction)getPixivDailyRanking
+{
+    self.illusts = @[];
+    self.currentPage = 1;
+    [self addPageRankingIllusts:self.currentPage];
+}
+
+- (void)addPageRankingIllusts:(NSUInteger)page
 {
     __weak DailyRankingViewController *weakSelf = self;
-    [PixivFetcher API_getRanking:1 mode:PIXIV_RANKING_MODE_DAY content:PIXIV_RANKING_CONTENT_ALL
+    [PixivFetcher API_getRanking:page mode:PIXIV_RANKING_MODE_DAY content:PIXIV_RANKING_CONTENT_ALL
                        onSuccess:^(NSArray *illusts, BOOL isIllust) {
                            [weakSelf.refreshControl endRefreshing];
-                           weakSelf.illusts = illusts;
+                           weakSelf.illusts = [weakSelf.illusts arrayByAddingObjectsFromArray:illusts];
                        }
                        onFailure:^(NSURLResponse *response, NSInteger responseCode, NSData *data, NSError *connectionError) {
                            NSLog(@"[HTTP %d] %@", responseCode, connectionError);
                        }];
 }
+
+#pragma mark - UITableView Load More
+
+- (BOOL)loadMoreIllusts
+{
+    if (self.currentPage < MAX_FETCH_RANKING_PAGE_NUM) {
+        self.currentPage++;
+        NSLog(@"Load More - page %u", self.currentPage);
+        [self addPageRankingIllusts:self.currentPage];
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row == [self.illusts count]-1) {
+        [self loadMoreIllusts];
+    }
+}
+
+#pragma mark - override
 
 - (void)addViewedIllustToRecentsArray:(IllustModel *)illust
 {

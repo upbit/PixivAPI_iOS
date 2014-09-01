@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "IllustModel.h"
 
 @interface SDWebImageViewController : UIViewController
+
 @property (strong, nonatomic) NSURL *imageURL;
+@property (strong, nonatomic) IllustModel *illust;
+
 @end

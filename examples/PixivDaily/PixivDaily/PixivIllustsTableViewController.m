@@ -83,6 +83,7 @@
     } else {
         ivc.imageURL = [NSURL URLWithString:illust.imageURL];
     }
+    ivc.illust = illust;
     ivc.title = [NSString stringWithFormat:@"[%@] %@", illust.authorName, illust.title];
 }
 
