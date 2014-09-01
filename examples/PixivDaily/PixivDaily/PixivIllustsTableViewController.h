@@ -14,6 +14,6 @@
 
 @property (strong, nonatomic) NSArray *illusts;     // of IllustModel
 
-- (void)prepareImageViewController:(SDWebImageViewController *)ivc toDisplayPhoto:(IllustModel *)illust;
+- (void)prepareImageViewController:(SDWebImageViewController *)ivc toDisplayPhoto:(IllustModel *)illust mobileSize:(BOOL)mobileSize;
 
 @end

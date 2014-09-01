@@ -15,9 +15,9 @@
 
 @implementation RecentsViewController
 
-- (void)viewDidLoad
+- (void)viewDidAppear:(BOOL)animated
 {
-    [super viewDidLoad];
+    [super viewDidAppear:animated];
     [self showRecents];
 }
 
@@ -39,7 +39,7 @@
 {
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:KEY_RECENT_ILLUSTS];
     [[NSUserDefaults standardUserDefaults] synchronize];
-    [self.tableView reloadData];
+    self.illusts = @[];
 }
 
 @end

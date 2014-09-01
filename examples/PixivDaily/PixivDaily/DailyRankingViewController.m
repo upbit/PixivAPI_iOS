@@ -40,8 +40,8 @@
     NSMutableArray *recents = [[NSMutableArray alloc] initWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:KEY_RECENT_ILLUSTS]];
     NSArray *dataArray = [illust toDataArray];
     
+    // due to illust.view changes every time, remove duplicate might not work here
     if ([recents containsObject:dataArray]) {
-        // remove exist illust and then insert to 0
         NSUInteger index = [recents indexOfObject:dataArray];
         [recents removeObjectAtIndex:index];
     }
@@ -52,9 +52,9 @@
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-- (void)prepareImageViewController:(SDWebImageViewController *)ivc toDisplayPhoto:(IllustModel *)illust
+- (void)prepareImageViewController:(SDWebImageViewController *)ivc toDisplayPhoto:(IllustModel *)illust mobileSize:(BOOL)mobileSize
 {
-    [super prepareImageViewController:ivc toDisplayPhoto:illust];
+    [super prepareImageViewController:ivc toDisplayPhoto:illust mobileSize:mobileSize];
     
     [self addViewedIllustToRecentsArray:illust];
 }

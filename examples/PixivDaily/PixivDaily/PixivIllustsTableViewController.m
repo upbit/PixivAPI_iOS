@@ -34,6 +34,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
+    // +1 for "Load More" cell
     return [self.illusts count];
 }
 
@@ -64,20 +65,24 @@
     }
     if ([detail isKindOfClass:[SDWebImageViewController class]]) {
         // only on iPad
-        [self prepareImageViewController:detail toDisplayPhoto:self.illusts[indexPath.row]];
+        [self prepareImageViewController:detail toDisplayPhoto:self.illusts[indexPath.row] mobileSize:NO];
     }
 }
 
 #pragma mark - Navigation
 
-- (void)prepareImageViewController:(SDWebImageViewController *)ivc toDisplayPhoto:(IllustModel *)illust
+- (void)prepareImageViewController:(SDWebImageViewController *)ivc toDisplayPhoto:(IllustModel *)illust mobileSize:(BOOL)mobileSize
 {
     // set 'Referer' for illust download
     [SDWebImageManager.sharedManager.imageDownloader setValue:illust.refererURL forHTTPHeaderField:@"Referer"];
     [SDWebImageManager.sharedManager.imageDownloader setValue:FETCH_ILLUST_USER_AGENT forHTTPHeaderField:@"User-Agent"];
     SDWebImageManager.sharedManager.imageDownloader.executionOrder = SDWebImageDownloaderLIFOExecutionOrder;
     
-    ivc.imageURL = [NSURL URLWithString:illust.mobileURL];
+    if (mobileSize) {
+        ivc.imageURL = [NSURL URLWithString:illust.mobileURL];
+    } else {
+        ivc.imageURL = [NSURL URLWithString:illust.imageURL];
+    }
     ivc.title = [NSString stringWithFormat:@"[%@] %@", illust.authorName, illust.title];
 }
 
@@ -90,7 +95,8 @@
         NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
         if (indexPath) {
             if (([segue.identifier isEqualToString:@"Show Image"]) && ([segue.destinationViewController isKindOfClass:[SDWebImageViewController class]])) {
-                [self prepareImageViewController:segue.destinationViewController toDisplayPhoto:self.illusts[indexPath.row]];
+                [segue.destinationViewController setHidesBottomBarWhenPushed:YES];
+                [self prepareImageViewController:segue.destinationViewController toDisplayPhoto:self.illusts[indexPath.row] mobileSize:YES];
             }
         }
     }
