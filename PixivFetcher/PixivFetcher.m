@@ -34,28 +34,28 @@ typedef NS_ENUM(NSUInteger, PARSER_STATE) {
  */
 + (NSURL *)URLforRanking:(NSUInteger)page mode:(NSString *)mode content:(NSString *)content
 {
-    return [self URLForQuery:[NSString stringWithFormat:@"ranking.php?content=%@&mode=%@&p=%u", content, mode, (page>0)?page:1]];
+    return [self URLForQuery:[NSString stringWithFormat:@"ranking.php?content=%@&mode=%@&p=%lu", content, mode, (unsigned long)((page>0)?page:1)]];
 }
 /**
  *  illust.php?illust_id={id}
  */
 + (NSURL *)URLforIllust:(NSUInteger)illust_id
 {
-    return [self URLForQuery:[NSString stringWithFormat:@"illust.php?illust_id=%u", illust_id]];
+    return [self URLForQuery:[NSString stringWithFormat:@"illust.php?illust_id=%lu", (unsigned long)illust_id]];
 }
 /**
  *  member_illust.php?id={id}&p={1-n}
  */
 + (NSURL *)URLforMemberIllust:(NSUInteger)authorId page:(NSUInteger)page
 {
-    return [self URLForQuery:[NSString stringWithFormat:@"member_illust.php?id=%u&p=%u", authorId, page]];
+    return [self URLForQuery:[NSString stringWithFormat:@"member_illust.php?id=%lu&p=%lu", (unsigned long)authorId, (unsigned long)page]];
 }
 /**
  *  user.php?level={3}&user_id={id}
  */
 + (NSURL *)URLforUser:(NSUInteger)userId level:(NSUInteger)level
 {
-    return [self URLForQuery:[NSString stringWithFormat:@"user.php?level=%u&user_id=%u", level, userId]];
+    return [self URLForQuery:[NSString stringWithFormat:@"user.php?level=%lu&user_id=%lu", (unsigned long)level, (unsigned long)userId]];
 }
 
 #pragma mark - URL Fetcher

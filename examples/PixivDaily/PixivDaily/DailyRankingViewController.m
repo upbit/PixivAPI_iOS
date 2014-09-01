@@ -42,7 +42,7 @@
                            weakSelf.illusts = [weakSelf.illusts arrayByAddingObjectsFromArray:illusts];
                        }
                        onFailure:^(NSURLResponse *response, NSInteger responseCode, NSData *data, NSError *connectionError) {
-                           NSLog(@"[HTTP %d] %@", responseCode, connectionError);
+                           NSLog(@"[HTTP %ld] %@", (long)responseCode, connectionError);
                        }];
 }
 
@@ -52,7 +52,7 @@
 {
     if (self.currentPage < MAX_FETCH_RANKING_PAGE_NUM) {
         self.currentPage++;
-        NSLog(@"Load More - page %u", self.currentPage);
+        NSLog(@"Load More - page %lu", (unsigned long)self.currentPage);
         [self addPageRankingIllusts:self.currentPage];
         return YES;
     } else {

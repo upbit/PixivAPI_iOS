@@ -172,7 +172,7 @@
     if ((!self.illust) || (self.illust.illustId == PIXIV_ID_INVALID))
         return;
     
-    NSString *illustName = [NSString stringWithFormat:@"illistid_%u.%@", self.illust.illustId, self.illust.ext];
+    NSString *illustName = [NSString stringWithFormat:@"illistid_%u.%@", (unsigned int)self.illust.illustId, self.illust.ext];
     NSString *illustPath = [self documentsPathForFileName:illustName];
     NSLog(@"export: %@", illustPath);
 

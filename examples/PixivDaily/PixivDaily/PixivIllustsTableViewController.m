@@ -46,7 +46,7 @@
     IllustModel *illust = [self.illusts objectAtIndex:indexPath.row];
     
     cell.textLabel.text = illust.title;
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@, illust_id=%u", illust.authorName, illust.illustId];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@, illust_id=%u", illust.authorName, (unsigned int)illust.illustId];
     
     // download illusts.thumbURL for cell image
     [cell.imageView sd_setImageWithURL:[NSURL URLWithString:illust.thumbURL]

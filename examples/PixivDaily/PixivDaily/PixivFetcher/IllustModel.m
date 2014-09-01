@@ -17,15 +17,15 @@
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"author_id=%u illust_id=%u, %@", self.authorId, self.illustId, self.mobileURL];
+    return [NSString stringWithFormat:@"author_id=%lu illust_id=%lu, %@", (unsigned long)self.authorId, (unsigned long)self.illustId, self.mobileURL];
 }
 
 - (NSArray *)toDataArray
 {
     NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:MIN_PIXIV_RECORD_FIELDS_NUM];
     
-    [array setObject:[NSString stringWithFormat:@"%u", self.illustId] atIndexedSubscript:0];
-    [array setObject:[NSString stringWithFormat:@"%u", self.authorId] atIndexedSubscript:1];
+    [array setObject:[NSString stringWithFormat:@"%lu", (unsigned long)self.illustId] atIndexedSubscript:0];
+    [array setObject:[NSString stringWithFormat:@"%lu", (unsigned long)self.authorId] atIndexedSubscript:1];
     [array setObject:self.ext atIndexedSubscript:2];
     [array setObject:self.title atIndexedSubscript:3];
     [array setObject:self.server atIndexedSubscript:4];
@@ -39,14 +39,14 @@
     [array setObject:self.date atIndexedSubscript:12];
     [array setObject:[self.tags componentsJoinedByString:@" "] atIndexedSubscript:13];
     [array setObject:self.tool atIndexedSubscript:14];
-    [array setObject:[NSString stringWithFormat:@"%u", self.feedbacks] atIndexedSubscript:15];
-    [array setObject:[NSString stringWithFormat:@"%u", self.points] atIndexedSubscript:16];
-    [array setObject:[NSString stringWithFormat:@"%u", self.views] atIndexedSubscript:17];
+    [array setObject:[NSString stringWithFormat:@"%ld", (long)self.feedbacks] atIndexedSubscript:15];
+    [array setObject:[NSString stringWithFormat:@"%ld", (long)self.points] atIndexedSubscript:16];
+    [array setObject:[NSString stringWithFormat:@"%ld", (long)self.views] atIndexedSubscript:17];
     [array setObject:self.comment atIndexedSubscript:18];
-    [array setObject:[NSString stringWithFormat:@"%u", self.pages] atIndexedSubscript:19];
+    [array setObject:[NSString stringWithFormat:@"%ld", (long)self.pages] atIndexedSubscript:19];
     [array setObject:@"" atIndexedSubscript:20];
     [array setObject:@"" atIndexedSubscript:21];
-    [array setObject:[NSString stringWithFormat:@"%u", self.bookmarks] atIndexedSubscript:22];
+    [array setObject:[NSString stringWithFormat:@"%ld", (long)self.bookmarks] atIndexedSubscript:22];
     [array setObject:@"" atIndexedSubscript:23];
     [array setObject:self.username atIndexedSubscript:24];
     for (int i = 25; i < MIN_PIXIV_RECORD_FIELDS_NUM; i++)
@@ -58,9 +58,9 @@
 - (NSString *)refererURL
 {
     if (self.illustId != PIXIV_ID_INVALID)
-        return [NSString stringWithFormat:@"%@%u", PIXIV_ILLUST_PAGE_URL, self.illustId];
+        return [NSString stringWithFormat:@"%@%lu", PIXIV_ILLUST_PAGE_URL, (unsigned long)self.illustId];
     else if (self.authorId != PIXIV_ID_INVALID)
-        return [NSString stringWithFormat:@"%@%u", PIXIV_MEMBER_PAGE_URL, self.authorId];
+        return [NSString stringWithFormat:@"%@%lu", PIXIV_MEMBER_PAGE_URL, (unsigned long)self.authorId];
     else
         return PIXIV_PAGE_URL;
 }
@@ -73,7 +73,7 @@
 
 - (NSString *)imageURL
 {
-    return [NSString stringWithFormat:@"%@%u.%@", [self baseURL], self.illustId, self.ext];
+    return [NSString stringWithFormat:@"%@%lu.%@", [self baseURL], (unsigned long)self.illustId, self.ext];
 }
 
 - (NSArray *)pageURLs
@@ -84,7 +84,7 @@
         NSMutableArray *result = [[NSMutableArray alloc] init];
         NSString *baseURL = [self baseURL];
         for (NSUInteger i = 0; i < self.pages; i++) {
-            [result addObject:[NSString stringWithFormat:@"%@%u_big_p%u.%@", baseURL, self.illustId, i, self.ext]];
+            [result addObject:[NSString stringWithFormat:@"%@%lu_big_p%lu.%@", baseURL, (unsigned long)self.illustId, (unsigned long)i, self.ext]];
         }
         return result;
     }
