@@ -80,7 +80,6 @@
 - (void)setScrollView:(UIScrollView *)scrollView
 {
     _scrollView = scrollView;
-    _scrollView.minimumZoomScale = 0.2;
     _scrollView.maximumZoomScale = 2.0;
     _scrollView.delegate = self;
     self.scrollView.contentSize = self.image ? self.image.size : CGSizeZero;
@@ -109,10 +108,19 @@
 }
 
 // Zoom to show as much image as possible
-- (void)initZoom
-{
-    self.widthZoomScale = self.view.bounds.size.width*[UIScreen mainScreen].scale / self.imageView.image.size.width;
-    self.heightZoomScale = self.view.bounds.size.height*[UIScreen mainScreen].scale / self.imageView.image.size.height;
+// http://stackoverflow.com/questions/14471298/zooming-uiimageview-inside-uiscrollview-with-autolayout
+- (void) initZoom {
+    float minZoom = MIN(self.view.bounds.size.width / self.imageView.image.size.width,
+                        self.view.bounds.size.height / self.imageView.image.size.height);
+    if (minZoom > 1) minZoom = 1.0;
+    self.scrollView.minimumZoomScale = minZoom;
+    
+    self.widthZoomScale = self.view.bounds.size.width*_scrollView.maximumZoomScale / self.imageView.image.size.width;
+    self.heightZoomScale = self.view.bounds.size.height*_scrollView.maximumZoomScale / self.imageView.image.size.height;
+    
+    NSLog(@"bound=%.2f scale=%.1f, image=%.2f", self.view.bounds.size.width, [UIScreen mainScreen].scale, self.imageView.image.size.width);
+    NSLog(@"widthZoom=%.2f heightZoom=%.2f, minZoom=%.2f", self.widthZoomScale, self.heightZoomScale, minZoom);
+
     self.scrollView.zoomScale = self.widthZoomScale;
 }
 
