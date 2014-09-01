@@ -5,6 +5,10 @@
 
 #import <Foundation/Foundation.h>
 
+#if __IPHONE_OS_VERSION_MAX_ALLOWED < 70000
+#define __deprecated_msg(_msg) __attribute__((deprecated(_msg)))
+#endif
+
 @interface NSData (ImageContentType)
 
 /**
