@@ -9,7 +9,7 @@
         <scene sceneID="fvr-Vy-tip">
             <objects>
                 <tabBarController definesPresentationContext="YES" id="ITn-pf-5SD" sceneMemberID="viewController">
-                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="XAQ-gj-Drf">
                         <rect key="frame" x="129" y="330" width="163" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>

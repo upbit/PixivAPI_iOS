@@ -16,7 +16,8 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 
-@property (nonatomic) float minZoomScale;
+@property (nonatomic) float widthZoomScale;
+@property (nonatomic) float heightZoomScale;
 
 @end
 
@@ -33,7 +34,15 @@
 - (void)doubleTap:(UITapGestureRecognizer *)sender
 {
     NSLog(@"doubleTap");
-    self.scrollView.zoomScale = (self.scrollView.zoomScale!=self.minZoomScale) ? self.minZoomScale : 1.0;
+    
+    // height -> width -> 1.0
+    if (self.scrollView.zoomScale == self.heightZoomScale) {
+        self.scrollView.zoomScale = self.widthZoomScale;
+    } else if (self.scrollView.zoomScale == self.widthZoomScale) {
+        self.scrollView.zoomScale = 1.0;
+    } else {
+        self.scrollView.zoomScale = self.heightZoomScale;
+    }
 }
 
 - (void)viewDidLoad
@@ -71,6 +80,7 @@
 - (void)setScrollView:(UIScrollView *)scrollView
 {
     _scrollView = scrollView;
+    _scrollView.minimumZoomScale = 0.2;
     _scrollView.maximumZoomScale = 2.0;
     _scrollView.delegate = self;
     self.scrollView.contentSize = self.image ? self.image.size : CGSizeZero;
@@ -99,17 +109,11 @@
 }
 
 // Zoom to show as much image as possible
-// http://stackoverflow.com/questions/14471298/zooming-uiimageview-inside-uiscrollview-with-autolayout
 - (void)initZoom
 {
-    self.minZoomScale = 1.0;
-    float minZoom = MIN(self.view.bounds.size.width / self.imageView.image.size.width,
-                        self.view.bounds.size.height / self.imageView.image.size.height);
-    if (minZoom > 1) return;
-    
-    self.scrollView.minimumZoomScale = minZoom;
-    self.scrollView.zoomScale = minZoom;
-    self.minZoomScale = minZoom;
+    self.widthZoomScale = self.view.bounds.size.width*[UIScreen mainScreen].scale / self.imageView.image.size.width;
+    self.heightZoomScale = self.view.bounds.size.height*[UIScreen mainScreen].scale / self.imageView.image.size.height;
+    self.scrollView.zoomScale = self.widthZoomScale;
 }
 
 - (void)setImage:(UIImage *)image

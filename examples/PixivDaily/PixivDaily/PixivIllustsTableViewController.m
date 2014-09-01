@@ -96,7 +96,7 @@
         if (indexPath) {
             if (([segue.identifier isEqualToString:@"Show Image"]) && ([segue.destinationViewController isKindOfClass:[SDWebImageViewController class]])) {
                 [segue.destinationViewController setHidesBottomBarWhenPushed:YES];
-                [self prepareImageViewController:segue.destinationViewController toDisplayPhoto:self.illusts[indexPath.row] mobileSize:YES];
+                [self prepareImageViewController:segue.destinationViewController toDisplayPhoto:self.illusts[indexPath.row] mobileSize:NO];
             }
         }
     }
