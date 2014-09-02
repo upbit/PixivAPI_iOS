@@ -9,6 +9,8 @@
 #import "SDWebImageViewController.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
+#define MAX_ILLUST_ZOOM_SCALE (2.0)
+
 @interface SDWebImageViewController () <UIScrollViewDelegate, UISplitViewControllerDelegate>
 
 @property (strong, nonatomic) UIImageView *imageView;
@@ -79,7 +81,7 @@
 - (void)setScrollView:(UIScrollView *)scrollView
 {
     _scrollView = scrollView;
-    _scrollView.maximumZoomScale = 2.0;
+    _scrollView.maximumZoomScale = MAX_ILLUST_ZOOM_SCALE;
     _scrollView.delegate = self;
     self.scrollView.contentSize = self.image ? self.image.size : CGSizeZero;
 }
@@ -109,7 +111,8 @@
 - (void)setImage:(UIImage *)image
 {
     self.imageView.image = image;
-    self.imageView.frame = CGRectMake(0,0,image.size.width,image.size.height);
+    // *MAX_ILLUST_ZOOM_SCALE for image scale
+    self.imageView.frame = CGRectMake(0,0,image.size.width*MAX_ILLUST_ZOOM_SCALE,image.size.height*MAX_ILLUST_ZOOM_SCALE);
     [self.spinner stopAnimating];
     self.scrollView.contentSize = self.image ? self.image.size : CGSizeZero;
     [self initZoom];
@@ -123,8 +126,8 @@
     if (minZoom > 1) minZoom = 1.0;
     self.scrollView.minimumZoomScale = minZoom;
     
-    self.widthZoomScale = self.view.bounds.size.width*_scrollView.maximumZoomScale / self.imageView.image.size.width;
-    self.heightZoomScale = self.view.bounds.size.height*_scrollView.maximumZoomScale / self.imageView.image.size.height;
+    self.widthZoomScale = self.view.bounds.size.width / self.imageView.image.size.width;
+    self.heightZoomScale = self.view.bounds.size.height / self.imageView.image.size.height;
     
     self.scrollView.zoomScale = self.widthZoomScale;
 }
