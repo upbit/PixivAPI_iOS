@@ -35,13 +35,18 @@
 
 - (void)addPageRankingIllusts:(NSUInteger)page
 {
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    
     __weak DailyRankingViewController *weakSelf = self;
     [PixivFetcher API_getRanking:page mode:PIXIV_RANKING_MODE_DAY content:PIXIV_RANKING_CONTENT_ALL
                        onSuccess:^(NSArray *illusts, BOOL isIllust) {
                            [weakSelf.refreshControl endRefreshing];
+                           [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
                            weakSelf.illusts = [weakSelf.illusts arrayByAddingObjectsFromArray:illusts];
                        }
                        onFailure:^(NSURLResponse *response, NSInteger responseCode, NSData *data, NSError *connectionError) {
+                           [weakSelf.refreshControl endRefreshing];
+                           [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
                            NSLog(@"[HTTP %ld] %@", (long)responseCode, connectionError);
                        }];
 }
@@ -86,7 +91,7 @@
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-- (void)prepareImageViewController:(SDWebImageViewController *)ivc toDisplayPhoto:(IllustModel *)illust mobileSize:(BOOL)mobileSize
+- (void)prepareImageViewController:(PixivImageViewController *)ivc toDisplayPhoto:(IllustModel *)illust mobileSize:(BOOL)mobileSize
 {
     [super prepareImageViewController:ivc toDisplayPhoto:illust mobileSize:mobileSize];
     

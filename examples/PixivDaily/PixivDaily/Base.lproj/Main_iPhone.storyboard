@@ -159,10 +159,10 @@
             </objects>
             <point key="canvasLocation" x="616" y="-701"/>
         </scene>
-        <!--Web Image View Controller-->
+        <!--Pixiv Image View Controller-->
         <scene sceneID="Xca-hT-d1x">
             <objects>
-                <viewController id="2LU-jl-GGB" customClass="SDWebImageViewController" sceneMemberID="viewController">
+                <viewController id="2LU-jl-GGB" customClass="PixivImageViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ECu-oi-86k"/>
                         <viewControllerLayoutGuide type="bottom" id="u6s-Uq-e4R"/>
@@ -208,10 +208,10 @@
             </objects>
             <point key="canvasLocation" x="1097" y="-701"/>
         </scene>
-        <!--Web Image View Controller-->
+        <!--Pixiv Image View Controller-->
         <scene sceneID="h50-Xy-S5N">
             <objects>
-                <viewController id="6Y3-bH-xQP" customClass="SDWebImageViewController" sceneMemberID="viewController">
+                <viewController id="6Y3-bH-xQP" customClass="PixivImageViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="e6n-oo-zVu"/>
                         <viewControllerLayoutGuide type="bottom" id="Rky-Q3-WB9"/>

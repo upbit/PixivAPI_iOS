@@ -10,6 +10,7 @@
 		CB0E663519B34B82005567D4 /* PixivIllustsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB0E663419B34B82005567D4 /* PixivIllustsTableViewController.m */; };
 		CB0E663819B34C02005567D4 /* DailyRankingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB0E663719B34C02005567D4 /* DailyRankingViewController.m */; };
 		CB0E663B19B34CCB005567D4 /* RecentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB0E663A19B34CCB005567D4 /* RecentsViewController.m */; };
+		CB3978D319B55A3100A36454 /* PixivImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB3978D219B55A3100A36454 /* PixivImageViewController.m */; };
 		CB7144A519B069AD003AE281 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB7144A419B069AD003AE281 /* Foundation.framework */; };
 		CB7144A719B069AD003AE281 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB7144A619B069AD003AE281 /* CoreGraphics.framework */; };
 		CB7144A919B069AD003AE281 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB7144A819B069AD003AE281 /* UIKit.framework */; };
@@ -49,6 +50,8 @@
 		CB0E663719B34C02005567D4 /* DailyRankingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DailyRankingViewController.m; sourceTree = "<group>"; };
 		CB0E663919B34CCB005567D4 /* RecentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentsViewController.h; sourceTree = "<group>"; };
 		CB0E663A19B34CCB005567D4 /* RecentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecentsViewController.m; sourceTree = "<group>"; };
+		CB3978D119B55A3100A36454 /* PixivImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PixivImageViewController.h; sourceTree = "<group>"; };
+		CB3978D219B55A3100A36454 /* PixivImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PixivImageViewController.m; sourceTree = "<group>"; };
 		CB7144A119B069AD003AE281 /* PixivDaily.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PixivDaily.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB7144A419B069AD003AE281 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		CB7144A619B069AD003AE281 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -137,6 +140,8 @@
 			children = (
 				CB7144E019B07077003AE281 /* SDWebImageViewController.h */,
 				CB7144E119B07077003AE281 /* SDWebImageViewController.m */,
+				CB3978D119B55A3100A36454 /* PixivImageViewController.h */,
+				CB3978D219B55A3100A36454 /* PixivImageViewController.m */,
 				CB0E663319B34B82005567D4 /* PixivIllustsTableViewController.h */,
 				CB0E663419B34B82005567D4 /* PixivIllustsTableViewController.m */,
 				CB92AE5C19B365EF007DCD50 /* PixivFetcher */,
@@ -329,6 +334,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CB7144E219B07077003AE281 /* SDWebImageViewController.m in Sources */,
+				CB3978D319B55A3100A36454 /* PixivImageViewController.m in Sources */,
 				CB0E663519B34B82005567D4 /* PixivIllustsTableViewController.m in Sources */,
 				CB92AE6219B365EF007DCD50 /* PixivFetcher.m in Sources */,
 				CB0E663819B34C02005567D4 /* DailyRankingViewController.m in Sources */,

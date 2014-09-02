@@ -147,10 +147,10 @@
             </objects>
             <point key="canvasLocation" x="678" y="-237"/>
         </scene>
-        <!--Web Image View Controller - Pixiv-->
+        <!--Pixiv Image View Controller - Pixiv-->
         <scene sceneID="Eqd-le-nyY">
             <objects>
-                <viewController id="fxt-Jq-5ZG" customClass="SDWebImageViewController" sceneMemberID="viewController">
+                <viewController id="fxt-Jq-5ZG" customClass="PixivImageViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ob9-pq-g3a"/>
                         <viewControllerLayoutGuide type="bottom" id="iMw-Af-hgw"/>

@@ -63,7 +63,7 @@
     if ([detail isKindOfClass:[UINavigationController class]]) {
         detail = [((UINavigationController *)detail).viewControllers objectAtIndex:0];
     }
-    if ([detail isKindOfClass:[SDWebImageViewController class]]) {
+    if ([detail isKindOfClass:[PixivImageViewController class]]) {
         // only on iPad
         [self prepareImageViewController:detail toDisplayPhoto:self.illusts[indexPath.row] mobileSize:NO];
     }
@@ -71,7 +71,23 @@
 
 #pragma mark - Navigation
 
-- (void)prepareImageViewController:(SDWebImageViewController *)ivc toDisplayPhoto:(IllustModel *)illust mobileSize:(BOOL)mobileSize
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+    if ([sender isKindOfClass:[UITableViewCell class]]) {
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+        if (indexPath) {
+            if (([segue.identifier isEqualToString:@"Show Image"]) && ([segue.destinationViewController isKindOfClass:[PixivImageViewController class]])) {
+                [segue.destinationViewController setHidesBottomBarWhenPushed:YES];
+                [self prepareImageViewController:segue.destinationViewController toDisplayPhoto:self.illusts[indexPath.row] mobileSize:NO];
+            }
+        }
+    }
+}
+
+- (void)prepareImageViewController:(PixivImageViewController *)ivc toDisplayPhoto:(IllustModel *)illust mobileSize:(BOOL)mobileSize
 {
     // set 'Referer' for illust download
     [SDWebImageManager.sharedManager.imageDownloader setValue:illust.refererURL forHTTPHeaderField:@"Referer"];
@@ -85,22 +101,6 @@
     }
     ivc.illust = illust;
     ivc.title = [NSString stringWithFormat:@"[%@] %@", illust.authorName, illust.title];
-}
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-    if ([sender isKindOfClass:[UITableViewCell class]]) {
-        NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
-        if (indexPath) {
-            if (([segue.identifier isEqualToString:@"Show Image"]) && ([segue.destinationViewController isKindOfClass:[SDWebImageViewController class]])) {
-                [segue.destinationViewController setHidesBottomBarWhenPushed:YES];
-                [self prepareImageViewController:segue.destinationViewController toDisplayPhoto:self.illusts[indexPath.row] mobileSize:NO];
-            }
-        }
-    }
 }
 
 @end

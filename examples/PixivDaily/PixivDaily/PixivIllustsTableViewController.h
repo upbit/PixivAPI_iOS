@@ -7,13 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SDWebImageViewController.h"
+#import "PixivImageViewController.h"
 #import "PixivFetcher.h"
 
 @interface PixivIllustsTableViewController : UITableViewController
 
 @property (strong, nonatomic) NSArray *illusts;     // of IllustModel
 
-- (void)prepareImageViewController:(SDWebImageViewController *)ivc toDisplayPhoto:(IllustModel *)illust mobileSize:(BOOL)mobileSize;
+// override this for image view action
+- (void)prepareImageViewController:(PixivImageViewController *)ivc toDisplayPhoto:(IllustModel *)illust mobileSize:(BOOL)mobileSize;
 
 @end
