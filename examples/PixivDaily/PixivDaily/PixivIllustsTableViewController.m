@@ -97,7 +97,8 @@
     if (mobileSize) {
         ivc.imageURL = [NSURL URLWithString:illust.mobileURL];
     } else {
-        ivc.imageURL = [NSURL URLWithString:illust.imageURL];
+        //ivc.imageURL = [NSURL URLWithString:illust.imageURL];
+        ivc.imageURL = [NSURL URLWithString:illust.pageURLs[0]];
     }
     ivc.illust = illust;
     ivc.title = [NSString stringWithFormat:@"[%@] %@", illust.authorName, illust.title];

@@ -12,6 +12,7 @@
 @interface SDWebImageViewController () <UIScrollViewDelegate, UISplitViewControllerDelegate>
 
 @property (strong, nonatomic) UIImageView *imageView;
+@property (strong, nonatomic, readwrite) UIImage *image;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 
@@ -105,6 +106,15 @@
     return self.imageView.image;
 }
 
+- (void)setImage:(UIImage *)image
+{
+    self.imageView.image = image;
+    self.imageView.frame = CGRectMake(0,0,image.size.width,image.size.height);
+    [self.spinner stopAnimating];
+    self.scrollView.contentSize = self.image ? self.image.size : CGSizeZero;
+    [self initZoom];
+}
+
 // Zoom to show as much image as possible
 // http://stackoverflow.com/questions/14471298/zooming-uiimageview-inside-uiscrollview-with-autolayout
 - (void) initZoom {
@@ -117,15 +127,6 @@
     self.heightZoomScale = self.view.bounds.size.height*_scrollView.maximumZoomScale / self.imageView.image.size.height;
     
     self.scrollView.zoomScale = self.widthZoomScale;
-}
-
-- (void)setImage:(UIImage *)image
-{
-    self.imageView.image = image;
-    self.imageView.frame = CGRectMake(0,0,image.size.width,image.size.height);
-    [self.spinner stopAnimating];
-    self.scrollView.contentSize = self.image ? self.image.size : CGSizeZero;
-    [self initZoom];
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation

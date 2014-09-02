@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface SDWebImageViewController : UIViewController
+
 @property (strong, nonatomic) NSURL *imageURL;
-@property (strong, nonatomic, readonly) UIImage *image;
+@property (nonatomic, readonly) UIImage *image;
+
 @end
