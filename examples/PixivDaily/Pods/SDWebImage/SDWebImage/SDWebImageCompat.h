@@ -9,6 +9,10 @@
 
 #import <TargetConditionals.h>
 
+#if __IPHONE_OS_VERSION_MAX_ALLOWED < 70000
+#define __deprecated_msg(_msg) __attribute__((deprecated(_msg)))
+#endif
+
 #ifdef __OBJC_GC__
 #error SDWebImage does not support Objective-C Garbage Collection
 #endif

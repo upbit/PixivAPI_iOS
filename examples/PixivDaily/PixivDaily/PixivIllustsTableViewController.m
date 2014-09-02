@@ -61,7 +61,7 @@
 {
     id detail = self.splitViewController.viewControllers[1];
     if ([detail isKindOfClass:[UINavigationController class]]) {
-        detail = [((UINavigationController *)detail).viewControllers firstObject];
+        detail = [((UINavigationController *)detail).viewControllers objectAtIndex:0];
     }
     if ([detail isKindOfClass:[SDWebImageViewController class]]) {
         // only on iPad
