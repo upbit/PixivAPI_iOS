@@ -1,7 +1,0 @@
-nguage: objective-c
-before_install:
-    - cd examples/PixivDaily/
-    - gem install cocoapods --no-rdoc --no-ri --no-document --quiet
-xcode_workspace: PixivDaily.xcworkspace
-xcode_sdk:
-  - iphonesimulator7.1
