@@ -38,7 +38,7 @@
     if (self.scrollView.zoomScale == self.heightZoomScale) {
         self.scrollView.zoomScale = self.widthZoomScale;
     } else if (self.scrollView.zoomScale == self.widthZoomScale) {
-        self.scrollView.zoomScale = 1.0 / MAX_ILLUST_ZOOM_SCALE;
+        self.scrollView.zoomScale = 1.0;
     } else {
         self.scrollView.zoomScale = self.heightZoomScale;
     }

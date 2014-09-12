@@ -10,7 +10,7 @@
 #import "PixivFetcher.h"
 #import "RecentsViewController.h"
 
-#define MAX_FETCH_RANKING_PAGE_NUM (5)
+#define MAX_FETCH_RANKING_PAGE_NUM (6)
 
 @interface DailyRankingCollectionViewController ()
 
