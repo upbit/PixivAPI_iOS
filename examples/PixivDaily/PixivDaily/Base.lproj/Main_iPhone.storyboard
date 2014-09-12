@@ -193,9 +193,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="sNb-V0-sH1">
-                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="jiR-WY-5M7">
+                        <barButtonItem key="rightBarButtonItem" image="BarItem_CloudDownload" id="jiR-WY-5M7">
                             <connections>
-                                <action selector="exportIllustToDocuments:" destination="2LU-jl-GGB" id="128-Ge-n4x"/>
+                                <action selector="exportIllust:" destination="2LU-jl-GGB" id="qL4-m6-ecN"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -242,9 +242,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="nkj-3a-82A">
-                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="DUt-XW-7V1">
+                        <barButtonItem key="rightBarButtonItem" image="BarItem_CloudDownload" id="DUt-XW-7V1">
                             <connections>
-                                <action selector="exportIllustToDocuments:" destination="6Y3-bH-xQP" id="5dF-C3-aS8"/>
+                                <action selector="exportIllust:" destination="6Y3-bH-xQP" id="2bC-4o-VHm"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -278,6 +278,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="BarItem_CloudDownload" width="32" height="32"/>
         <image name="TabBarIcon_DailyRanking" width="32" height="32"/>
         <image name="TabBarIcon_Recents" width="32" height="32"/>
         <image name="placeholder" width="64" height="64"/>

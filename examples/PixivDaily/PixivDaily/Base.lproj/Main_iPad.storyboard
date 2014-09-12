@@ -101,7 +101,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Image Cell" textLabel="f5e-s2-vIM" detailTextLabel="Od6-io-qC0" imageView="pJa-TC-MHc" rowHeight="64" style="IBUITableViewCellStyleSubtitle" id="neS-Ad-oFJ">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Image Cell" textLabel="f5e-s2-vIM" detailTextLabel="Od6-io-qC0" imageView="c9K-pd-4Up" rowHeight="64" style="IBUITableViewCellStyleSubtitle" id="neS-Ad-oFJ">
                                 <rect key="frame" x="0.0" y="86" width="320" height="64"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="neS-Ad-oFJ" id="oN3-Ua-KZw">
@@ -115,10 +115,6 @@
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="placeholder" id="pJa-TC-MHc">
-                                            <rect key="frame" x="15" y="0.0" width="63" height="63"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </imageView>
                                         <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Od6-io-qC0">
                                             <rect key="frame" x="93" y="35" width="43" height="15"/>
                                             <autoresizingMask key="autoresizingMask"/>
@@ -126,6 +122,10 @@
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="placeholder" id="c9K-pd-4Up">
+                                            <rect key="frame" x="15" y="0.0" width="63" height="63"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </imageView>
                                     </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -181,9 +181,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Pixiv" id="mwL-AP-rwi">
-                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="qUj-Fc-ZtI">
+                        <barButtonItem key="rightBarButtonItem" image="BarItem_CloudDownload" id="qUj-Fc-ZtI">
                             <connections>
-                                <action selector="exportIllustToDocuments:" destination="fxt-Jq-5ZG" id="Fy7-xM-2MC"/>
+                                <action selector="exportIllust:" destination="fxt-Jq-5ZG" id="hJL-ef-RFV"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -254,6 +254,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="BarItem_CloudDownload" width="32" height="32"/>
         <image name="TabBarIcon_DailyRanking" width="32" height="32"/>
         <image name="TabBarIcon_Recents" width="32" height="32"/>
         <image name="placeholder" width="64" height="64"/>
