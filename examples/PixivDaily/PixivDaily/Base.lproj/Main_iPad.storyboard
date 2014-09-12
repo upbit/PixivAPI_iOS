@@ -29,13 +29,14 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
+                        <segue destination="N4v-TA-ngB" kind="relationship" relationship="viewControllers" id="ltk-yE-fwU"/>
                         <segue destination="ZZ0-u2-951" kind="relationship" relationship="viewControllers" id="5Q5-VQ-rFD"/>
                         <segue destination="MfA-nD-DUx" kind="relationship" relationship="viewControllers" id="r81-tR-uJI"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xx4-jv-n1Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-350" y="-738"/>
+            <point key="canvasLocation" x="-350" y="-1290"/>
         </scene>
         <!--Daily Ranking View Controller - Daily Ranking-->
         <scene sceneID="dGV-Dt-6D2">
@@ -90,7 +91,43 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zzP-eF-rlU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="678" y="-1238"/>
+            <point key="canvasLocation" x="678" y="-2374"/>
+        </scene>
+        <!--Daily Ranking Collection View Controller - Daily Ranking-->
+        <scene sceneID="6co-BP-Cht">
+            <objects>
+                <collectionViewController autoresizesArchivedViewToFullSize="NO" id="iRH-LB-klj" customClass="DailyRankingCollectionViewController" sceneMemberID="viewController">
+                    <collectionView key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="af4-ml-Nc9">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="1" minimumInteritemSpacing="1" id="dDD-MP-dQN">
+                            <size key="itemSize" width="106" height="106"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Image ColCell" id="KZB-VS-T3u">
+                                <rect key="frame" x="0.0" y="64" width="106" height="106"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="106" height="106"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="iRH-LB-klj" id="i5d-6d-Zv7"/>
+                            <outlet property="delegate" destination="iRH-LB-klj" id="7CT-Wr-Gyz"/>
+                        </connections>
+                    </collectionView>
+                    <navigationItem key="navigationItem" title="Daily Ranking" id="lkV-QB-UfL"/>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="T08-rg-8Y2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="678" y="-1290"/>
         </scene>
         <!--Recents View Controller - Recents-->
         <scene sceneID="N3g-5P-7Vy">
@@ -196,11 +233,11 @@
             </objects>
             <point key="canvasLocation" x="624" y="787"/>
         </scene>
-        <!--Navigation Controller - DailyRanking-->
+        <!--Navigation Controller - Ranking (List)-->
         <scene sceneID="V1P-Rx-KvZ">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ZZ0-u2-951" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="DailyRanking" image="TabBarIcon_DailyRanking" id="RqT-0o-rFD"/>
+                    <tabBarItem key="tabBarItem" title="Ranking (List)" image="TabBarIcon_DailyRanking" id="RqT-0o-rFD"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="6th-ng-ZU5">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
@@ -213,7 +250,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="coY-9S-yoL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="196" y="-1238"/>
+            <point key="canvasLocation" x="196" y="-2374"/>
         </scene>
         <!--Navigation Controller - Recents-->
         <scene sceneID="3zT-y5-Mjv">
@@ -251,6 +288,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EXV-ec-3rh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-350" y="787"/>
+        </scene>
+        <!--Navigation Controller - Ranking (Tab)-->
+        <scene sceneID="zPC-cN-7Gt">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="N4v-TA-ngB" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Ranking (Tab)" image="TabBarIcon_DailyRanking" id="GQp-Qx-HsP"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Y0B-rv-mZB">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="iRH-LB-klj" kind="relationship" relationship="rootViewController" id="nOI-bA-mGM"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gsd-8V-f6F" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="196" y="-1290"/>
         </scene>
     </scenes>
     <resources>

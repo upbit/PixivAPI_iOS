@@ -34,11 +34,11 @@
 
 - (void)doubleTap:(UITapGestureRecognizer *)sender
 {
-    // height -> width -> 1.0
+    // height -> width -> origin
     if (self.scrollView.zoomScale == self.heightZoomScale) {
         self.scrollView.zoomScale = self.widthZoomScale;
     } else if (self.scrollView.zoomScale == self.widthZoomScale) {
-        self.scrollView.zoomScale = 1.0;
+        self.scrollView.zoomScale = 1.0 / MAX_ILLUST_ZOOM_SCALE;
     } else {
         self.scrollView.zoomScale = self.heightZoomScale;
     }

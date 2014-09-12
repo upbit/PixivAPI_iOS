@@ -28,6 +28,8 @@
 		CB7144E219B07077003AE281 /* SDWebImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB7144E119B07077003AE281 /* SDWebImageViewController.m */; };
 		CB92AE6119B365EF007DCD50 /* IllustModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CB92AE5E19B365EF007DCD50 /* IllustModel.m */; };
 		CB92AE6219B365EF007DCD50 /* PixivFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = CB92AE6019B365EF007DCD50 /* PixivFetcher.m */; };
+		CBD6E3A919C2AC1900FE51E6 /* PixivIllustCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD6E3A819C2AC1900FE51E6 /* PixivIllustCollectionViewController.m */; };
+		CBD6E3AC19C2B16700FE51E6 /* DailyRankingCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD6E3AB19C2B16700FE51E6 /* DailyRankingCollectionViewController.m */; };
 		DCCAC210FAED47219CAE29F7 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 342ABEE81D70452D9181DC3A /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -76,6 +78,10 @@
 		CB92AE5E19B365EF007DCD50 /* IllustModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IllustModel.m; sourceTree = "<group>"; };
 		CB92AE5F19B365EF007DCD50 /* PixivFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PixivFetcher.h; sourceTree = "<group>"; };
 		CB92AE6019B365EF007DCD50 /* PixivFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PixivFetcher.m; sourceTree = "<group>"; };
+		CBD6E3A719C2AC1900FE51E6 /* PixivIllustCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PixivIllustCollectionViewController.h; sourceTree = "<group>"; };
+		CBD6E3A819C2AC1900FE51E6 /* PixivIllustCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PixivIllustCollectionViewController.m; sourceTree = "<group>"; };
+		CBD6E3AA19C2B16700FE51E6 /* DailyRankingCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DailyRankingCollectionViewController.h; sourceTree = "<group>"; };
+		CBD6E3AB19C2B16700FE51E6 /* DailyRankingCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DailyRankingCollectionViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,9 +150,13 @@
 				CB3978D219B55A3100A36454 /* PixivImageViewController.m */,
 				CB0E663319B34B82005567D4 /* PixivIllustsTableViewController.h */,
 				CB0E663419B34B82005567D4 /* PixivIllustsTableViewController.m */,
+				CBD6E3A719C2AC1900FE51E6 /* PixivIllustCollectionViewController.h */,
+				CBD6E3A819C2AC1900FE51E6 /* PixivIllustCollectionViewController.m */,
 				CB92AE5C19B365EF007DCD50 /* PixivFetcher */,
 				CB0E663619B34C02005567D4 /* DailyRankingViewController.h */,
 				CB0E663719B34C02005567D4 /* DailyRankingViewController.m */,
+				CBD6E3AA19C2B16700FE51E6 /* DailyRankingCollectionViewController.h */,
+				CBD6E3AB19C2B16700FE51E6 /* DailyRankingCollectionViewController.m */,
 				CB0E663919B34CCB005567D4 /* RecentsViewController.h */,
 				CB0E663A19B34CCB005567D4 /* RecentsViewController.m */,
 				CB7144B619B069AD003AE281 /* Main_iPhone.storyboard */,
@@ -333,12 +343,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CBD6E3AC19C2B16700FE51E6 /* DailyRankingCollectionViewController.m in Sources */,
 				CB7144E219B07077003AE281 /* SDWebImageViewController.m in Sources */,
 				CB3978D319B55A3100A36454 /* PixivImageViewController.m in Sources */,
 				CB0E663519B34B82005567D4 /* PixivIllustsTableViewController.m in Sources */,
 				CB92AE6219B365EF007DCD50 /* PixivFetcher.m in Sources */,
 				CB0E663819B34C02005567D4 /* DailyRankingViewController.m in Sources */,
 				CB92AE6119B365EF007DCD50 /* IllustModel.m in Sources */,
+				CBD6E3A919C2AC1900FE51E6 /* PixivIllustCollectionViewController.m in Sources */,
 				CB0E663B19B34CCB005567D4 /* RecentsViewController.m in Sources */,
 				CB7144B119B069AD003AE281 /* main.m in Sources */,
 				CB7144B519B069AD003AE281 /* PixivDailyAppDelegate.m in Sources */,
