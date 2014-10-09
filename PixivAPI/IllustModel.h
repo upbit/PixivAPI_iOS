@@ -9,12 +9,21 @@
 #import <Foundation/Foundation.h>
 
 #define PIXIV_ID_INVALID   (0)
-#define MIN_PIXIV_RECORD_FIELDS_NUM (30)
+#define MIN_PIXIV_RECORD_FIELDS_NUM (26)                        // AuthorModel(26) / IllustModel(30)
 
 @interface IllustModel : NSObject
 
-// export Model to NSArray
+// Model to NSArray
 - (NSArray *)toDataArray;
+
+/**
+ *  Parse NSArray of pixiv data to IllustModel
+ *
+ *  @param data NSArray of pixiv return
+ *
+ *  @return IllustModel for data
+ */
++ (IllustModel *)parseDataArrayToModel:(NSArray *)data;
 
 #pragma mark - Author / Illust common
 
@@ -23,6 +32,7 @@
 @property (strong, nonatomic)   NSString        *thumbURL;      // data[6]
 @property (strong, nonatomic)   NSString        *username;      // data[24]
 
+// return Referer for Image donwload
 - (NSString *)refererURL;
 
 #pragma mark - Illust propertys
@@ -41,8 +51,5 @@
 @property (strong, nonatomic)   NSString        *comment;       // data[18]
 @property (nonatomic)           NSInteger       pages;          // data[19]
 @property (nonatomic)           NSInteger       bookmarks;      // data[22]
-
-- (NSString *)imageURL;
-- (NSArray *)pageURLs;
 
 @end

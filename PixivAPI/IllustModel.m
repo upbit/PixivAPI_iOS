@@ -55,6 +55,42 @@
     return array;
 }
 
+/**
+ *  Parse payload NSArray to IllustModel
+ *
+ *  @param array payload property array from pixiv
+ *
+ *  @return illust class
+ */
++ (IllustModel *)parseDataArrayToModel:(NSArray *)data
+{
+    if ([data count] < MIN_PIXIV_RECORD_FIELDS_NUM)
+        return nil;
+    
+    IllustModel *illust = [[IllustModel alloc] init];
+    
+    illust.illustId = [(NSString *)data[0] intValue];
+    illust.authorId = [(NSString *)data[1] intValue];
+    illust.ext = data[2];
+    illust.title = data[3];
+    illust.server = data[4];
+    illust.authorName = data[5];
+    illust.thumbURL = data[6];
+    illust.mobileURL = data[9];
+    illust.date = data[12];
+    illust.tags = [data[13] componentsSeparatedByString:@" "];
+    illust.tool = data[14];
+    illust.feedbacks = [(NSString *)data[15] intValue];
+    illust.points = [(NSString *)data[16] intValue];
+    illust.views = [(NSString *)data[17] intValue];
+    illust.comment = data[18];
+    illust.pages = [(NSString *)data[19] intValue];
+    illust.bookmarks = [(NSString *)data[22] intValue];
+    illust.username = data[24];
+    
+    return illust;
+}
+
 - (NSString *)refererURL
 {
     if (self.illustId != PIXIV_ID_INVALID)
@@ -63,31 +99,6 @@
         return [NSString stringWithFormat:@"%@%lu", PIXIV_MEMBER_PAGE_URL, (unsigned long)self.authorId];
     else
         return PIXIV_PAGE_URL;
-}
-
-- (NSString *)baseURL
-{
-    NSRange range = [self.mobileURL rangeOfString:@"/mobile/" options:NSBackwardsSearch];
-    return [self.mobileURL substringWithRange:NSMakeRange(0, range.location+1)];
-}
-
-- (NSString *)imageURL
-{
-    return [NSString stringWithFormat:@"%@%lu.%@", [self baseURL], (unsigned long)self.illustId, self.ext];
-}
-
-- (NSArray *)pageURLs
-{
-    if (self.pages == 0) {
-        return @[self.imageURL];
-    } else {
-        NSMutableArray *result = [[NSMutableArray alloc] init];
-        NSString *baseURL = [self baseURL];
-        for (NSUInteger i = 0; i < self.pages; i++) {
-            [result addObject:[NSString stringWithFormat:@"%@%lu_big_p%lu.%@", baseURL, (unsigned long)self.illustId, (unsigned long)i, self.ext]];
-        }
-        return result;
-    }
 }
 
 @end
