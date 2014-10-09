@@ -36,7 +36,7 @@ Pixiv has two API interface:
 1. **SAPI:** [http] spapi.pixiv.net/iphone/
 2. **Public-API:** [https] public-api.secure.pixiv.net/
 
-Public-API return full json data, but check Authorization/Cookie in HTTPS header. Before use Public-API, you need call login: or set_session: prepare PHPSESSID.
+Public-API return full json data, but check Authorization/Cookie in HTTPS header. Before use Public-API, you need call **login:** or **set_session:** to set PHPSESSID.
 
 ### Login
 
