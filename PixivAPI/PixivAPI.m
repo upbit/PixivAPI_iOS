@@ -158,7 +158,7 @@ typedef NS_ENUM(NSUInteger, PARSER_STATE) {
  *
  *  @return Array of NSString
  */
-+ (IllustModel *)parsePayload:(NSString *)payload
++ (IllustBaseInfo *)parsePayload:(NSString *)payload
 {
     PARSER_STATE matchState = PARSER_STATE_NONE;
     NSString *token = @"";
@@ -201,7 +201,7 @@ typedef NS_ENUM(NSUInteger, PARSER_STATE) {
         }
     }
     
-    return [IllustModel parseDataArrayToModel:result];
+    return [IllustBaseInfo parseDataArrayToModel:result];
 }
 
 + (NSArray *)parsePayloadList:(NSString *)payload
@@ -210,7 +210,7 @@ typedef NS_ENUM(NSUInteger, PARSER_STATE) {
     NSArray *inputLines = [payload componentsSeparatedByString:@"\n"];
     
     for (NSString *line in inputLines) {
-        IllustModel *illust = [PixivAPI parsePayload:line];
+        IllustBaseInfo *illust = [PixivAPI parsePayload:line];
         if (illust) {
             [listResult addObject:illust];
         }
@@ -241,7 +241,7 @@ typedef NS_ENUM(NSUInteger, PARSER_STATE) {
         if (!connectionError && responseCode == 200) {
             NSString *payload = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
             //NSLog(@"pixiv return: %@", payload);
-            IllustModel *illust = [PixivAPI parsePayload:payload];
+            IllustBaseInfo *illust = [PixivAPI parsePayload:payload];
             if (illust) {
                 onSuccessHandler(illust, isIllust);
             } else {

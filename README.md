@@ -7,10 +7,10 @@ Pixiv API for iOS, supported both SAPI and Public-API (with OAuth / Bearer token
 
 1. Simplely drag 'PixivAPI/' to your project (copy if needed);
 2. Alloc and init: **PixivAPI *api = [[PixivAPI alloc] init];**;
-3. **[api SAPI_ranking:onSuccess:^()]** will return NSArray of IllustModels;
+3. **[api SAPI_ranking:onSuccess:^()]** will return NSArray of IllustBaseInfos;
 
 ```objective-c
-#import "PixivAPI.h"
+#import "PixivAPI/PixivAPI.h"
 
 - (void)getDailyRanking
 {
@@ -19,7 +19,7 @@ Pixiv API for iOS, supported both SAPI and Public-API (with OAuth / Bearer token
     // change 1 -> 2 for page2
     [api SAPI_ranking:1 mode:@"all" content:@"day"
             onSuccess:^(NSArray *illusts, BOOL isIllust) {
-                for (IllustModel *illust in illusts) {
+                for (IllustBaseInfo *illust in illusts) {
                     NSLog(@"%@", illust);
                 }
             }
@@ -85,7 +85,7 @@ Example for **SAPI_ranking:**
  *  @param mode    [day, week, month]
  *  @param content [all, male, female, original]
  *
- *  @return NSArray of IllustModel
+ *  @return NSArray of IllustBaseInfo
  */
 - (void)SAPI_ranking:(NSUInteger)page mode:(NSString *)mode content:(NSString *)content
            onSuccess:(SuccessIllustListBlock)onSuccessHandler onFailure:(FailureFetchBlock)onFailureHandler;
@@ -94,7 +94,7 @@ Example for **SAPI_ranking:**
 ```objective-c
     [api SAPI_ranking:1 mode:@"male" content:@"week"
             onSuccess:^(NSArray *illusts, BOOL isIllust) {
-                for (IllustModel *illust in illusts) {
+                for (IllustBaseInfo *illust in illusts) {
                     NSLog(@"%@", illust);
                 }
             }
@@ -112,7 +112,7 @@ Example for **SAPI_mypixiv_all:**
  *  @param author_id [id for author]
  *  @param page      [1-n]
  *
- *  @return NSArray of IllustModel (isIllust = NO)
+ *  @return NSArray of IllustBaseInfo (isIllust = NO)
  */
 - (void)SAPI_mypixiv_all:(NSUInteger)author_id page:(NSUInteger)page
                onSuccess:(SuccessIllustListBlock)onSuccessHandler onFailure:(FailureFetchBlock)onFailureHandler;
@@ -122,7 +122,7 @@ Example for **SAPI_mypixiv_all:**
     [api SAPI_mypixiv_all:1184799 page:1
                 onSuccess:^(NSArray *users, BOOL isIllust) {
                     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-                    for (IllustModel *user in users) {
+                    for (IllustBaseInfo *user in users) {
                         NSLog(@"%@(@%@)", user.authorName, user.username);
                     }
                 }

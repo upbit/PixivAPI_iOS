@@ -1,19 +1,19 @@
 //
-//  IllustModel.m
+//  IllustBaseInfo.m
 //  PixivDaily
 //
 //  Created by Zhou Hao on 14-8-29.
 //  Copyright (c) 2014年 Kastark. All rights reserved.
 //
 
-#import "IllustModel.h"
+#import "IllustBaseInfo.h"
 
 // URL for page Referer
 #define PIXIV_PAGE_URL          @"http://www.pixiv.net/"
 #define PIXIV_ILLUST_PAGE_URL   @"http://www.pixiv.net/member_illust.php?mode=medium&illust_id="
 #define PIXIV_MEMBER_PAGE_URL   @"http://www.pixiv.net/member.php?id="
 
-@implementation IllustModel
+@implementation IllustBaseInfo
 
 - (NSString *)description
 {
@@ -56,18 +56,18 @@
 }
 
 /**
- *  Parse payload NSArray to IllustModel
+ *  Parse payload NSArray to IllustBaseInfo
  *
  *  @param array payload property array from pixiv
  *
  *  @return illust class
  */
-+ (IllustModel *)parseDataArrayToModel:(NSArray *)data
++ (IllustBaseInfo *)parseDataArrayToModel:(NSArray *)data
 {
     if ([data count] < MIN_PIXIV_RECORD_FIELDS_NUM)
         return nil;
     
-    IllustModel *illust = [[IllustModel alloc] init];
+    IllustBaseInfo *illust = [[IllustBaseInfo alloc] init];
     
     illust.illustId = [(NSString *)data[0] intValue];
     illust.authorId = [(NSString *)data[1] intValue];

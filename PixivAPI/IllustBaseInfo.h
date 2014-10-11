@@ -1,5 +1,5 @@
 //
-//  IllustModel.h
+//  IllustBaseInfo.h
 //  PixivDaily
 //
 //  Created by Zhou Hao on 14-8-29.
@@ -9,21 +9,21 @@
 #import <Foundation/Foundation.h>
 
 #define PIXIV_ID_INVALID   (0)
-#define MIN_PIXIV_RECORD_FIELDS_NUM (26)                        // AuthorModel(26) / IllustModel(30)
+#define MIN_PIXIV_RECORD_FIELDS_NUM (26)                        // AuthorModel(26) / IllustBaseInfo(30)
 
-@interface IllustModel : NSObject
+@interface IllustBaseInfo : NSObject
 
 // Model to NSArray
 - (NSArray *)toDataArray;
 
 /**
- *  Parse NSArray of pixiv data to IllustModel
+ *  Parse NSArray of pixiv data to IllustBaseInfo
  *
  *  @param data NSArray of pixiv return
  *
- *  @return IllustModel for data
+ *  @return IllustBaseInfo for data
  */
-+ (IllustModel *)parseDataArrayToModel:(NSArray *)data;
++ (IllustBaseInfo *)parseDataArrayToModel:(NSArray *)data;
 
 #pragma mark - Author / Illust common
 

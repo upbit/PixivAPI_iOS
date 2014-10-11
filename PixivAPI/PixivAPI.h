@@ -6,10 +6,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "IllustModel.h"
+#import "IllustBaseInfo.h"
 
 typedef void (^SuccessLoginBlock)(NSString *raw_cookie);
-typedef void (^SuccessIllustBlock)(IllustModel *illust, BOOL isIllust);
+typedef void (^SuccessIllustBlock)(IllustBaseInfo *illust, BOOL isIllust);
 typedef void (^SuccessIllustListBlock)(NSArray *illusts, BOOL isIllust);
 typedef void (^SuccessDictionaryBlock)(NSDictionary *result);
 typedef void (^AsyncCompletionBlock)(NSURLResponse *response, NSData *data, NSError *connectionError);
@@ -67,7 +67,7 @@ typedef void (^FailureFetchBlock)(NSURLResponse *response, NSInteger responseCod
  *  @param mode    [day, week, month]
  *  @param content [all, male, female, original]
  *
- *  @return NSArray of IllustModel
+ *  @return NSArray of IllustBaseInfo
  */
 - (void)SAPI_ranking:(NSUInteger)page mode:(NSString *)mode content:(NSString *)content
            onSuccess:(SuccessIllustListBlock)onSuccessHandler onFailure:(FailureFetchBlock)onFailureHandler;
@@ -81,7 +81,7 @@ typedef void (^FailureFetchBlock)(NSURLResponse *response, NSInteger responseCod
  *  @param Date_Day         15
  *  @param page             [1-n]
  *
- *  @return NSArray of IllustModel
+ *  @return NSArray of IllustBaseInfo
  */
 - (void)SAPI_ranking_log:(NSString *)mode year:(NSUInteger)Date_Year month:(NSUInteger)Date_Month day:(NSUInteger)Date_Day page:(NSUInteger)page
                onSuccess:(SuccessIllustListBlock)onSuccessHandler onFailure:(FailureFetchBlock)onFailureHandler;
@@ -91,7 +91,7 @@ typedef void (^FailureFetchBlock)(NSURLResponse *response, NSInteger responseCod
  *
  *  @param illust_id [id for illust]
  *
- *  @return IllustModel
+ *  @return IllustBaseInfo
  */
 - (void)SAPI_illust:(NSUInteger)illust_id
           onSuccess:(SuccessIllustBlock)onSuccessHandler onFailure:(FailureFetchBlock)onFailureHandler;
@@ -102,7 +102,7 @@ typedef void (^FailureFetchBlock)(NSURLResponse *response, NSInteger responseCod
  *  @param author_id [id for author]
  *  @param page      [1-n]
  *
- *  @return NSArray of IllustModel
+ *  @return NSArray of IllustBaseInfo
  */
 - (void)SAPI_member_illust:(NSUInteger)author_id page:(NSUInteger)page
                  onSuccess:(SuccessIllustListBlock)onSuccessHandler onFailure:(FailureFetchBlock)onFailureHandler;
@@ -112,7 +112,7 @@ typedef void (^FailureFetchBlock)(NSURLResponse *response, NSInteger responseCod
  *
  *  @param user_id  [id for author]
  *
- *  @return IllustModel (isIllust = NO)
+ *  @return IllustBaseInfo (isIllust = NO)
  */
 - (void)SAPI_user:(NSUInteger)author_id
         onSuccess:(SuccessIllustBlock)onSuccessHandler onFailure:(FailureFetchBlock)onFailureHandler;
@@ -123,7 +123,7 @@ typedef void (^FailureFetchBlock)(NSURLResponse *response, NSInteger responseCod
  *  @param author_id [id for author]
  *  @param page      [1-n]
  *
- *  @return NSArray of IllustModel
+ *  @return NSArray of IllustBaseInfo
  */
 - (void)SAPI_bookmark:(NSUInteger)author_id page:(NSUInteger)page
             onSuccess:(SuccessIllustListBlock)onSuccessHandler onFailure:(FailureFetchBlock)onFailureHandler;
@@ -134,7 +134,7 @@ typedef void (^FailureFetchBlock)(NSURLResponse *response, NSInteger responseCod
  *  @param author_id [id for author]
  *  @param page      [1-n]
  *
- *  @return NSArray of IllustModel (isIllust = NO)
+ *  @return NSArray of IllustBaseInfo (isIllust = NO)
  */
 - (void)SAPI_bookmark_user_all:(NSUInteger)author_id page:(NSUInteger)page
                      onSuccess:(SuccessIllustListBlock)onSuccessHandler onFailure:(FailureFetchBlock)onFailureHandler;
@@ -145,7 +145,7 @@ typedef void (^FailureFetchBlock)(NSURLResponse *response, NSInteger responseCod
  *  @param author_id [id for author]
  *  @param page      [1-n]
  *
- *  @return NSArray of IllustModel (isIllust = NO)
+ *  @return NSArray of IllustBaseInfo (isIllust = NO)
  */
 - (void)SAPI_mypixiv_all:(NSUInteger)author_id page:(NSUInteger)page
                onSuccess:(SuccessIllustListBlock)onSuccessHandler onFailure:(FailureFetchBlock)onFailureHandler;
