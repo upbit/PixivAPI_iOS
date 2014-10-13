@@ -116,8 +116,12 @@
     [self asyncURLFetch:@"POST" url:url completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
         NSInteger responseCode = [(NSHTTPURLResponse *)response statusCode];
         if (!connectionError && responseCode == 200 && [response isKindOfClass:[NSHTTPURLResponse class]]) {
-            //NSString *payload = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-            //NSLog(@"%@", payload);
+            
+            // from response payload get AccessToken
+            NSError* error;
+            NSDictionary* json_result = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+            self.access_token = json_result[@"response"][@"access_token"];
+            NSLog(@"AccessToken:%@", self.access_token);
             
             // from header["Set-Cookie"] get PHPSESSID
             NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse*)response;
@@ -125,20 +129,23 @@
             for (NSString *cookie in [raw_cookie componentsSeparatedByString:@"; "]) {
                 NSRange range = [cookie rangeOfString:@"PHPSESSID="];
                 if (range.length > 0) {
-                    NSLog(@"%@", cookie);
                     self.session = [cookie substringFromIndex:range.length];
+                    NSLog(@"Session:%@", self.session);
                 }
             }
             
             onSuccessHandler(raw_cookie);
+            
         } else {
             onFailureHandler(response, responseCode, data, connectionError);
+            
         };
     } headers:login_headers params:nil data:data];
 }
 
-- (void)set_session:(NSString *)session
+- (void)set_auth:(NSString *)access_token session:(NSString *)session
 {
+    self.access_token = access_token;
     self.session = session;
 }
 
@@ -296,7 +303,8 @@ typedef NS_ENUM(NSUInteger, PARSER_STATE) {
     [self _SAPI_asyncURLFetch_List:api_url params:params requireAuth:NO isIllust:YES onSuccess:onSuccessHandler onFailure:onFailureHandler];
 }
 
-- (void)SAPI_ranking_log:(NSString *)mode year:(NSUInteger)Date_Year month:(NSUInteger)Date_Month day:(NSUInteger)Date_Day page:(NSUInteger)page
+- (void)SAPI_ranking_log:(NSUInteger)Date_Year month:(NSUInteger)Date_Month day:(NSUInteger)Date_Day
+                    mode:(NSString *)mode page:(NSUInteger)page requireAuth:(BOOL)requireAuth
                onSuccess:(SuccessIllustListBlock)onSuccessHandler onFailure:(FailureFetchBlock)onFailureHandler
 {
     NSString *api_url = @"ranking_log.php";
@@ -307,20 +315,20 @@ typedef NS_ENUM(NSUInteger, PARSER_STATE) {
         @"Date_Day": @(Date_Day),
         @"p": @((page>0) ? page : 1),
     };
-    [self _SAPI_asyncURLFetch_List:api_url params:params requireAuth:NO isIllust:YES onSuccess:onSuccessHandler onFailure:onFailureHandler];
+    [self _SAPI_asyncURLFetch_List:api_url params:params requireAuth:requireAuth isIllust:YES onSuccess:onSuccessHandler onFailure:onFailureHandler];
 }
 
-- (void)SAPI_illust:(NSUInteger)illust_id
+- (void)SAPI_illust:(NSUInteger)illust_id requireAuth:(BOOL)requireAuth
           onSuccess:(SuccessIllustBlock)onSuccessHandler onFailure:(FailureFetchBlock)onFailureHandler
 {
     NSString *api_url = @"illust.php";
     NSDictionary *params = @{
         @"illust_id": @(illust_id),
     };
-    [self _SAPI_asyncURLFetch:api_url params:params requireAuth:NO isIllust:YES onSuccess:onSuccessHandler onFailure:onFailureHandler];
+    [self _SAPI_asyncURLFetch:api_url params:params requireAuth:requireAuth isIllust:YES onSuccess:onSuccessHandler onFailure:onFailureHandler];
 }
 
-- (void)SAPI_member_illust:(NSUInteger)author_id page:(NSUInteger)page
+- (void)SAPI_member_illust:(NSUInteger)author_id page:(NSUInteger)page requireAuth:(BOOL)requireAuth
                  onSuccess:(SuccessIllustListBlock)onSuccessHandler onFailure:(FailureFetchBlock)onFailureHandler
 {
     NSString *api_url = @"member_illust.php";
@@ -328,7 +336,7 @@ typedef NS_ENUM(NSUInteger, PARSER_STATE) {
         @"id": @(author_id),
         @"p": @((page>0) ? page : 1),
     };
-    [self _SAPI_asyncURLFetch_List:api_url params:params requireAuth:NO isIllust:YES onSuccess:onSuccessHandler onFailure:onFailureHandler];
+    [self _SAPI_asyncURLFetch_List:api_url params:params requireAuth:requireAuth isIllust:YES onSuccess:onSuccessHandler onFailure:onFailureHandler];
 }
 
 - (void)SAPI_user:(NSUInteger)author_id
@@ -378,11 +386,6 @@ typedef NS_ENUM(NSUInteger, PARSER_STATE) {
 
 #pragma mark - Public-API common
 
-+ (NSString *)_bearer_token
-{
-    return [NSString stringWithFormat:@"Bearer %@", @"8mMXXWT9iuwdJvsVIvQsFYDwuZpRCMePeyagSh30ZdU"];
-}
-
 - (void)_PAPI_asyncURLFetch:(NSString *)api_url params:(NSDictionary *)params
     onSuccess:(SuccessDictionaryBlock)onSuccessHandler onFailure:(FailureFetchBlock)onFailureHandler
 {
@@ -394,7 +397,7 @@ typedef NS_ENUM(NSUInteger, PARSER_STATE) {
         return;
     }
     NSDictionary *papi_headers = @{
-        @"Authorization": [PixivAPI _bearer_token],
+        @"Authorization": [NSString stringWithFormat:@"Bearer %@", self.access_token],
         @"Cookie": [NSString stringWithFormat:@"PHPSESSID=%@", self.session],
     };
     

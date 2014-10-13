@@ -17,6 +17,7 @@ typedef void (^FailureFetchBlock)(NSURLResponse *response, NSInteger responseCod
 
 @interface PixivAPI : NSObject
 
+@property (strong, nonatomic) NSString *access_token;
 @property (strong, nonatomic) NSString *session;
 
 #pragma mark - common
@@ -53,9 +54,11 @@ typedef void (^FailureFetchBlock)(NSURLResponse *response, NSInteger responseCod
 /**
  *  Set session string for PHPSESSID (get PHPSESSID from api.session)
  *
- *  @param session last api.session
+ *  @param access_token [last AccessToken from api.access_token]
+ *  @param session      [last PHPSESSID from api.session]
+ *
  */
-- (void)set_session:(NSString *)session;
+- (void)set_auth:(NSString *)access_token session:(NSString *)session;
 
 
 #pragma mark - SAPI exports
@@ -75,36 +78,40 @@ typedef void (^FailureFetchBlock)(NSURLResponse *response, NSInteger responseCod
 /**
  *  ranking_log.php
  *
- *  @param mode             [daily, weekly, monthly, male, female]
  *  @param Date_Year        2014
  *  @param Date_Month       4
  *  @param Date_Day         15
+ *  @param mode             [daily, weekly, monthly, male, female, rookie], require_auth[daily_r18, weekly_r18, male_r18, female_r18, r18g]
  *  @param page             [1-n]
+ *  @param requireAuth      YES - for r18 result
  *
  *  @return NSArray of IllustBaseInfo
  */
-- (void)SAPI_ranking_log:(NSString *)mode year:(NSUInteger)Date_Year month:(NSUInteger)Date_Month day:(NSUInteger)Date_Day page:(NSUInteger)page
+- (void)SAPI_ranking_log:(NSUInteger)Date_Year month:(NSUInteger)Date_Month day:(NSUInteger)Date_Day
+                    mode:(NSString *)mode page:(NSUInteger)page requireAuth:(BOOL)requireAuth
                onSuccess:(SuccessIllustListBlock)onSuccessHandler onFailure:(FailureFetchBlock)onFailureHandler;
 
 /**
  *  illust.php
  *
- *  @param illust_id [id for illust]
+ *  @param illust_id        [id for illust]
+ *  @param requireAuth      YES - for r18 result
  *
  *  @return IllustBaseInfo
  */
-- (void)SAPI_illust:(NSUInteger)illust_id
+- (void)SAPI_illust:(NSUInteger)illust_id requireAuth:(BOOL)requireAuth
           onSuccess:(SuccessIllustBlock)onSuccessHandler onFailure:(FailureFetchBlock)onFailureHandler;
 
 /**
  *  member_illust.php
  *
- *  @param author_id [id for author]
- *  @param page      [1-n]
+ *  @param author_id        [id for author]
+ *  @param page             [1-n]
+ *  @param requireAuth      YES - for r18 result
  *
  *  @return NSArray of IllustBaseInfo
  */
-- (void)SAPI_member_illust:(NSUInteger)author_id page:(NSUInteger)page
+- (void)SAPI_member_illust:(NSUInteger)author_id page:(NSUInteger)page requireAuth:(BOOL)requireAuth
                  onSuccess:(SuccessIllustListBlock)onSuccessHandler onFailure:(FailureFetchBlock)onFailureHandler;
 
 /**

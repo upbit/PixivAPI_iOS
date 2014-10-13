@@ -49,8 +49,11 @@
     [array setObject:[NSString stringWithFormat:@"%ld", (long)self.bookmarks] atIndexedSubscript:22];
     [array setObject:@"" atIndexedSubscript:23];
     [array setObject:self.username atIndexedSubscript:24];
-    for (int i = 25; i < MIN_PIXIV_RECORD_FIELDS_NUM; i++)
-        [array setObject:@"" atIndexedSubscript:i];
+    [array setObject:@"" atIndexedSubscript:25];
+    [array setObject:[NSString stringWithFormat:@"%ld", (long)self.r18] atIndexedSubscript:26];
+    
+    //for (int i = ; i < MIN_PIXIV_RECORD_FIELDS_NUM; i++)
+    //    [array setObject:@"" atIndexedSubscript:i];
     
     return array;
 }
@@ -87,6 +90,7 @@
     illust.pages = [(NSString *)data[19] intValue];
     illust.bookmarks = [(NSString *)data[22] intValue];
     illust.username = data[24];
+    illust.r18 = [(NSString *)data[26] intValue];
     
     return illust;
 }

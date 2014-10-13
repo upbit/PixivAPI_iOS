@@ -51,5 +51,6 @@
 @property (strong, nonatomic)   NSString        *comment;       // data[18]
 @property (nonatomic)           NSInteger       pages;          // data[19]
 @property (nonatomic)           NSInteger       bookmarks;      // data[22]
+@property (nonatomic)           NSInteger       r18;            // data[26]
 
 @end
