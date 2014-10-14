@@ -71,6 +71,8 @@
         return nil;
     
     IllustBaseInfo *illust = [[IllustBaseInfo alloc] init];
+
+    illust.raw = [data componentsJoinedByString:@","];
     
     illust.illustId = [(NSString *)data[0] intValue];
     illust.authorId = [(NSString *)data[1] intValue];

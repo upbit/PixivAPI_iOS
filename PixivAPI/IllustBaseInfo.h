@@ -27,6 +27,8 @@
 
 #pragma mark - Author / Illust common
 
+@property (strong, nonatomic)   NSString        *raw;           // raw data
+
 @property (nonatomic)           NSUInteger      authorId;       // data[1]
 @property (strong, nonatomic)   NSString        *authorName;    // data[5]
 @property (strong, nonatomic)   NSString        *thumbURL;      // data[6]

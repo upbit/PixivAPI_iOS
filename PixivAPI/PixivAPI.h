@@ -76,6 +76,7 @@ typedef void (^FailureFetchBlock)(NSURLResponse *response, NSInteger responseCod
            onSuccess:(SuccessIllustListBlock)onSuccessHandler onFailure:(FailureFetchBlock)onFailureHandler;
 
 /**
+ *  过去排行
  *  ranking_log.php
  *
  *  @param Date_Year        2014
@@ -92,6 +93,7 @@ typedef void (^FailureFetchBlock)(NSURLResponse *response, NSInteger responseCod
                onSuccess:(SuccessIllustListBlock)onSuccessHandler onFailure:(FailureFetchBlock)onFailureHandler;
 
 /**
+ *  作品信息 (新版本已使用 PAPI_works: 代替)
  *  illust.php
  *
  *  @param illust_id        [id for illust]
@@ -103,6 +105,7 @@ typedef void (^FailureFetchBlock)(NSURLResponse *response, NSInteger responseCod
           onSuccess:(SuccessIllustBlock)onSuccessHandler onFailure:(FailureFetchBlock)onFailureHandler;
 
 /**
+ *  用户作品列表
  *  member_illust.php
  *
  *  @param author_id        [id for author]
@@ -115,6 +118,7 @@ typedef void (^FailureFetchBlock)(NSURLResponse *response, NSInteger responseCod
                  onSuccess:(SuccessIllustListBlock)onSuccessHandler onFailure:(FailureFetchBlock)onFailureHandler;
 
 /**
+ *  用户资料 (新版本已使用 PAPI_users: 代替)
  *  user.php
  *
  *  @param user_id  [id for author]
@@ -125,6 +129,7 @@ typedef void (^FailureFetchBlock)(NSURLResponse *response, NSInteger responseCod
         onSuccess:(SuccessIllustBlock)onSuccessHandler onFailure:(FailureFetchBlock)onFailureHandler;
 
 /**
+ *  用户收藏 (新版本已使用 PAPI_users_favorite_works: 代替)
  *  bookmark.php (Authentication required)
  *
  *  @param author_id [id for author]
@@ -160,6 +165,7 @@ typedef void (^FailureFetchBlock)(NSURLResponse *response, NSInteger responseCod
 #pragma mark - Public-API exports
 
 /**
+ *  作品详细
  *  works/<illust_id>.json
  *
  *  @return NSDictionary of works(count=1)
@@ -167,11 +173,34 @@ typedef void (^FailureFetchBlock)(NSURLResponse *response, NSInteger responseCod
 - (void)PAPI_works:(NSUInteger)illust_id
          onSuccess:(SuccessDictionaryBlock)onSuccessHandler onFailure:(FailureFetchBlock)onFailureHandler;
 /**
+ *  用户资料
  *  users/<author_id>.json
  *
  *  @return NSDictionary of users(count=1)
  */
 - (void)PAPI_users:(NSUInteger)author_id
          onSuccess:(SuccessDictionaryBlock)onSuccessHandler onFailure:(FailureFetchBlock)onFailureHandler;
+
+/**
+ *  我的订阅
+ *  me/feeds.json
+ *
+ *  @param show_r18         NO - hide r18 illusts
+ *
+ *  @return NSDictionary of works
+ */
+- (void)PAPI_me_feeds:(BOOL)show_r18
+            onSuccess:(SuccessDictionaryBlock)onSuccessHandler onFailure:(FailureFetchBlock)onFailureHandler;
+
+/**
+ *  users/<author_id>/favorite_works.json
+ *
+ *  @param page             [1-n]
+ *  @param publicity        YES - public; NO - private (only auth user)
+ *
+ *  @return NSDictionary of works
+ */
+- (void)PAPI_users_favorite_works:(NSUInteger)author_id page:(NSUInteger)page publicity:(BOOL)publicity
+                        onSuccess:(SuccessDictionaryBlock)onSuccessHandler onFailure:(FailureFetchBlock)onFailureHandler;
 
 @end

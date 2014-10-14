@@ -443,4 +443,32 @@ typedef NS_ENUM(NSUInteger, PARSER_STATE) {
     [self _PAPI_asyncURLFetch:api_url params:params onSuccess:onSuccessHandler onFailure:onFailureHandler];
 }
 
+- (void)PAPI_me_feeds:(BOOL)show_r18
+            onSuccess:(SuccessDictionaryBlock)onSuccessHandler onFailure:(FailureFetchBlock)onFailureHandler
+{
+    NSString *api_url = @"me/feeds.json";
+    NSDictionary *params = @{
+        @"relation": @"all",
+        @"type": @"touch_nottext",
+        @"show_r18": show_r18 ? @1 : @0,
+    };
+    [self _PAPI_asyncURLFetch:api_url params:params onSuccess:onSuccessHandler onFailure:onFailureHandler];
+}
+
+- (void)PAPI_users_favorite_works:(NSUInteger)author_id page:(NSUInteger)page publicity:(BOOL)publicity
+                        onSuccess:(SuccessDictionaryBlock)onSuccessHandler onFailure:(FailureFetchBlock)onFailureHandler
+{
+    NSString *api_url = [NSString stringWithFormat:@"users/%ld/favorite_works.json", author_id];
+    NSDictionary *params = @{
+        @"page": @(page),
+        @"per_page": @30,
+        @"publicity": publicity ? @"public" : @"private",
+        @"include_work": @"true",
+        @"include_stats": @"true",
+        @"image_sizes": @"px_128x128,small,medium,large,px_480mw",
+        @"profile_image_sizes": @"px_170x170,px_50x50",
+    };
+    [self _PAPI_asyncURLFetch:api_url params:params onSuccess:onSuccessHandler onFailure:onFailureHandler];
+}
+
 @end
