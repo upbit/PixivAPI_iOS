@@ -11,6 +11,15 @@
 #import "PAPIIllust.h"
 #import "PAPIIllustList.h"
 
+// Auth key for NSUserDefaults
+#define PIXIV_AUTH_STORAGE_KEY          @"PixivAPI_Auth"
+
+// NSOperationQueue maxConcurrentOperationCount define
+#define MAX_CONCURRENT_OPERATION_COUNT  (2)
+// API fetch timeout
+#define MAX_PIXIVAPI_FETCH_TIMEOUT      (30)
+
+
 @interface PixivAPI : NSObject
 
 @property (strong, nonatomic) NSString *access_token;
@@ -214,6 +223,7 @@
 - (PAPIIllustList *)PAPI_me_feeds:(BOOL)show_r18;
 
 /**
+ *  用户收藏
  *  users/<author_id>/favorite_works.json
  *
  *  @param page             [1-n]

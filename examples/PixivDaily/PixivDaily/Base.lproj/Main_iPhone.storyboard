@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="ITn-pf-5SD">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="ITn-pf-5SD">
     <dependencies>
-        <deployment defaultVersion="1792" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <scenes>
         <!--Tab Bar Controller-->
@@ -25,7 +24,7 @@
             </objects>
             <point key="canvasLocation" x="-396" y="-1368"/>
         </scene>
-        <!--Daily Ranking View Controller - Daily Ranking-->
+        <!--Daily Ranking-->
         <scene sceneID="2hW-nT-cRg">
             <objects>
                 <tableViewController id="S1I-A2-Ws9" customClass="DailyRankingViewController" sceneMemberID="viewController">
@@ -83,7 +82,7 @@
             </objects>
             <point key="canvasLocation" x="616" y="-1368"/>
         </scene>
-        <!--Navigation Controller - Ranking (List)-->
+        <!--Ranking (List)-->
         <scene sceneID="jDS-ej-QTu">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="HNj-xZ-1vB" sceneMemberID="viewController">
@@ -102,7 +101,7 @@
             </objects>
             <point key="canvasLocation" x="149" y="-1368"/>
         </scene>
-        <!--Recents View Controller - Recents-->
+        <!--Recents-->
         <scene sceneID="yCB-2a-YfE">
             <objects>
                 <tableViewController id="Kc4-yO-fNT" customClass="RecentsViewController" sceneMemberID="viewController">
@@ -174,12 +173,10 @@
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IiR-Tk-5HO">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <gestureRecognizers/>
                             </scrollView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="cYc-1w-awa">
                                 <rect key="frame" x="142" y="222" width="37" height="37"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="color" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </activityIndicatorView>
                         </subviews>
@@ -223,12 +220,10 @@
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="49o-uU-czB">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <gestureRecognizers/>
                             </scrollView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="4HE-4e-lhU">
                                 <rect key="frame" x="142" y="222" width="37" height="37"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="color" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </activityIndicatorView>
                         </subviews>
@@ -258,7 +253,7 @@
             </objects>
             <point key="canvasLocation" x="1097" y="-1368"/>
         </scene>
-        <!--Navigation Controller - Recents-->
+        <!--Recents-->
         <scene sceneID="q0r-6M-b2S">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="fmQ-px-CVm" sceneMemberID="viewController">
@@ -277,7 +272,7 @@
             </objects>
             <point key="canvasLocation" x="149" y="-701"/>
         </scene>
-        <!--Daily Ranking Collection View Controller - Daily Ranking-->
+        <!--Daily Ranking-->
         <scene sceneID="Evv-Wb-hIO">
             <objects>
                 <collectionViewController autoresizesArchivedViewToFullSize="NO" id="weN-et-HqZ" customClass="DailyRankingCollectionViewController" sceneMemberID="viewController">
@@ -316,7 +311,7 @@
             </objects>
             <point key="canvasLocation" x="624" y="-1998"/>
         </scene>
-        <!--Navigation Controller - Ranking (Tab)-->
+        <!--Ranking (Tab)-->
         <scene sceneID="tD9-yN-09O">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Yqy-t8-IHG" sceneMemberID="viewController">
@@ -349,12 +344,10 @@
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N94-S6-KnQ">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <gestureRecognizers/>
                             </scrollView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="04I-Ka-dbf">
                                 <rect key="frame" x="142" y="222" width="37" height="37"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="color" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </activityIndicatorView>
                         </subviews>

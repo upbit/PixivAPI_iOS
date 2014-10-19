@@ -7,14 +7,6 @@
 
 #import "PixivAPI.h"
 
-// Auth key for NSUserDefaults
-#define PIXIV_AUTH_STORAGE_KEY          @"PixivAPI_Auth"
-
-// NSOperationQueue maxConcurrentOperationCount define
-#define MAX_CONCURRENT_OPERATION_COUNT  (2)
-// API fetch timeout
-#define MAX_PIXIVAPI_FETCH_TIMEOUT      (30)
-
 @interface PixivAPI()
 @property (strong, nonatomic) NSString *login_root;
 @property (strong, nonatomic) NSString *sapi_root;

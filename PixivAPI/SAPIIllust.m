@@ -1,31 +1,35 @@
 //
-//  IllustBaseInfo.m
-//  PixivDaily
+//  SAPIIllust.m
 //
-//  Created by Zhou Hao on 14-8-29.
-//  Copyright (c) 2014年 Kastark. All rights reserved.
+//  Created by Zhou Hao on 14/10/19.
+//  Copyright (c) 2014 Kastark. All rights reserved.
 //
 
-#import "IllustBaseInfo.h"
+#import "SAPIIllust.h"
 
 // URL for page Referer
 #define PIXIV_PAGE_URL          @"http://www.pixiv.net/"
 #define PIXIV_ILLUST_PAGE_URL   @"http://www.pixiv.net/member_illust.php?mode=medium&illust_id="
 #define PIXIV_MEMBER_PAGE_URL   @"http://www.pixiv.net/member.php?id="
 
-@implementation IllustBaseInfo
+@implementation SAPIIllust
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"author_id=%lu illust_id=%lu, %@", (unsigned long)self.authorId, (unsigned long)self.illustId, self.mobileURL];
+    if (self.illustId != PIXIV_ID_INVALID) {
+        return [NSString stringWithFormat:@"Illust: [%@(id=%lu)] %@(id=%lu): %@",
+                self.authorName, (unsigned long)self.authorId, self.title, (unsigned long)self.illustId, self.refererURL];
+    } else {
+        return [NSString stringWithFormat:@"Author: %@(id=%lu): %@", self.authorName, (unsigned long)self.authorId, self.refererURL];
+    }
 }
 
 - (NSArray *)toDataArray
 {
     NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:MIN_PIXIV_RECORD_FIELDS_NUM];
     
-    [array setObject:[NSString stringWithFormat:@"%lu", (unsigned long)self.illustId] atIndexedSubscript:0];
-    [array setObject:[NSString stringWithFormat:@"%lu", (unsigned long)self.authorId] atIndexedSubscript:1];
+    [array setObject:[NSString stringWithFormat:@"%ld", (long)self.illustId] atIndexedSubscript:0];
+    [array setObject:[NSString stringWithFormat:@"%ld", (long)self.authorId] atIndexedSubscript:1];
     [array setObject:self.ext atIndexedSubscript:2];
     [array setObject:self.title atIndexedSubscript:3];
     [array setObject:self.server atIndexedSubscript:4];
@@ -58,20 +62,13 @@
     return array;
 }
 
-/**
- *  Parse payload NSArray to IllustBaseInfo
- *
- *  @param array payload property array from pixiv
- *
- *  @return illust class
- */
-+ (IllustBaseInfo *)parseDataArrayToModel:(NSArray *)data
++ (SAPIIllust *)parseDataArrayToModel:(NSArray *)data
 {
     if ([data count] < MIN_PIXIV_RECORD_FIELDS_NUM)
         return nil;
     
-    IllustBaseInfo *illust = [[IllustBaseInfo alloc] init];
-
+    SAPIIllust *illust = [[SAPIIllust alloc] init];
+    
     illust.raw = [data componentsJoinedByString:@","];
     
     illust.illustId = [(NSString *)data[0] intValue];
@@ -92,7 +89,10 @@
     illust.pages = [(NSString *)data[19] intValue];
     illust.bookmarks = [(NSString *)data[22] intValue];
     illust.username = data[24];
-    illust.r18 = [(NSString *)data[26] intValue];
+    
+    illust.r18 = 0;
+    if ([data count] > 26)
+        illust.r18 = [(NSString *)data[26] intValue];
     
     return illust;
 }
