@@ -1,9 +1,8 @@
 //
 //  PAPIIllustList.h
-//  PixixWalker
 //
 //  Created by Zhou Hao on 14/10/19.
-//  Copyright (c) 2014年 Kastark. All rights reserved.
+//  Copyright (c) 2014 Kastark. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -19,7 +18,7 @@
  *
  *  @return PAPIIllustList object
  */
-+ (PAPIIllustList *)parseJsonDictionaryToModelList:(NSDictionary *)jsonData;
++ (PAPIIllustList *)parseJsonDictionaryToModelList:(NSDictionary *)jsonData isWork:(BOOL)isWork;
 
 @property (strong, nonatomic) NSDictionary *raw;            // origin json data from PAPI
 @property (strong, nonatomic) NSDictionary *pagination;     // pagination info

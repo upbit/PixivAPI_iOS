@@ -7,8 +7,8 @@
 //
 
 #import "SDWebImageViewController.h"
-#import "IllustModel.h"
+#import "SAPIIllust.h"
 
 @interface PixivImageViewController : SDWebImageViewController
-@property (strong, nonatomic) IllustModel *illust;
+@property (strong, nonatomic) SAPIIllust *illust;
 @end

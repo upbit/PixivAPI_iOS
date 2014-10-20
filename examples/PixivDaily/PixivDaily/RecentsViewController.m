@@ -7,7 +7,7 @@
 //
 
 #import "RecentsViewController.h"
-#import "PixivFetcher.h"
+#import "SAPIIllust.h"
 
 @interface RecentsViewController ()
 
@@ -29,7 +29,7 @@
     NSMutableArray *illusts = [[NSMutableArray alloc] init];
     
     for (NSArray *data in recents) {
-        [illusts addObject:[PixivFetcher parseDataArrayToModel:data]];
+        [illusts addObject:[SAPIIllust parseDataArrayToModel:data]];
     }
     
     self.illusts = illusts;

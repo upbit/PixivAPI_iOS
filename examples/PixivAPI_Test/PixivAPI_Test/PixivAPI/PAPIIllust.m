@@ -1,12 +1,12 @@
 //
 //  PAPIIllust.m
-//  PixixWalker
 //
 //  Created by Zhou Hao on 14/10/19.
-//  Copyright (c) 2014年 Kastark. All rights reserved.
+//  Copyright (c) 2014 Kastark. All rights reserved.
 //
 
 #import "PAPIIllust.h"
+#import "PixivDefines.h"
 
 @implementation PAPIIllust
 
@@ -33,26 +33,47 @@
     return illust;
 }
 
-+ (PAPIIllust *)parseRawDictionaryToModel:(NSDictionary *)jsonData
++ (PAPIIllust *)parseRawDictionaryToModel:(NSDictionary *)jsonData isWork:(BOOL)isWork
 {
-    if (![jsonData objectForKey:@"id"] || ![jsonData objectForKey:@"title"]) {
-        NSLog(@"jsonData.id or jsonData.title not found");
+    NSDictionary *data = nil;
+    if (isWork) {
+        data = jsonData;
+    } else {
+        if ([jsonData objectForKey:@"work"]) {
+            data = jsonData[@"work"];
+        }
+    }
+    
+    if (!data) {
+        NSLog(@"unknow data: %@", jsonData);
+        return nil;
+    }
+    if (![data objectForKey:@"id"] || ![data objectForKey:@"title"]) {
+        NSLog(@"data.id or data.title not found");
         return nil;
     }
     
     PAPIIllust *illust = [[PAPIIllust alloc] init];
     illust.raw = @{
-        @"response": @[jsonData],
+        @"response": @[data],
     };
-    illust.response = jsonData;
+    illust.response = data;
     return illust;
 }
 
 #pragma mark - Illust properties
 
+- (NSInteger)safeIntegerValue:(id)data
+{
+    if (data == [NSNull null]) {
+        return PIXIV_INT_INVALID;
+    }
+    return [data integerValue];
+}
+
 - (NSInteger)publicity
 {
-    return [self.response[@"publicity"] integerValue];
+    return [self safeIntegerValue:self.response[@"publicity"]];
 }
 
 - (BOOL)is_manga
@@ -76,32 +97,32 @@
 }
 - (NSInteger)favorited_private
 {
-    return [self.favorited_count[@"private"] integerValue];
+    return [self safeIntegerValue:self.favorited_count[@"private"]];
 }
 - (NSInteger)favorited_public
 {
-    return [self.favorited_count[@"public"] integerValue];
+    return [self safeIntegerValue:self.favorited_count[@"public"]];
 }
 - (NSInteger)score
 {
-    return [self.stats[@"score"] integerValue];
+    return [self safeIntegerValue:self.stats[@"score"]];
 }
 - (NSInteger)views_count
 {
-    return [self.stats[@"views_count"] integerValue];
+    return [self safeIntegerValue:self.stats[@"views_count"]];
 }
 - (NSInteger)scored_count
 {
-    return [self.stats[@"scored_count"] integerValue];
+    return [self safeIntegerValue:self.stats[@"scored_count"]];
 }
 - (NSInteger)commented_count
 {
-    return [self.stats[@"commented_count"] integerValue];
+    return [self safeIntegerValue:self.stats[@"commented_count"]];
 }
 
 - (NSInteger)favorite_id
 {
-    return [self.response[@"favorite_id"] integerValue];
+    return [self safeIntegerValue:self.response[@"favorite_id"]];
 }
 
 - (NSArray *)tags
@@ -121,7 +142,7 @@
 
 - (NSInteger)page_count
 {
-    return [self.response[@"page_count"] integerValue];
+    return [self safeIntegerValue:self.response[@"page_count"]];
 }
 
 - (NSDictionary *)image_urls
@@ -154,7 +175,7 @@
 
 - (NSInteger)height
 {
-    return [self.response[@"height"] integerValue];
+    return [self safeIntegerValue:self.response[@"height"]];
 }
 
 - (NSString *)caption
@@ -212,7 +233,7 @@
 }
 - (NSInteger)author_id
 {
-    return [self.user[@"id"] integerValue];
+    return [self safeIntegerValue:self.user[@"id"]];
 }
 
 - (NSString *)reuploaded_time
@@ -232,7 +253,7 @@
 
 - (NSInteger)illust_id
 {
-    return [self.response[@"id"] integerValue];
+    return [self safeIntegerValue:self.response[@"id"]];
 }
 
 - (NSString *)book_style
@@ -247,7 +268,7 @@
 
 - (NSInteger)width
 {
-    return [self.response[@"width"] integerValue];
+    return [self safeIntegerValue:self.response[@"width"]];
 }
 
 - (NSDictionary *)metadata
@@ -257,6 +278,12 @@
     }
     return nil;
 }
-// for mutilpages
+- (NSArray *)pages
+{
+    if ([self.metadata[@"pages"] isKindOfClass:[NSArray class]]) {
+        return self.metadata[@"pages"];
+    }
+    return nil;
+}
 
 @end

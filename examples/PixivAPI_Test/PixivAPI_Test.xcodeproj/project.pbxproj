@@ -32,6 +32,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CB601E0F19F4AA2D0096DFED /* PixivDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PixivDefines.h; sourceTree = "<group>"; };
 		CB9B6AB419E42658004D4749 /* PixivAPI_Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PixivAPI_Test.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB9B6AB819E42658004D4749 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CB9B6AB919E42658004D4749 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -100,10 +101,8 @@
 				CB9B6ABC19E42658004D4749 /* AppDelegate.m */,
 				CB9B6ABE19E42658004D4749 /* ViewController.h */,
 				CB9B6ABF19E42658004D4749 /* ViewController.m */,
-				CBE4F13419F3BE5F00DED660 /* PixivAPI */,
 				CB9B6AC119E42658004D4749 /* Main.storyboard */,
-				CB9B6AC419E42658004D4749 /* Images.xcassets */,
-				CB9B6AC619E42658004D4749 /* LaunchScreen.xib */,
+				CBE4F13419F3BE5F00DED660 /* PixivAPI */,
 				CB9B6AB719E42658004D4749 /* Supporting Files */,
 			);
 			path = PixivAPI_Test;
@@ -112,6 +111,8 @@
 		CB9B6AB719E42658004D4749 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				CB9B6AC419E42658004D4749 /* Images.xcassets */,
+				CB9B6AC619E42658004D4749 /* LaunchScreen.xib */,
 				CB9B6AB819E42658004D4749 /* Info.plist */,
 				CB9B6AB919E42658004D4749 /* main.m */,
 			);
@@ -146,6 +147,7 @@
 				CBE4F13A19F3BE5F00DED660 /* PAPIIllustList.m */,
 				CBE4F13B19F3BE5F00DED660 /* PixivAPI.h */,
 				CBE4F13C19F3BE5F00DED660 /* PixivAPI.m */,
+				CB601E0F19F4AA2D0096DFED /* PixivDefines.h */,
 				CBE4F13D19F3BE5F00DED660 /* SAPIIllust.h */,
 				CBE4F13E19F3BE5F00DED660 /* SAPIIllust.m */,
 			);

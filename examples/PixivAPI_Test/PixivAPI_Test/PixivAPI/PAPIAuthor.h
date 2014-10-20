@@ -1,9 +1,8 @@
 //
 //  PAPIAuthor.h
-//  PixixWalker
 //
 //  Created by Zhou Hao on 14/10/19.
-//  Copyright (c) 2014年 Kastark. All rights reserved.
+//  Copyright (c) 2014 Kastark. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

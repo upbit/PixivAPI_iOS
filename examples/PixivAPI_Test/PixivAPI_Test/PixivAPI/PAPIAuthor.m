@@ -1,12 +1,12 @@
 //
 //  PAPIAuthor.m
-//  PixixWalker
 //
 //  Created by Zhou Hao on 14/10/19.
-//  Copyright (c) 2014年 Kastark. All rights reserved.
+//  Copyright (c) 2014 Kastark. All rights reserved.
 //
 
 #import "PAPIAuthor.h"
+#import "PixivDefines.h"
 
 @implementation PAPIAuthor
 
@@ -33,6 +33,14 @@
 }
 
 #pragma mark - Author properties
+
+- (NSInteger)safeIntegerValue:(id)data
+{
+    if (data == [NSNull null]) {
+        return PIXIV_INT_INVALID;
+    }
+    return [data integerValue];
+}
 
 - (NSDictionary *)profile
 {
@@ -117,7 +125,7 @@
 
 - (NSInteger)author_id
 {
-    return [self.response[@"id"] integerValue];
+    return [self safeIntegerValue:self.response[@"id"]];
 }
 
 @end

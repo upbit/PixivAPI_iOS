@@ -43,7 +43,7 @@
     static NSString *CellIdentifier = @"Image Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
-    IllustModel *illust = [self.illusts objectAtIndex:indexPath.row];
+    SAPIIllust *illust = [self.illusts objectAtIndex:indexPath.row];
     
     cell.textLabel.text = illust.title;
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%@, illust_id=%u", illust.authorName, (unsigned int)illust.illustId];
@@ -87,19 +87,15 @@
     }
 }
 
-- (void)prepareImageViewController:(PixivImageViewController *)ivc toDisplayPhoto:(IllustModel *)illust mobileSize:(BOOL)mobileSize
+- (void)prepareImageViewController:(PixivImageViewController *)ivc toDisplayPhoto:(SAPIIllust *)illust mobileSize:(BOOL)mobileSize
 {
     // set 'Referer' for illust download
     [SDWebImageManager.sharedManager.imageDownloader setValue:illust.refererURL forHTTPHeaderField:@"Referer"];
     [SDWebImageManager.sharedManager.imageDownloader setValue:FETCH_ILLUST_USER_AGENT forHTTPHeaderField:@"User-Agent"];
     SDWebImageManager.sharedManager.imageDownloader.executionOrder = SDWebImageDownloaderLIFOExecutionOrder;
     
-    if (mobileSize) {
-        ivc.imageURL = [NSURL URLWithString:illust.mobileURL];
-    } else {
-        //ivc.imageURL = [NSURL URLWithString:illust.imageURL];
-        ivc.imageURL = [NSURL URLWithString:illust.pageURLs[0]];
-    }
+    // origin url need get from PAPI.works, so simplely use mobileURL here
+    ivc.imageURL = [NSURL URLWithString:illust.mobileURL];
     ivc.illust = illust;
     ivc.title = [NSString stringWithFormat:@"[%@] %@", illust.authorName, illust.title];
 }

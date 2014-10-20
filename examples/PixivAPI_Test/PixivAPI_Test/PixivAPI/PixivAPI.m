@@ -31,16 +31,10 @@
     self = [super init];
     
     if (self) {
-        self.login_root = @"https://oauth.secure.pixiv.net/auth/token";
-        self.sapi_root = @"http://spapi.pixiv.net/iphone/";
-        self.papi_root = @"https://public-api.secure.pixiv.net/v1/";
-        
-        self.default_headers = @{
-            @"Referer": @"http://spapi.pixiv.net/",
-            @"User-Agent": @"PixivIOSApp/5.1.1",
-            @"Content-Type": @"application/x-www-form-urlencoded",
-        };
-        
+        self.login_root = PIXIV_LOGIN_ROOT;
+        self.sapi_root = PIXIV_SAPI_ROOT;
+        self.papi_root = PIXIV_PAPI_ROOT;
+        self.default_headers = PIXIV_DEFAULT_HEADERS;
         self.session = nil;
     }
     return self;
@@ -57,16 +51,10 @@
     return _operationQueue;
 }
 
-- (void)asyncBlockingQueue:(NSOperationQueuePriority)queuePriority operations:(void (^)(void))mainOperations completion:(void (^)(void))onCompletion
+- (void)asyncBlockingQueue:(NSOperationQueuePriority)queuePriority operations:(void (^)(void))mainOperations
 {
     NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
-        // run BlockingQueue
         mainOperations();
-        // when complete, call onCompletion in mainQueue
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            onCompletion();
-        }];
-        
     }];
     [operation setQueuePriority:queuePriority];
     [self.operationQueue addOperation:operation];
@@ -74,7 +62,14 @@
 
 - (void)asyncBlockingQueue:(void (^)(void))mainOperations
 {
-    [self asyncBlockingQueue:NSOperationQueuePriorityNormal operations:mainOperations completion:^{}];
+    [self asyncBlockingQueue:NSOperationQueuePriorityNormal operations:mainOperations];
+}
+
+- (void)onMainQueue:(void (^)(void))operationBlock
+{
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+        operationBlock();
+    }];
 }
 
 #pragma mark - URL Fetcher
@@ -117,7 +112,7 @@
     NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
     if (httpResponse.statusCode != 200) {
         NSString *payload = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
-        NSLog(@"Error HTTP %ld:\n%@", httpResponse.statusCode, payload);
+        NSLog(@"Error HTTP %ld:\n%@", (long)httpResponse.statusCode, payload);
         return nil;
     }
     
@@ -259,7 +254,7 @@
 #pragma mark - SAPI common
 
 // match state for parsePayload()
-typedef NS_ENUM(NSUInteger, PARSER_STATE) {
+typedef NS_ENUM(NSInteger, PARSER_STATE) {
     PARSER_STATE_NONE = 0,              // not match
     PARSER_STATE_DQUOTES = 1,           // first "
     PARSER_STATE_DQUOTES_CLOSE = 2      // check "...(["],)|(["]")
@@ -371,7 +366,7 @@ typedef NS_ENUM(NSUInteger, PARSER_STATE) {
 
 #pragma mark - SAPI define
 
-- (NSArray *)SAPI_ranking:(NSUInteger)page mode:(NSString *)mode content:(NSString *)content requireAuth:(BOOL)requireAuth
+- (NSArray *)SAPI_ranking:(NSInteger)page mode:(NSString *)mode content:(NSString *)content requireAuth:(BOOL)requireAuth
 {
     NSString *api_url = @"ranking.php";
     NSDictionary *params = @{
@@ -382,8 +377,8 @@ typedef NS_ENUM(NSUInteger, PARSER_STATE) {
     return [self _SAPI_URLFetchList:api_url params:params requireAuth:requireAuth];
 }
 
-- (NSArray *)SAPI_ranking_log:(NSUInteger)Date_Year month:(NSUInteger)Date_Month day:(NSUInteger)Date_Day
-                         mode:(NSString *)mode page:(NSUInteger)page requireAuth:(BOOL)requireAuth
+- (NSArray *)SAPI_ranking_log:(NSInteger)Date_Year month:(NSInteger)Date_Month day:(NSInteger)Date_Day
+                         mode:(NSString *)mode page:(NSInteger)page requireAuth:(BOOL)requireAuth
 {
     NSString *api_url = @"ranking_log.php";
     NSDictionary *params = @{
@@ -396,7 +391,7 @@ typedef NS_ENUM(NSUInteger, PARSER_STATE) {
     return [self _SAPI_URLFetchList:api_url params:params requireAuth:requireAuth];
 }
 
-- (SAPIIllust *)SAPI_illust:(NSUInteger)illust_id requireAuth:(BOOL)requireAuth
+- (SAPIIllust *)SAPI_illust:(NSInteger)illust_id requireAuth:(BOOL)requireAuth
 {
     NSString *api_url = @"illust.php";
     NSDictionary *params = @{
@@ -405,7 +400,7 @@ typedef NS_ENUM(NSUInteger, PARSER_STATE) {
     return [self _SAPI_URLFetch:api_url params:params requireAuth:requireAuth];
 }
 
-- (NSArray *)SAPI_member_illust:(NSUInteger)author_id page:(NSUInteger)page requireAuth:(BOOL)requireAuth
+- (NSArray *)SAPI_member_illust:(NSInteger)author_id page:(NSInteger)page requireAuth:(BOOL)requireAuth
 {
     NSString *api_url = @"member_illust.php";
     NSDictionary *params = @{
@@ -415,7 +410,7 @@ typedef NS_ENUM(NSUInteger, PARSER_STATE) {
     return [self _SAPI_URLFetchList:api_url params:params requireAuth:requireAuth];
 }
 
-- (SAPIIllust *)SAPI_user:(NSUInteger)author_id requireAuth:(BOOL)requireAuth
+- (SAPIIllust *)SAPI_user:(NSInteger)author_id requireAuth:(BOOL)requireAuth
 {
     NSString *api_url = @"user.php";
     NSDictionary *params = @{
@@ -425,7 +420,7 @@ typedef NS_ENUM(NSUInteger, PARSER_STATE) {
     return [self _SAPI_URLFetch:api_url params:params requireAuth:requireAuth];
 }
 
-- (NSArray *)SAPI_bookmark:(NSUInteger)author_id page:(NSUInteger)page requireAuth:(BOOL)requireAuth
+- (NSArray *)SAPI_bookmark:(NSInteger)author_id page:(NSInteger)page requireAuth:(BOOL)requireAuth
 {
     NSString *api_url = @"bookmark.php";
     NSDictionary *params = @{
@@ -435,7 +430,7 @@ typedef NS_ENUM(NSUInteger, PARSER_STATE) {
     return [self _SAPI_URLFetchList:api_url params:params requireAuth:requireAuth];
 }
 
-- (NSArray *)SAPI_illust_bookmarks:(NSUInteger)illust_id page:(NSUInteger)page requireAuth:(BOOL)requireAuth
+- (NSArray *)SAPI_illust_bookmarks:(NSInteger)illust_id page:(NSInteger)page requireAuth:(BOOL)requireAuth
 {
     NSString *api_url = @"illust_bookmarks.php";
     NSDictionary *params = @{
@@ -445,7 +440,7 @@ typedef NS_ENUM(NSUInteger, PARSER_STATE) {
     return [self _SAPI_URLFetchList:api_url params:params requireAuth:requireAuth];
 }
 
-- (NSArray *)SAPI_bookmark_user_all:(NSUInteger)author_id page:(NSUInteger)page requireAuth:(BOOL)requireAuth
+- (NSArray *)SAPI_bookmark_user_all:(NSInteger)author_id page:(NSInteger)page requireAuth:(BOOL)requireAuth
 {
     NSString *api_url = @"bookmark_user_all.php";
     NSDictionary *params = @{
@@ -456,7 +451,7 @@ typedef NS_ENUM(NSUInteger, PARSER_STATE) {
     return [self _SAPI_URLFetchList:api_url params:params requireAuth:requireAuth];
 }
 
-- (NSArray *)SAPI_mypixiv_all:(NSUInteger)author_id page:(NSUInteger)page requireAuth:(BOOL)requireAuth
+- (NSArray *)SAPI_mypixiv_all:(NSInteger)author_id page:(NSInteger)page requireAuth:(BOOL)requireAuth
 {
     NSString *api_url = @"mypixiv_all.php";
     NSDictionary *params = @{
@@ -493,7 +488,7 @@ typedef NS_ENUM(NSUInteger, PARSER_STATE) {
     }
 }
 
-- (id)_PAPI_URLFetchList:(NSString *)api_url params:(NSDictionary *)params isIllust:(BOOL)isIllust
+- (id)_PAPI_URLFetchList:(NSString *)api_url params:(NSDictionary *)params isIllust:(BOOL)isIllust isWork:(BOOL)isWork
 {
     NSString *url = [NSString stringWithFormat:@"%@%@", self.papi_root, api_url];
     
@@ -502,9 +497,9 @@ typedef NS_ENUM(NSUInteger, PARSER_STATE) {
         return nil;
     }
     NSDictionary *papi_headers = @{
-                                   @"Authorization": [NSString stringWithFormat:@"Bearer %@", self.access_token],
-                                   @"Cookie": [NSString stringWithFormat:@"PHPSESSID=%@", self.session],
-                                   };
+        @"Authorization": [NSString stringWithFormat:@"Bearer %@", self.access_token],
+        @"Cookie": [NSString stringWithFormat:@"PHPSESSID=%@", self.session],
+    };
     
     NSDictionary *response = [self URLFetch:@"GET" url:url headers:papi_headers params:params data:nil];
     NSError* error;
@@ -512,16 +507,16 @@ typedef NS_ENUM(NSUInteger, PARSER_STATE) {
     //NSLog(@"pixiv json: %@", json_result);
     
     if (isIllust) {
-        return [PAPIIllustList parseJsonDictionaryToModelList:json_result];
+        return [PAPIIllustList parseJsonDictionaryToModelList:json_result isWork:isWork];
     } else {
-        //return [PAPIAuthorList parseJsonDictionaryToModelList:json_result];
+        //return [PAPIAuthorList parseJsonDictionaryToModelList:json_result isWork:isWork];
         return nil;
     }
 }
 
 #pragma mark - Public-API define
 
-- (PAPIIllust *)PAPI_works:(NSUInteger)illust_id
+- (PAPIIllust *)PAPI_works:(NSInteger)illust_id
 {
     NSString *api_url = [NSString stringWithFormat:@"works/%lu.json", (unsigned long)illust_id];
     NSDictionary *params = @{
@@ -532,7 +527,7 @@ typedef NS_ENUM(NSUInteger, PARSER_STATE) {
     return [self _PAPI_URLFetch:api_url params:params isIllust:YES];
 }
 
-- (PAPIAuthor *)PAPI_users:(NSUInteger)author_id
+- (PAPIAuthor *)PAPI_users:(NSInteger)author_id
 {
     NSString *api_url = [NSString stringWithFormat:@"users/%lu.json", (unsigned long)author_id];
     NSDictionary *params = @{
@@ -554,10 +549,10 @@ typedef NS_ENUM(NSUInteger, PARSER_STATE) {
         @"type": @"touch_nottext",
         @"show_r18": show_r18 ? @1 : @0,
     };
-    return [self _PAPI_URLFetchList:api_url params:params isIllust:YES];
+    return [self _PAPI_URLFetchList:api_url params:params isIllust:YES isWork:YES];
 }
 
-- (PAPIIllustList *)PAPI_users_favorite_works:(NSUInteger)author_id page:(NSUInteger)page publicity:(BOOL)publicity
+- (PAPIIllustList *)PAPI_users_favorite_works:(NSInteger)author_id page:(NSInteger)page publicity:(BOOL)publicity
 {
     NSString *api_url = [NSString stringWithFormat:@"users/%ld/favorite_works.json", (unsigned long)author_id];
     NSDictionary *params = @{
@@ -569,7 +564,8 @@ typedef NS_ENUM(NSUInteger, PARSER_STATE) {
         @"image_sizes": @"px_128x128,small,medium,large,px_480mw",
         @"profile_image_sizes": @"px_170x170,px_50x50",
     };
-    return [self _PAPI_URLFetchList:api_url params:params isIllust:YES];
+    // response has a header outside each work, so set isWork:NO
+    return [self _PAPI_URLFetchList:api_url params:params isIllust:YES isWork:NO];
 }
 
 @end

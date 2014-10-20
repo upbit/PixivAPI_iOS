@@ -9,72 +9,15 @@
 #import "ViewController.h"
 #import "PixivAPI.h"
 
+// change here to your Pixiv account
+#define _USERNAME @"username"
+#define _PASSWORD @"password"
+
 @interface ViewController ()
 
 @end
 
 @implementation ViewController
-
-- (void)auth_required_test:(PixivAPI *)api
-{
-    // PAPI
-    /*
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-    [api PAPI_works:46363414
-          onSuccess:^(NSDictionary *result) {
-              [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-              NSDictionary *illust = [result[@"response"] firstObject];
-              NSLog(@"%@", illust);
-              NSLog(@"origin url: %@", illust[@"image_urls"][@"large"]);
-          }
-          onFailure:^(NSURLResponse *response, NSInteger responseCode, NSData *data, NSError *connectionError) {
-              [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-              NSLog(@"[HTTP %ld] %@", (long)responseCode, connectionError);
-          }];
-    
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-    [api PAPI_users:1184799
-          onSuccess:^(NSDictionary *result) {
-              [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-              NSDictionary *user = [result[@"response"] firstObject];
-              NSLog(@"%@", user);
-              NSLog(@"introduction: %@", user[@"profile"][@"introduction"]);
-          }
-          onFailure:^(NSURLResponse *response, NSInteger responseCode, NSData *data, NSError *connectionError) {
-              [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-              NSLog(@"[HTTP %ld] %@", (long)responseCode, connectionError);
-          }];
-     */
-        /*
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-    [api SAPI_bookmark:1184799 page:1
-             onSuccess:^(NSArray *illusts, BOOL isIllust) {
-                 [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-                 for (IllustBaseInfo *illust in illusts) {
-                     NSLog(@"%@", illust);
-                 }
-             }
-             onFailure:^(NSURLResponse *response, NSInteger responseCode, NSData *data, NSError *connectionError) {
-                 [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-                 NSLog(@"[HTTP %ld] %@", (long)responseCode, connectionError);
-             }];
-
-
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-    [api SAPI_bookmark_user_all:1184799 page:1
-                      onSuccess:^(NSArray *users, BOOL isIllust) {
-                          [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-                          for (IllustBaseInfo *user in users) {
-                              NSLog(@"%@(@%@)", user.authorName, user.username);
-                          }
-                      }
-                      onFailure:^(NSURLResponse *response, NSInteger responseCode, NSData *data, NSError *connectionError) {
-                          [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-                          NSLog(@"[HTTP %ld] %@", (long)responseCode, connectionError);
-                      }];
-     */
-
-}
 
 - (void)sapi_test
 {
@@ -107,30 +50,67 @@
     }];
 }
 
+- (void)auth_required_papi
+{
+    // PAPI
+    [[PixivAPI sharedInstance] asyncBlockingQueue:^{
+        
+        // get illust and output origin url
+        PAPIIllust *illust = [[PixivAPI sharedInstance] PAPI_works:46605041];
+        NSLog(@"%@", illust);
+        
+        if (illust.page_count <= 1) {
+            NSLog(@"  origin url: %@", illust.url_large);
+        } else {
+            NSDictionary *page0 = [illust.pages firstObject];
+            NSLog(@"  origin page0 url: %@", page0[@"image_urls"][@"large"]);
+        }
+        
+        // get user favorite_works
+        PAPIIllustList *illustList = [[PixivAPI sharedInstance] PAPI_users_favorite_works:1184799 page:1 publicity:YES];
+        for (PAPIIllust *illust in [illustList.illusts subarrayWithRange:NSMakeRange(0, 5)]) {
+            NSLog(@"%@", illust);
+        }
+        
+        NSLog(@">> %ld/%ld favorites with pages %ld, next page %ld (previous %ld)",
+              (long)illustList.count, (long)illustList.total, (long)illustList.pages, (long)illustList.next, (long)illustList.previous);
+        
+    }];
+    
+    NSLog(@"async fetch PAPI started");
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
 
+    // some SAPI functions are 'no login required', so just call it async
+    [self sapi_test];
+    
 #if 1
     // sync login
-    [[PixivAPI sharedInstance] loginIfNeeded:@"username" password:@"password"];
+    [[PixivAPI sharedInstance] loginIfNeeded:_USERNAME password:_PASSWORD];
+    [self auth_required_papi];
     
 #else
     // login will blocking your main thread, so use this asyncBlockingQueue: in your project
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     [[PixivAPI sharedInstance] asyncBlockingQueue:^{
         
-        if ([[PixivAPI sharedInstance] loginIfNeeded:@"username" password:@"password"]) {
+        if ([[PixivAPI sharedInstance] loginIfNeeded:_USERNAME password:_PASSWORD]) {
             NSLog(@"Login success!");
         } else {
             NSLog(@"Login failed.");
         }
-        
+
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        
+        [self auth_required_papi];
     }];
 #endif
+
     
-    [self sapi_test];
+    
 }
 
 @end

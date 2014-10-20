@@ -8,7 +8,7 @@ Pixiv API for iOS, supported both SAPI and Public-API (with OAuth / Bearer token
 ## Pixiv API Usage:
 
 1. Simplely drag 'PixivAPI/' to your project (copy if needed);
-2. Add #import "PixivAPI/PixivAPI.h" to your project;
+2. Add **#import "PixivAPI/PixivAPI.h"** to your project;
 3. call **login:** and **SAPI / PAPI** functions for you needed;
 
 ## API example

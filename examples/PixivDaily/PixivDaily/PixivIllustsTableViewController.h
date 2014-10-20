@@ -8,13 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "PixivImageViewController.h"
-#import "PixivFetcher.h"
+#import "PixivAPI/PixivAPI.h"
 
 @interface PixivIllustsTableViewController : UITableViewController
 
-@property (strong, nonatomic) NSArray *illusts;     // of IllustModel
+@property (strong, nonatomic) NSArray *illusts;     // of SAPIIllust
 
 // override this for image view action
-- (void)prepareImageViewController:(PixivImageViewController *)ivc toDisplayPhoto:(IllustModel *)illust mobileSize:(BOOL)mobileSize;
+- (void)prepareImageViewController:(PixivImageViewController *)ivc toDisplayPhoto:(SAPIIllust *)illust mobileSize:(BOOL)mobileSize;
 
 @end

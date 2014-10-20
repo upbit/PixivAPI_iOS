@@ -1,23 +1,19 @@
 //
 //  PAPIIllustList.m
-//  PixixWalker
 //
 //  Created by Zhou Hao on 14/10/19.
-//  Copyright (c) 2014年 Kastark. All rights reserved.
+//  Copyright (c) 2014 Kastark. All rights reserved.
 //
 
 #import "PAPIIllustList.h"
+#import "PixivDefines.h"
 
 @implementation PAPIIllustList
 
-+ (PAPIIllustList *)parseJsonDictionaryToModelList:(NSDictionary *)jsonData
++ (PAPIIllustList *)parseJsonDictionaryToModelList:(NSDictionary *)jsonData isWork:(BOOL)isWork
 {
     if (![jsonData objectForKey:@"count"] || ![jsonData objectForKey:@"response"]) {
         NSLog(@"jsonData.count for jsonData.response not found");
-        return nil;
-    }
-    if ([[jsonData objectForKey:@"count"] integerValue] != 1) {
-        NSLog(@"response count %ld > 1", (long)[[jsonData objectForKey:@"count"] integerValue]);
         return nil;
     }
     
@@ -31,7 +27,7 @@
     // from response[] gen NSArray of PAPIIllust
     NSMutableArray *tmpIllusts = [[NSMutableArray alloc] init];
     for (NSDictionary *jsonIllust in jsonData[@"response"]) {
-        PAPIIllust *illust = [PAPIIllust parseRawDictionaryToModel:jsonIllust];
+        PAPIIllust *illust = [PAPIIllust parseRawDictionaryToModel:jsonIllust isWork:isWork];
         if (!illust) {
             NSLog(@"parseRaw() error:\n%@", jsonIllust);
             continue;
@@ -50,35 +46,42 @@
 
 #pragma mark - pagination properties
 
+- (NSInteger)safeIntegerValue:(id)data
+{
+    if (data == [NSNull null]) {
+        return PIXIV_INT_INVALID;
+    }
+    return [data integerValue];
+}
+
 - (NSInteger)per_page
 {
-    return [self.pagination[@"per_page"] integerValue];
+    return [self safeIntegerValue:self.pagination[@"per_page"]];
 }
 
 - (NSInteger)total
 {
-    return [self.pagination[@"total"] integerValue];
+    return [self safeIntegerValue:self.pagination[@"total"]];
 }
 
 - (NSInteger)pages
 {
-    return [self.pagination[@"pages"] integerValue];
+    return [self safeIntegerValue:self.pagination[@"pages"]];
 }
 
 - (NSInteger)current
 {
-    return [self.pagination[@"current"] integerValue];
+    return [self safeIntegerValue:self.pagination[@"current"]];
 }
 
 - (NSInteger)next
 {
-    return [self.pagination[@"next"] integerValue];
+    return [self safeIntegerValue:self.pagination[@"next"]];
 }
 
 - (NSInteger)previous
 {
-    NSLog(@"%@", self.pagination[@"previous"]);
-    return [self.pagination[@"previous"] integerValue];
+    return [self safeIntegerValue:self.pagination[@"previous"]];
 }
 
 @end

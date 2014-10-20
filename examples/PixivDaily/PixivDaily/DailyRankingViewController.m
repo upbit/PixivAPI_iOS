@@ -7,8 +7,8 @@
 //
 
 #import "DailyRankingViewController.h"
-#import "PixivFetcher.h"
 #import "RecentsViewController.h"
+#import "PixivAPI.h"
 
 #define MAX_FETCH_RANKING_PAGE_NUM (5)
 
@@ -38,17 +38,18 @@
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     
     __weak DailyRankingViewController *weakSelf = self;
-    [PixivFetcher API_getRanking:page mode:PIXIV_RANKING_MODE_DAY content:PIXIV_RANKING_CONTENT_ALL
-                       onSuccess:^(NSArray *illusts, BOOL isIllust) {
-                           [weakSelf.refreshControl endRefreshing];
-                           [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-                           weakSelf.illusts = [weakSelf.illusts arrayByAddingObjectsFromArray:illusts];
-                       }
-                       onFailure:^(NSURLResponse *response, NSInteger responseCode, NSData *data, NSError *connectionError) {
-                           [weakSelf.refreshControl endRefreshing];
-                           [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-                           NSLog(@"[HTTP %ld] %@", (long)responseCode, connectionError);
-                       }];
+    [[PixivAPI sharedInstance] asyncBlockingQueue:^{
+        NSArray *illusts = [[PixivAPI sharedInstance] SAPI_ranking:page mode:@"day" content:@"all" requireAuth:NO];
+        
+        // dispatch on mainQueue, so data reload will start immediately
+        [[PixivAPI sharedInstance] onMainQueue:^{
+            // update UI here
+            weakSelf.illusts = [weakSelf.illusts arrayByAddingObjectsFromArray:illusts];
+        }];
+        
+        [weakSelf.refreshControl endRefreshing];
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    }];
 }
 
 #pragma mark - UITableView Load More
@@ -74,7 +75,7 @@
 
 #pragma mark - override
 
-- (void)addViewedIllustToRecentsArray:(IllustModel *)illust
+- (void)addViewedIllustToRecentsArray:(SAPIIllust *)illust
 {
     NSMutableArray *recents = [[NSMutableArray alloc] initWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:KEY_RECENT_ILLUSTS]];
     NSArray *dataArray = [illust toDataArray];
@@ -91,7 +92,7 @@
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-- (void)prepareImageViewController:(PixivImageViewController *)ivc toDisplayPhoto:(IllustModel *)illust mobileSize:(BOOL)mobileSize
+- (void)prepareImageViewController:(PixivImageViewController *)ivc toDisplayPhoto:(SAPIIllust *)illust mobileSize:(BOOL)mobileSize
 {
     [super prepareImageViewController:ivc toDisplayPhoto:illust mobileSize:mobileSize];
     

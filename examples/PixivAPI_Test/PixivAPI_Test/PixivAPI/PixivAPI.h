@@ -6,19 +6,12 @@
 //
 
 #import <Foundation/Foundation.h>
+
+#import "PixivDefines.h"
 #import "SAPIIllust.h"
 #import "PAPIAuthor.h"
 #import "PAPIIllust.h"
 #import "PAPIIllustList.h"
-
-// Auth key for NSUserDefaults
-#define PIXIV_AUTH_STORAGE_KEY          @"PixivAPI_Auth"
-
-// NSOperationQueue maxConcurrentOperationCount define
-#define MAX_CONCURRENT_OPERATION_COUNT  (2)
-// API fetch timeout
-#define MAX_PIXIVAPI_FETCH_TIMEOUT      (30)
-
 
 @interface PixivAPI : NSObject
 
@@ -39,7 +32,11 @@
  *  @param onCompletion      completion block on mainQueue
  */
 - (void)asyncBlockingQueue:(void (^)(void))mainOperations;
-- (void)asyncBlockingQueue:(NSOperationQueuePriority)queuePriority operations:(void (^)(void))mainOperations completion:(void (^)(void))onCompletion;
+- (void)asyncBlockingQueue:(NSOperationQueuePriority)queuePriority operations:(void (^)(void))mainOperations;
+/**
+ *  Run operation in mainQueue, it was short for [NSOperationQueue mainQueue] addOperationWithBlock:
+ */
+- (void)onMainQueue:(void (^)(void))operationBlock;
 
 /**
  *  API Fetch URL
@@ -95,7 +92,7 @@
  *
  *  @return NSArray of SAPIIllust
  */
-- (NSArray *)SAPI_ranking:(NSUInteger)page mode:(NSString *)mode content:(NSString *)content requireAuth:(BOOL)requireAuth;
+- (NSArray *)SAPI_ranking:(NSInteger)page mode:(NSString *)mode content:(NSString *)content requireAuth:(BOOL)requireAuth;
 
 /**
  *  过去的排行
@@ -110,8 +107,8 @@
  *
  *  @return NSArray of SAPIIllust
  */
-- (NSArray *)SAPI_ranking_log:(NSUInteger)Date_Year month:(NSUInteger)Date_Month day:(NSUInteger)Date_Day
-                         mode:(NSString *)mode page:(NSUInteger)page requireAuth:(BOOL)requireAuth;
+- (NSArray *)SAPI_ranking_log:(NSInteger)Date_Year month:(NSInteger)Date_Month day:(NSInteger)Date_Day
+                         mode:(NSString *)mode page:(NSInteger)page requireAuth:(BOOL)requireAuth;
 
 /**
  *  作品信息 (新版本已使用 PAPI_works: 代替)
@@ -122,7 +119,7 @@
  *
  *  @return SAPIIllust
  */
-- (SAPIIllust *)SAPI_illust:(NSUInteger)illust_id requireAuth:(BOOL)requireAuth;
+- (SAPIIllust *)SAPI_illust:(NSInteger)illust_id requireAuth:(BOOL)requireAuth;
 
 /**
  *  用户作品列表
@@ -134,7 +131,7 @@
  *
  *  @return NSArray of SAPIIllust
  */
-- (NSArray *)SAPI_member_illust:(NSUInteger)author_id page:(NSUInteger)page requireAuth:(BOOL)requireAuth;
+- (NSArray *)SAPI_member_illust:(NSInteger)author_id page:(NSInteger)page requireAuth:(BOOL)requireAuth;
 
 /**
  *  用户资料 (新版本已使用 PAPI_users: 代替)
@@ -145,7 +142,7 @@
  *
  *  @return SAPIIllust(Author)
  */
-- (SAPIIllust *)SAPI_user:(NSUInteger)author_id requireAuth:(BOOL)requireAuth;
+- (SAPIIllust *)SAPI_user:(NSInteger)author_id requireAuth:(BOOL)requireAuth;
 
 /**
  *  用户收藏 (新版本已使用 PAPI_users_favorite_works: 代替)
@@ -157,7 +154,7 @@
  *
  *  @return NSArray of SAPIIllust
  */
-- (NSArray *)SAPI_bookmark:(NSUInteger)author_id page:(NSUInteger)page requireAuth:(BOOL)requireAuth;
+- (NSArray *)SAPI_bookmark:(NSInteger)author_id page:(NSInteger)page requireAuth:(BOOL)requireAuth;
 
 /**
  *  标记书签的用户
@@ -169,7 +166,7 @@
  *
  *  @return NSArray of SAPIIllust(Author)
  */
-- (NSArray *)SAPI_illust_bookmarks:(NSUInteger)illust_id page:(NSUInteger)page requireAuth:(BOOL)requireAuth;
+- (NSArray *)SAPI_illust_bookmarks:(NSInteger)illust_id page:(NSInteger)page requireAuth:(BOOL)requireAuth;
 
 /**
  *  关注
@@ -180,7 +177,7 @@
  *
  *  @return NSArray of SAPIIllust(Author)
  */
-- (NSArray *)SAPI_bookmark_user_all:(NSUInteger)author_id page:(NSUInteger)page requireAuth:(BOOL)requireAuth;
+- (NSArray *)SAPI_bookmark_user_all:(NSInteger)author_id page:(NSInteger)page requireAuth:(BOOL)requireAuth;
 
 /**
  *  好P友
@@ -191,7 +188,7 @@
  *
  *  @return NSArray of SAPIIllust(Author)
  */
-- (NSArray *)SAPI_mypixiv_all:(NSUInteger)author_id page:(NSUInteger)page requireAuth:(BOOL)requireAuth;
+- (NSArray *)SAPI_mypixiv_all:(NSInteger)author_id page:(NSInteger)page requireAuth:(BOOL)requireAuth;
 
 
 #pragma mark - Public-API exports
@@ -202,7 +199,7 @@
  *
  *  @return PAPIIllust
  */
-- (PAPIIllust *)PAPI_works:(NSUInteger)illust_id;
+- (PAPIIllust *)PAPI_works:(NSInteger)illust_id;
 
 /**
  *  用户资料
@@ -210,7 +207,7 @@
  *
  *  @return PAPIAuthor
  */
-- (PAPIAuthor *)PAPI_users:(NSUInteger)author_id;
+- (PAPIAuthor *)PAPI_users:(NSInteger)author_id;
 
 /**
  *  我的订阅
@@ -231,7 +228,7 @@
  *
  *  @return PAPIIllustList
  */
-- (PAPIIllustList *)PAPI_users_favorite_works:(NSUInteger)author_id page:(NSUInteger)page publicity:(BOOL)publicity;
+- (PAPIIllustList *)PAPI_users_favorite_works:(NSInteger)author_id page:(NSInteger)page publicity:(BOOL)publicity;
 
 
 @end
