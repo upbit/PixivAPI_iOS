@@ -46,6 +46,7 @@ Both loginIfNeeded: / login: are used to Pixiv OAuth, but loginIfNeeded: auto sa
     }];
 ```
 
+For more information about asyncBlockingQueue, you can read [asyncBlockingQueue: section](https://github.com/upbit/PixivAPI_iOS#asyncblockingqueue)
 
 ### SAPI
 
@@ -271,4 +272,21 @@ output:
 21:59:33.765    fetch 465361 complete
 ```
 
-Tips: MAX_CONCURRENT_OPERATION_COUNT(2) limit only 2 operations run in queue, so operationCount=1 when "21:59:33.765 (1) Author: ふぉぶ(id=465361)" request started.
+_Tips:_ MAX_CONCURRENT_OPERATION_COUNT(2) limit only 2 operations run in queue, so operationCount=1 when "21:59:33.765 (1) Author: ふぉぶ(id=465361)" request started.
+
+**Update UI on mainQueue:**
+
+asyncBlockingQueue: run operations on operationQueue, it causing UI update delay. So use **onMainQueue:** when you reloadData for UI: 
+
+```objective-c
+    __weak ViewController *weakSelf = self;
+    [[PixivAPI sharedInstance] asyncBlockingQueue:^{
+        NSArray *illusts = [[PixivAPI sharedInstance] SAPI_ranking:page mode:@"day" content:@"all" requireAuth:NO];
+
+        [[PixivAPI sharedInstance] onMainQueue:^{
+            // update UI here
+            weakSelf.illusts = [weakSelf.illusts arrayByAddingObjectsFromArray:illusts];
+            [weakSelf.tableView reloadData];
+        }];
+    }];
+```
