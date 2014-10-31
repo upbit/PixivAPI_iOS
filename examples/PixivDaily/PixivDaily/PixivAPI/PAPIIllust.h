@@ -2,7 +2,7 @@
 //  PAPIIllust.h
 //
 //  Created by Zhou Hao on 14/10/19.
-//  Copyright (c) 2014 Kastark. All rights reserved.
+//  Copyright (c) 2014 Zhou Hao. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -24,7 +24,7 @@
 
 #pragma mark - Illust properties
 
-@property (nonatomic, readonly)         NSInteger       llust_id;
+@property (nonatomic, readonly)         NSInteger       illust_id;
 @property (strong, nonatomic, readonly) NSString        *title;
 @property (strong, nonatomic, readonly) NSString        *type;
 @property (nonatomic, readonly)         NSInteger       page_count;
@@ -76,5 +76,7 @@
 
 @property (strong, nonatomic, readonly) NSDictionary    *metadata;
 @property (strong, nonatomic, readonly) NSArray         *pages;
+
+@property (strong, nonatomic, readonly) NSString        *true_url_large;
 
 @end

@@ -34,6 +34,11 @@
 - (void)asyncBlockingQueue:(void (^)(void))mainOperations;
 - (void)asyncBlockingQueue:(NSOperationQueuePriority)queuePriority operations:(void (^)(void))mainOperations;
 /**
+ *  Wait all operations (by asyncBlockingQueue:) are finished
+ */
+- (void)asyncWaitAllOperationsAreFinished:(void (^)(void))onCompletion;
+
+/**
  *  Run operation in mainQueue, it was short for [NSOperationQueue mainQueue] addOperationWithBlock:
  */
 - (void)onMainQueue:(void (^)(void))operationBlock;
@@ -68,7 +73,8 @@
  *  @return YES - success; NO - error
  */
 - (BOOL)loginIfNeeded:(NSString *)username password:(NSString *)password;
-- (BOOL)loadAuthFromUserDefaults;
+- (BOOL)loadAuthFromUserDefaults:(NSString *)username;
+- (void)dropAuthFromUserDefaults;
 
 /**
  *  Set session string for PHPSESSID (get PHPSESSID from api.session)

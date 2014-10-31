@@ -2,7 +2,7 @@
 //  PAPIIllust.m
 //
 //  Created by Zhou Hao on 14/10/19.
-//  Copyright (c) 2014 Kastark. All rights reserved.
+//  Copyright (c) 2014 Zhou Hao. All rights reserved.
 //
 
 #import "PAPIIllust.h"
@@ -284,6 +284,15 @@
         return self.metadata[@"pages"];
     }
     return nil;
+}
+
+- (NSString *)true_url_large
+{
+    if (!self.pages) {
+        return self.url_large;
+    } else {
+        return [self.pages firstObject][@"image_urls"][@"large"];
+    }
 }
 
 @end

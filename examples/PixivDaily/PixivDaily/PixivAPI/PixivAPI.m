@@ -65,6 +65,14 @@
     [self asyncBlockingQueue:NSOperationQueuePriorityNormal operations:mainOperations];
 }
 
+- (void)asyncWaitAllOperationsAreFinished:(void (^)(void))onCompletion
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.operationQueue waitUntilAllOperationsAreFinished];
+        onCompletion();
+    });
+}
+
 - (void)onMainQueue:(void (^)(void))operationBlock
 {
     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
@@ -164,7 +172,7 @@
     };
 
     NSDictionary *response = [self URLFetch:@"POST" url:url headers:login_headers params:nil data:data];
-    if (!response) {
+    if (!response || (!response[@"data"])) {
         return nil;     // error return nil
     }
 
@@ -185,13 +193,13 @@
         }
     }
     
-    [self saveAuthToUserDefaults:self.access_token session:self.session];
+    [self saveAuthToUserDefaults:self.access_token session:self.session username:username];
     return json_result;
 }
 
 - (BOOL)loginIfNeeded:(NSString *)username password:(NSString *)password
 {
-    if (![self loadAuthFromUserDefaults]) {
+    if (![self loadAuthFromUserDefaults:username]) {
         // Auth expired, call login:
         NSDictionary *auth = [self login:username password:password];
         if (auth) {
@@ -219,13 +227,14 @@
     self.session = session;
 }
 
-- (void)saveAuthToUserDefaults:(NSString *)access_token session:(NSString *)session
+- (void)saveAuthToUserDefaults:(NSString *)access_token session:(NSString *)session username:(NSString *)username
 {
     NSDate *now = [NSDate date];
     NSDate *expire = [now dateByAddingTimeInterval: 3600.0-30.0];      // -30 network timeout sec
     
     NSDictionary *auth_storage = @{
         @"expired": expire,
+        @"username": username,
         @"bearer_token": access_token,
         @"session": session,
     };
@@ -235,13 +244,22 @@
 }
 
 // return NO if Auth expired
-- (BOOL)loadAuthFromUserDefaults
+- (BOOL)loadAuthFromUserDefaults:(NSString *)username
 {
     NSDictionary *auth_storage = [[NSUserDefaults standardUserDefaults] objectForKey:PIXIV_AUTH_STORAGE_KEY];
     if (auth_storage) {
         NSDate *now = [NSDate date];
         NSDate *expire = auth_storage[@"expired"];
         if ([expire compare:now] == NSOrderedDescending) {
+            if (username) {
+                // if username is set, check username
+                NSString *last_user = auth_storage[@"username"];
+                if (![username isEqualToString:last_user]) {
+                    NSLog(@"found last auth for '%@', but search for user '%@'", last_user, username);
+                    return NO;
+                }
+            }
+            
             self.access_token = auth_storage[@"bearer_token"];
             self.session = auth_storage[@"session"];
             NSLog(@"find vailed Auth:\nAccessToken=%@\nSession=%@", self.access_token, self.session);
@@ -249,6 +267,12 @@
         }
     }
     return NO;
+}
+
+- (void)dropAuthFromUserDefaults
+{
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:PIXIV_AUTH_STORAGE_KEY];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 #pragma mark - SAPI common
@@ -477,6 +501,11 @@ typedef NS_ENUM(NSInteger, PARSER_STATE) {
     };
     
     NSDictionary *response = [self URLFetch:@"GET" url:url headers:papi_headers params:params data:nil];
+    if (!response[@"data"]) {
+        NSLog(@"GET %@ return data: nil: %@", url, response);
+        return nil;
+    }
+    
     NSError* error;
     NSDictionary* json_result = [NSJSONSerialization JSONObjectWithData:response[@"data"] options:kNilOptions error:&error];
     //NSLog(@"pixiv json: %@", json_result);

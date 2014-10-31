@@ -1,0 +1,28 @@
+PODS:
+  - CHTCollectionViewWaterfallLayout (HEAD based on 0.8)
+  - FMDB (HEAD based on 2.4):
+    - FMDB/standard
+  - FMDB/common (HEAD based on 2.4)
+  - FMDB/standard (HEAD based on 2.4):
+    - FMDB/common
+  - REFrostedViewController (2.4.7)
+  - SDWebImage (3.7.1):
+    - SDWebImage/Core
+  - SDWebImage/Core (3.7.1)
+  - SVProgressHUD (HEAD based on 1.0)
+
+DEPENDENCIES:
+  - CHTCollectionViewWaterfallLayout (HEAD)
+  - FMDB (HEAD)
+  - REFrostedViewController (~> 2.4.7)
+  - SDWebImage (~> 3.6)
+  - SVProgressHUD (HEAD)
+
+SPEC CHECKSUMS:
+  CHTCollectionViewWaterfallLayout: 14b7950cbe45ae9297e7759148d69b022bac047d
+  FMDB: 0b2fa25e5264ef177973c0cb8c02c711107979aa
+  REFrostedViewController: 08870a24788191339608b80b2bd4fce549858f0d
+  SDWebImage: 116e88633b5b416ea0ca4b334a4ac59cf72dd38d
+  SVProgressHUD: 5034c6e22b8c2ca3e09402e48d41ed0340aa1c50
+
+COCOAPODS: 0.34.4
