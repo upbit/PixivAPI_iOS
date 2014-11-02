@@ -50,7 +50,7 @@
     doubleTapGesture.numberOfTapsRequired = 2;
     [self.scrollView addGestureRecognizer:doubleTapGesture];
     [singleTapGesture requireGestureRecognizerToFail:doubleTapGesture];
-    
+
     // left/right swipe gesture
     self.scrollView.userInteractionEnabled = YES;
     UISwipeGestureRecognizer *leftSwipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(leftSwipe:)];

@@ -98,14 +98,12 @@
                                 <date key="minimumDate" timeIntervalSinceReferenceDate="-31651200">
                                     <!--1999-12-31 16:00:00 +0000-->
                                 </date>
-                                <variation key="widthClass=compact"/>
                             </datePicker>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kWZ-ZB-BPt">
                                 <rect key="frame" x="0.0" y="420" width="600" height="180"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="180" id="ku0-zs-QhZ"/>
                                 </constraints>
-                                <variation key="widthClass=compact"/>
                             </pickerView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="yVl-RH-BZx">
                                 <rect key="frame" x="204" y="384" width="192" height="29"/>
@@ -119,7 +117,6 @@
                                     <segment title="Mode"/>
                                     <segment title="Date"/>
                                 </segments>
-                                <variation key="widthClass=compact"/>
                                 <connections>
                                     <action selector="pickerSegmentChanged:" destination="jn0-LR-wkC" eventType="valueChanged" id="toc-7P-TrE"/>
                                 </connections>
@@ -132,7 +129,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
-                                <variation key="widthClass=compact"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="S6X-SD-PBO">
                                 <rect key="frame" x="112" y="80" width="456" height="30"/>
@@ -160,7 +156,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
-                                <variation key="widthClass=compact"/>
                             </label>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="D8K-0X-xSI">
                                 <rect key="frame" x="276" y="193" width="51" height="31"/>
@@ -389,57 +384,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YqS-WT-Z31" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="654" y="918"/>
-        </scene>
-        <!--Web Scroll Image View Controller-->
-        <scene sceneID="vGT-m5-O1i">
-            <objects>
-                <viewController useStoryboardIdentifierAsRestorationIdentifier="YES" id="SF9-Dx-vFc" customClass="SDWebScrollImageViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Wnz-te-WAN"/>
-                        <viewControllerLayoutGuide type="bottom" id="7ui-oJ-DfF"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Ddp-HK-Eig">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="redraw" maximumZoomScale="3" translatesAutoresizingMaskIntoConstraints="NO" id="2Vi-J4-IlQ">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="100" placeholderIntrinsicHeight="100" translatesAutoresizingMaskIntoConstraints="NO" id="UG5-8q-bUY">
-                                        <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
-                                    </imageView>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstItem="UG5-8q-bUY" firstAttribute="top" secondItem="2Vi-J4-IlQ" secondAttribute="top" id="Gy3-IW-tV3"/>
-                                    <constraint firstItem="UG5-8q-bUY" firstAttribute="trailing" secondItem="2Vi-J4-IlQ" secondAttribute="trailing" id="Ilo-9Q-LIF"/>
-                                    <constraint firstItem="UG5-8q-bUY" firstAttribute="leading" secondItem="2Vi-J4-IlQ" secondAttribute="leading" id="cfy-2h-PsL"/>
-                                    <constraint firstItem="UG5-8q-bUY" firstAttribute="bottom" secondItem="2Vi-J4-IlQ" secondAttribute="bottom" id="wl1-iR-sXK"/>
-                                </constraints>
-                            </scrollView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="2Vi-J4-IlQ" firstAttribute="leading" secondItem="Ddp-HK-Eig" secondAttribute="leading" id="9YZ-qg-ouR"/>
-                            <constraint firstAttribute="bottom" secondItem="2Vi-J4-IlQ" secondAttribute="bottom" id="Jqk-fE-yU6"/>
-                            <constraint firstAttribute="trailing" secondItem="2Vi-J4-IlQ" secondAttribute="trailing" id="ScA-8X-dl3"/>
-                            <constraint firstItem="2Vi-J4-IlQ" firstAttribute="top" secondItem="Ddp-HK-Eig" secondAttribute="top" id="XWh-2r-CRL"/>
-                        </constraints>
-                    </view>
-                    <extendedEdge key="edgesForExtendedLayout"/>
-                    <toolbarItems/>
-                    <connections>
-                        <outlet property="constraintBottom" destination="wl1-iR-sXK" id="5gI-YM-7n8"/>
-                        <outlet property="constraintLeft" destination="cfy-2h-PsL" id="Gd6-GD-s2Q"/>
-                        <outlet property="constraintRight" destination="Ilo-9Q-LIF" id="pis-pi-Z8v"/>
-                        <outlet property="constraintTop" destination="Gy3-IW-tV3" id="Kau-lF-Vt1"/>
-                        <outlet property="imageView" destination="UG5-8q-bUY" id="UCq-UD-gGR"/>
-                        <outlet property="scrollView" destination="2Vi-J4-IlQ" id="LAw-EV-Of8"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="D3P-PD-YZs" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="654" y="181.5"/>
         </scene>
     </scenes>
     <resources>

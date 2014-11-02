@@ -47,39 +47,49 @@
     }];
 }
 
-- (NSArray *)fetchNextRankingLog
+- (void)goPriorRankingRound
 {
-    // 检查翻页是否达到深度限制，达到则自动日期前移
     NSString *mode = [ModelSettings sharedInstance].mode;
-    if (self.currentPage >= [ModelSettings sharedInstance].pageLimit) {
-        if ([mode isEqualToString:@"weekly"] || [mode isEqualToString:@"weekly_r18"]) {
-            [[ModelSettings sharedInstance] updateDateIntervalAgo:7*86400.0];
-        } else if ([mode isEqualToString:@"monthly"]) {
-            [[ModelSettings sharedInstance] updateDateIntervalAgo:30*86400.0];
-        } else {
-            [[ModelSettings sharedInstance] updateDateIntervalAgo:86400.0];
-        }
-        
-        [ModelSettings sharedInstance].isChanged = NO;
-        self.currentPage = 0;
-        //self.illusts = @[];
+    
+    if ([mode isEqualToString:@"weekly"] || [mode isEqualToString:@"weekly_r18"]) {
+        [[ModelSettings sharedInstance] updateDateIntervalAgo:7*86400.0];
+    } else if ([mode isEqualToString:@"monthly"]) {
+        [[ModelSettings sharedInstance] updateDateIntervalAgo:30*86400.0];
+    } else {
+        [[ModelSettings sharedInstance] updateDateIntervalAgo:86400.0];
     }
     
+    [ModelSettings sharedInstance].isChanged = NO;
+    self.currentPage = 0;
+    
+    //self.illusts = @[];
+}
+
+- (NSArray *)fetchNextRankingLog
+{
     self.currentPage += 1;
     [self updateTitle];
     
+    NSString *mode = [ModelSettings sharedInstance].mode;
     NSCalendarUnit flags = NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear;
     NSDateComponents *components = [[NSCalendar currentCalendar] components:flags fromDate:[ModelSettings sharedInstance].date];
 
-    NSLog(@"get RankingLog(%@, %ld-%ld-%ld, page=%ld)", mode, (long)[components year], (long)[components month], (long)[components day], (long)self.currentPage);
-    
 #ifndef __DISABLE_R18
-    return [[PixivAPI sharedInstance] SAPI_ranking_log:[components year] month:[components month] day:[components day]
+    NSArray *illusts = [[PixivAPI sharedInstance] SAPI_ranking_log:[components year] month:[components month] day:[components day]
                                                   mode:mode page:self.currentPage requireAuth:YES];
 #else
-    return [[PixivAPI sharedInstance] SAPI_ranking_log:[components year] month:[components month] day:[components day]
+    NSArray *illusts = [[PixivAPI sharedInstance] SAPI_ranking_log:[components year] month:[components month] day:[components day]
                                                   mode:mode page:self.currentPage requireAuth:NO];
 #endif
+    
+    NSLog(@"get RankingLog(%@, %ld-%ld-%ld, page=%ld) return %ld works", mode, (long)[components year], (long)[components month], (long)[components day], (long)self.currentPage, (long)illusts.count);
+    
+    if ((illusts.count == 0) ||     // 已经更多数据或出错
+        (self.currentPage >= [ModelSettings sharedInstance].pageLimit)) {   // 翻页达到深度限制
+        [self goPriorRankingRound];
+    }
+
+    return illusts;
 }
 
 - (void)asyncGetRankingLog

@@ -87,6 +87,8 @@
     float fitZoom = MIN(self.view.bounds.size.width / self.imageView.image.size.width,
                         self.view.bounds.size.height / self.imageView.image.size.height);
     
+    fitZoom -= 0.0001;      // FIX BUG: zoom image small then frame, so disable scrollView's PanGesture
+    
     self.scrollView.minimumZoomScale = (fitZoom < 1.0) ? fitZoom : 1.0;
     //self.scrollView.maximumZoomScale = 3.0;
     

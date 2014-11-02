@@ -30,6 +30,9 @@
 
 - (BOOL)replaceSAPIIllustToPAPIIllustAtIndex:(NSInteger)index
 {
+    if (index >= self.illusts.count)
+        return NO;
+    
     id raw_illust = self.illusts[index];
     if ((self.showLargeSize) && ([raw_illust isKindOfClass:[SAPIIllust class]])) {
         SAPIIllust *SAPI_illust = (SAPIIllust *)raw_illust;
@@ -41,6 +44,7 @@
         }
         return YES;
     }
+    
     return NO;
 }
 
@@ -69,16 +73,16 @@
     // preload next 2 illust
     for (NSInteger i = 1; i <= 2; i++) {
         [[PixivAPI sharedInstance] asyncBlockingQueue:^{
-            [weakSelf replaceSAPIIllustToPAPIIllustAtIndex:weakSelf.index+i];
-            
-            [[PixivAPI sharedInstance] onMainQueue:^{
-                NSDictionary *preload_record = [weakSelf illustRecordWithIndex:weakSelf.index+i];
-                if (!preload_record) {
-                    NSLog(@"safeGetIllustBaseInfo(%ld) error", (long)(weakSelf.index+i));
-                    return;
-                }
-                [weakSelf preloadImageWithBaseInfo:preload_record];
-            }];
+            if ([weakSelf replaceSAPIIllustToPAPIIllustAtIndex:weakSelf.index+i]) {
+                [[PixivAPI sharedInstance] onMainQueue:^{
+                    NSDictionary *preload_record = [weakSelf illustRecordWithIndex:weakSelf.index+i];
+                    if (!preload_record) {
+                        NSLog(@"safeGetIllustBaseInfo(%ld) error", (long)(weakSelf.index+i));
+                        return;
+                    }
+                    [weakSelf preloadImageWithBaseInfo:preload_record];
+                }];
+            }
         }];
     }
 }
