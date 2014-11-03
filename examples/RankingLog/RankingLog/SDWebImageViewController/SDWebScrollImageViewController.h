@@ -7,6 +7,7 @@
 //
 
 #import "ScrollImageViewController.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 @interface SDWebScrollImageViewController : ScrollImageViewController
 
@@ -14,6 +15,9 @@
 @property (nonatomic) NSInteger index;
 @property (strong, nonatomic) NSArray *illusts;     // of DB:IllustBase
 @property (nonatomic) BOOL showLargeSize;
+
+@property (strong, nonatomic) UIImageView *preloadImageView;
+- (void)simulatePixivRefererAndUserAgent:(NSInteger)illust_id;
 
 // for override
 - (NSDictionary *)illustRecordWithIndex:(NSInteger)index;           // call before illust download/preload

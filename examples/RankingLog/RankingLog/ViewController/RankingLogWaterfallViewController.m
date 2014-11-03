@@ -21,9 +21,7 @@
 #define _PASSWORD @"6654321"
 
 @interface RankingLogWaterfallViewController ()
-
 @property (nonatomic) NSInteger currentPage;
-
 @end
 
 @implementation RankingLogWaterfallViewController
@@ -149,10 +147,14 @@
     
     if (![[ModelSettings sharedInstance] loadSettingFromUserDefaults]) {
         // 第一次进入先跳转设置页卡
-        [self performSegueWithIdentifier:@"DatePicker" sender:self];
+        [self performSegueWithIdentifier:@"DatePickerSegue" sender:self];
     } else {
         [self loginAndRefreshView];
     }
+    
+#ifndef __DISABLE_R18
+    [self.navigationItem.leftBarButtonItem setEnabled:NO];
+#endif
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -168,11 +170,19 @@
     }
     
     [self updateTitle];
+    
+#ifndef __DISABLE_R18
+    if ([[ModelSettings sharedInstance].mode rangeOfString:@"r18"].location != NSNotFound) {
+        [self.navigationItem.leftBarButtonItem setEnabled:YES];
+    } else {
+        [self.navigationItem.leftBarButtonItem setEnabled:NO];
+    }
+#endif
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString:@"DatePicker"]) {
+    if ([segue.identifier isEqualToString:@"DatePickerSegue"]) {
         if ([segue.destinationViewController isKindOfClass:[DatePickerViewController class]]) {
             DatePickerViewController *dpvc = (DatePickerViewController *)segue.destinationViewController;
             // modeArray for RankingLog
@@ -191,6 +201,10 @@
             ivc.illusts = self.illusts;
             ivc.index = indexPath.row;
         }
+        
+    } else if ([segue.identifier isEqualToString:@"bookmarkSegue"]) {
+        // nothing to set
+        
     }
 }
 

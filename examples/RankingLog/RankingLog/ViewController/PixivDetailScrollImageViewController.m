@@ -13,12 +13,18 @@
 #import "AppDelegate.h"
 #import "ModelSettings.h"
 #import "PixivAPI.h"
+#import "DetailInfoContainerViewController.h"
 
 @interface PixivDetailScrollImageViewController ()
-
+@property (weak, nonatomic) IBOutlet UIView *contantButtomView;
 @end
 
 @implementation PixivDetailScrollImageViewController
+
+- (DetailInfoContainerViewController *)_embedViewController
+{
+    return (DetailInfoContainerViewController *)self.childViewControllers[0];;
+}
 
 - (void)viewDidLoad
 {
@@ -30,9 +36,6 @@
 
 - (BOOL)replaceSAPIIllustToPAPIIllustAtIndex:(NSInteger)index
 {
-    if (index >= self.illusts.count)
-        return NO;
-    
     id raw_illust = self.illusts[index];
     if ((self.showLargeSize) && ([raw_illust isKindOfClass:[SAPIIllust class]])) {
         SAPIIllust *SAPI_illust = (SAPIIllust *)raw_illust;
@@ -44,14 +47,65 @@
         }
         return YES;
     }
-    
     return NO;
 }
 
+// override for progress
 - (void)realShowImageWithBaseInfo:(NSDictionary *)illust_record
 {
-    [super realShowImageWithBaseInfo:illust_record];
+    NSInteger illust_id = [illust_record[@"illust_id"] integerValue];
+    NSString *image_url = illust_record[@"image_url"];
+    NSString *title = illust_record[@"title"];
     self.navigationItem.title = illust_record[@"title"];
+    
+    NSLog(@"download(%@, id=%ld): %@", title, (long)illust_id, image_url);
+    
+    [self simulatePixivRefererAndUserAgent:illust_id];
+    
+    __weak PixivDetailScrollImageViewController *weakSelf = self;
+    [self.imageView sd_setImageWithURL:[NSURL URLWithString:image_url]
+                      placeholderImage:self.preloadImageView.image options:SDWebImageHighPriority
+                              progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+                                  //NSLog(@"download id=%ld: %.1f%%", (long)illust_id, (float)receivedSize/expectedSize*100);
+                                  [[weakSelf _embedViewController] updateDownloadProgress:(float)receivedSize/expectedSize];
+                              }
+                             completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                                 if (error) {
+                                     NSLog(@"download(%@, id=%ld) error: %@", title, (long)illust_id, error);
+                                 } else {
+                                     NSLog(@"download(%@, id=%ld) completed.", title, (long)illust_id);
+                                 }
+                                 
+                                 dispatch_async(dispatch_get_main_queue(), ^{
+                                     [weakSelf onImageDownloaded:image];
+                                     // hide progress bar
+                                     [[weakSelf _embedViewController] updateDownloadProgress:-1.0];
+                                 });
+                             }];
+}
+
+// override for progress
+- (void)preloadImageWithBaseInfo:(NSDictionary *)illust_record index:(NSInteger)index
+{
+    NSInteger illust_id = [illust_record[@"illust_id"] integerValue];
+    NSString *image_url = illust_record[@"image_url"];
+    NSString *title = illust_record[@"title"];
+    
+    NSLog(@" preload(%@, id=%ld): %@", title, (long)illust_id, image_url);
+    
+    [self simulatePixivRefererAndUserAgent:illust_id];
+    
+    __weak PixivDetailScrollImageViewController *weakSelf = self;
+    SDWebImageManager *manager = [SDWebImageManager sharedManager];
+    [manager downloadImageWithURL:[NSURL URLWithString:image_url] options:0
+                         progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+                             //NSLog(@" preload id=%ld: %.1f%%", (long)illust_id, (float)receivedSize/expectedSize*100);
+                             [[weakSelf _embedViewController] updatePreloadProgress:(float)receivedSize/expectedSize];
+                         }
+                        completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
+                            NSLog(@" preload id=%ld: completed", (long)illust_id);
+                            [[weakSelf _embedViewController] updatePreloadProgress:-1.0];
+                        }];
 }
 
 - (void)reloadImage
@@ -67,22 +121,32 @@
                 return;
             }
             [weakSelf realShowImageWithBaseInfo:illust_record];
+            
+            // update embedView for PAPIIllust
+            DetailInfoContainerViewController *dicvc = [weakSelf _embedViewController];
+            dicvc.illust = weakSelf.illusts[weakSelf.index];
+            [dicvc updateEmbedView];
         }];
     }];
 
     // preload next 2 illust
     for (NSInteger i = 1; i <= 2; i++) {
+        if (self.index+i >= self.illusts.count) {
+            // TO-DO: fetch next page here
+            continue;
+        }
+
         [[PixivAPI sharedInstance] asyncBlockingQueue:^{
-            if ([weakSelf replaceSAPIIllustToPAPIIllustAtIndex:weakSelf.index+i]) {
-                [[PixivAPI sharedInstance] onMainQueue:^{
-                    NSDictionary *preload_record = [weakSelf illustRecordWithIndex:weakSelf.index+i];
-                    if (!preload_record) {
-                        NSLog(@"safeGetIllustBaseInfo(%ld) error", (long)(weakSelf.index+i));
-                        return;
-                    }
-                    [weakSelf preloadImageWithBaseInfo:preload_record];
-                }];
-            }
+            [weakSelf replaceSAPIIllustToPAPIIllustAtIndex:weakSelf.index+i];
+
+            [[PixivAPI sharedInstance] onMainQueue:^{
+                NSDictionary *preload_record = [weakSelf illustRecordWithIndex:weakSelf.index+i];
+                if (!preload_record) {
+                    NSLog(@"safeGetIllustBaseInfo(%ld) error", (long)(weakSelf.index+i));
+                    return;
+                }
+                [weakSelf preloadImageWithBaseInfo:preload_record index:i];
+            }];
         }];
     }
 }
@@ -90,7 +154,22 @@
 - (void)singleTap:(UITapGestureRecognizer *)sender
 {
     [self.navigationController setNavigationBarHidden:!self.navigationController.isNavigationBarHidden animated:YES];
+    
+    if (self.navigationController.isNavigationBarHidden) {
+        [self.contantButtomView setHidden:YES];
+    } else {
+        [self.contantButtomView setHidden:NO];
+    }
+    
     [self updateZoom];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"embedView"]) {
+        DetailInfoContainerViewController *dicvc = (DetailInfoContainerViewController *)segue.destinationViewController;
+        dicvc.illust = self.illusts[self.index];
+    }
 }
 
 #pragma mark - Export Image
@@ -137,7 +216,7 @@
     [library writeImageToSavedPhotosAlbum:[image CGImage]
                               orientation:(ALAssetOrientation)[image imageOrientation]
                           completionBlock:^(NSURL *assetURL, NSError *error) {
-                              
+                              // on main queue
                               dispatch_async(dispatch_get_main_queue(), ^{
                                   if (error) {
                                       [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"Export error: %@", [error localizedDescription]]];
@@ -145,7 +224,6 @@
                                       [SVProgressHUD dismiss];
                                   }
                               });
-                              
                           }];
 }
 

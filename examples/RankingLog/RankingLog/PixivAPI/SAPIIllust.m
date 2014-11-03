@@ -2,7 +2,7 @@
 //  SAPIIllust.m
 //
 //  Created by Zhou Hao on 14/10/19.
-//  Copyright (c) 2014 Kastark. All rights reserved.
+//  Copyright (c) 2014 Zhou Hao. All rights reserved.
 //
 
 #import "SAPIIllust.h"

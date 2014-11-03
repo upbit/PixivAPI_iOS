@@ -2,21 +2,18 @@
 //  PixivAPI.h
 //
 //  Created by Zhou Hao on 14-10-8.
-//  Copyright (c) 2014 Kastark. All rights reserved.
+//  Copyright (c) 2014 Zhou Hao. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-
 #import "PixivDefines.h"
-#import "SAPIIllust.h"
-#import "PAPIAuthor.h"
-#import "PAPIIllust.h"
-#import "PAPIIllustList.h"
 
 @interface PixivAPI : NSObject
 
 @property (strong, nonatomic) NSString *access_token;
 @property (strong, nonatomic) NSString *session;
+@property (nonatomic) NSInteger user_id;
+
 @property (strong, nonatomic) NSOperationQueue *operationQueue;
 
 #pragma mark - common

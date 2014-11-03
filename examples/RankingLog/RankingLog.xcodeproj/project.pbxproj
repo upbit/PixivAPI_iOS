@@ -12,6 +12,8 @@
 		CB0593D31A0219020022E93C /* RankingLogWaterfallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB0593D11A0219020022E93C /* RankingLogWaterfallViewController.m */; };
 		CB0593D61A0219670022E93C /* PixivDetailScrollImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB0593D51A0219670022E93C /* PixivDetailScrollImageViewController.m */; };
 		CB0593D91A02279C0022E93C /* ModelSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = CB0593D81A02279C0022E93C /* ModelSettings.m */; };
+		CB5E47E61A0718E700F167FE /* DetailInfoContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5E47E51A0718E700F167FE /* DetailInfoContainerViewController.m */; };
+		CB5E47E91A07649F00F167FE /* BookmarksWaterfallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5E47E81A07649F00F167FE /* BookmarksWaterfallViewController.m */; };
 		CBC653B919FFC7F7002AD057 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CBC653B819FFC7F7002AD057 /* main.m */; };
 		CBC653BC19FFC7F7002AD057 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CBC653BB19FFC7F7002AD057 /* AppDelegate.m */; };
 		CBC653C219FFC7F7002AD057 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CBC653C019FFC7F7002AD057 /* Main.storyboard */; };
@@ -51,6 +53,10 @@
 		CB0593D51A0219670022E93C /* PixivDetailScrollImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PixivDetailScrollImageViewController.m; sourceTree = "<group>"; };
 		CB0593D71A02279C0022E93C /* ModelSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModelSettings.h; sourceTree = "<group>"; };
 		CB0593D81A02279C0022E93C /* ModelSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModelSettings.m; sourceTree = "<group>"; };
+		CB5E47E41A0718E700F167FE /* DetailInfoContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailInfoContainerViewController.h; sourceTree = "<group>"; };
+		CB5E47E51A0718E700F167FE /* DetailInfoContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailInfoContainerViewController.m; sourceTree = "<group>"; };
+		CB5E47E71A07649F00F167FE /* BookmarksWaterfallViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookmarksWaterfallViewController.h; sourceTree = "<group>"; };
+		CB5E47E81A07649F00F167FE /* BookmarksWaterfallViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookmarksWaterfallViewController.m; sourceTree = "<group>"; };
 		CBC653B319FFC7F7002AD057 /* RankingLog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RankingLog.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBC653B719FFC7F7002AD057 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CBC653B819FFC7F7002AD057 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -113,12 +119,16 @@
 		CB0593CD1A0219020022E93C /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				CB5E47E71A07649F00F167FE /* BookmarksWaterfallViewController.h */,
+				CB5E47E81A07649F00F167FE /* BookmarksWaterfallViewController.m */,
 				CB0593D01A0219020022E93C /* RankingLogWaterfallViewController.h */,
 				CB0593D11A0219020022E93C /* RankingLogWaterfallViewController.m */,
 				CB0593CE1A0219020022E93C /* DatePickerViewController.h */,
 				CB0593CF1A0219020022E93C /* DatePickerViewController.m */,
 				CB0593D41A0219670022E93C /* PixivDetailScrollImageViewController.h */,
 				CB0593D51A0219670022E93C /* PixivDetailScrollImageViewController.m */,
+				CB5E47E41A0718E700F167FE /* DetailInfoContainerViewController.h */,
+				CB5E47E51A0718E700F167FE /* DetailInfoContainerViewController.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -390,9 +400,11 @@
 				CBC653EC19FFC8D9002AD057 /* SAPIIllust.m in Sources */,
 				CBC653E819FFC8D9002AD057 /* PAPIAuthor.m in Sources */,
 				CB0593D61A0219670022E93C /* PixivDetailScrollImageViewController.m in Sources */,
+				CB5E47E91A07649F00F167FE /* BookmarksWaterfallViewController.m in Sources */,
 				CBC653E919FFC8D9002AD057 /* PAPIIllust.m in Sources */,
 				CB0593D21A0219020022E93C /* DatePickerViewController.m in Sources */,
 				CB0593D31A0219020022E93C /* RankingLogWaterfallViewController.m in Sources */,
+				CB5E47E61A0718E700F167FE /* DetailInfoContainerViewController.m in Sources */,
 				CBC6540219FFCEE4002AD057 /* CHTCollectionViewCell.m in Sources */,
 				CBC653F519FFC8E0002AD057 /* PixivWaterfallViewController.m in Sources */,
 				CBC653B919FFC7F7002AD057 /* main.m in Sources */,

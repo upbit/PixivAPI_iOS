@@ -2,7 +2,7 @@
 //  PixivAPI.m
 //
 //  Created by Zhou Hao on 14-10-8.
-//  Copyright (c) 2014 Kastark. All rights reserved.
+//  Copyright (c) 2014 Zhou Hao. All rights reserved.
 //
 
 #import "PixivAPI.h"
@@ -180,6 +180,7 @@
     NSError* error;
     NSDictionary* json_result = [NSJSONSerialization JSONObjectWithData:response[@"data"] options:kNilOptions error:&error];
     self.access_token = json_result[@"response"][@"access_token"];
+    self.user_id = [json_result[@"response"][@"user"][@"id"] integerValue];
     NSLog(@"AccessToken:%@", self.access_token);
     
     // from response.header["Set-Cookie"] get PHPSESSID
@@ -193,7 +194,7 @@
         }
     }
     
-    [self saveAuthToUserDefaults:self.access_token session:self.session username:username];
+    [self saveAuthToUserDefaults:self.access_token session:self.session username:username user_id:self.user_id];
     return json_result;
 }
 
@@ -227,7 +228,7 @@
     self.session = session;
 }
 
-- (void)saveAuthToUserDefaults:(NSString *)access_token session:(NSString *)session username:(NSString *)username
+- (void)saveAuthToUserDefaults:(NSString *)access_token session:(NSString *)session username:(NSString *)username user_id:(NSInteger)user_id
 {
     NSDate *now = [NSDate date];
     NSDate *expire = [now dateByAddingTimeInterval: 3600.0-30.0];      // -30 network timeout sec
@@ -235,6 +236,7 @@
     NSDictionary *auth_storage = @{
         @"expired": expire,
         @"username": username,
+        @"user_id": @(user_id),
         @"bearer_token": access_token,
         @"session": session,
     };
@@ -262,6 +264,12 @@
             
             self.access_token = auth_storage[@"bearer_token"];
             self.session = auth_storage[@"session"];
+            if (auth_storage[@"user_id"]) {
+                self.user_id = [auth_storage[@"user_id"] integerValue];
+            } else {
+                self.user_id = 0;
+                return NO;          // old entry, retry login
+            }
             NSLog(@"find vailed Auth:\nAccessToken=%@\nSession=%@", self.access_token, self.session);
             return YES;
         }
@@ -407,9 +415,9 @@ typedef NS_ENUM(NSInteger, PARSER_STATE) {
     NSString *api_url = @"ranking_log.php";
     NSDictionary *params = @{
         @"mode": mode,
-        @"Date_Year": @(Date_Year),
-        @"Date_Month": @(Date_Month),
-        @"Date_Day": @(Date_Day),
+        @"Date_Year": [NSString stringWithFormat:@"%ld", (long)Date_Year],
+        @"Date_Month": [NSString stringWithFormat:@"%.2ld", (long)Date_Month],
+        @"Date_Day": [NSString stringWithFormat:@"%.2ld", (long)Date_Day],
         @"p": @((page>0) ? page : 1),
     };
     return [self _SAPI_URLFetchList:api_url params:params requireAuth:requireAuth];

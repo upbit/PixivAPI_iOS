@@ -7,12 +7,12 @@
 //
 
 #import "SDWebScrollImageViewController.h"
-#import <SDWebImage/UIImageView+WebCache.h>
+
 #import "AppDelegate.h"
 #import "PixivAPI.h"
 
 @interface SDWebScrollImageViewController ()
-@property (strong, nonatomic) UIImageView *preloadImageView;
+
 @end
 
 @implementation SDWebScrollImageViewController
@@ -163,9 +163,7 @@
     
     SDWebImageManager *manager = [SDWebImageManager sharedManager];
     [manager downloadImageWithURL:[NSURL URLWithString:image_url] options:0
-                         progress:^(NSInteger receivedSize, NSInteger expectedSize) {
-                             //NSLog(@" preload id=%ld: %.1f%%", (long)illust_id, (float)receivedSize/expectedSize*100);
-                         }
+                         progress:^(NSInteger receivedSize, NSInteger expectedSize) { ; }
                         completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
                             NSLog(@" preload id=%ld: completed", (long)illust_id);
                         }];
