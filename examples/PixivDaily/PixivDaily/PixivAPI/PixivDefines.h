@@ -2,8 +2,13 @@
 //  PixivDefines.h
 //
 //  Created by Zhou Hao on 14/10/20.
-//  Copyright (c) 2014 Kastark. All rights reserved.
+//  Copyright (c) 2014 Zhou Hao. All rights reserved.
 //
+
+#import "SAPIIllust.h"
+#import "PAPIAuthor.h"
+#import "PAPIIllust.h"
+#import "PAPIIllustList.h"
 
 #pragma mark - configs
 
@@ -11,7 +16,6 @@
 #define MAX_CONCURRENT_OPERATION_COUNT  (2)
 // API fetch timeout
 #define MAX_PIXIVAPI_FETCH_TIMEOUT      (30)
-
 
 
 #pragma mark - defaults

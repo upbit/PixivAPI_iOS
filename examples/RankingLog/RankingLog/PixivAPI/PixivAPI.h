@@ -233,5 +233,23 @@
  */
 - (PAPIIllustList *)PAPI_users_favorite_works:(NSInteger)author_id page:(NSInteger)page publicity:(BOOL)publicity;
 
+/**
+ *  (写)新增收藏
+ *
+ *  @param illust_id        [id for work]
+ *  @param publicity        YES - public; NO - private (only auth user)
+ *
+ *  @return favorite_id for delete
+ */
+- (NSInteger)PAPI_add_favorite_works:(NSInteger)illust_id publicity:(BOOL)publicity;
+
+/**
+ *  (写)取消收藏
+ *
+ *  @param favorite_id      id return form PAPI_add_favorite_works:
+ *
+ *  @return YES - success
+ */
+- (BOOL)PAPI_del_favorite_works:(NSInteger)favorite_id;
 
 @end

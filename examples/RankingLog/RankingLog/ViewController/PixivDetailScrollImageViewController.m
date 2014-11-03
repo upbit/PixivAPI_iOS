@@ -64,7 +64,7 @@
     
     __weak PixivDetailScrollImageViewController *weakSelf = self;
     [self.imageView sd_setImageWithURL:[NSURL URLWithString:image_url]
-                      placeholderImage:self.preloadImageView.image options:SDWebImageHighPriority
+                      placeholderImage:self.preloadImageView.image options:(SDWebImageHighPriority|SDWebImageRetryFailed)
                               progress:^(NSInteger receivedSize, NSInteger expectedSize) {
                                   //NSLog(@"download id=%ld: %.1f%%", (long)illust_id, (float)receivedSize/expectedSize*100);
                                   [[weakSelf _embedViewController] updateDownloadProgress:(float)receivedSize/expectedSize];

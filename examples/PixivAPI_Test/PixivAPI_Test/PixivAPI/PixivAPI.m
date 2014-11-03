@@ -2,7 +2,7 @@
 //  PixivAPI.m
 //
 //  Created by Zhou Hao on 14-10-8.
-//  Copyright (c) 2014 Kastark. All rights reserved.
+//  Copyright (c) 2014 Zhou Hao. All rights reserved.
 //
 
 #import "PixivAPI.h"
@@ -180,6 +180,7 @@
     NSError* error;
     NSDictionary* json_result = [NSJSONSerialization JSONObjectWithData:response[@"data"] options:kNilOptions error:&error];
     self.access_token = json_result[@"response"][@"access_token"];
+    self.user_id = [json_result[@"response"][@"user"][@"id"] integerValue];
     NSLog(@"AccessToken:%@", self.access_token);
     
     // from response.header["Set-Cookie"] get PHPSESSID
@@ -193,7 +194,7 @@
         }
     }
     
-    [self saveAuthToUserDefaults:self.access_token session:self.session username:username];
+    [self saveAuthToUserDefaults:self.access_token session:self.session username:username user_id:self.user_id];
     return json_result;
 }
 
@@ -227,7 +228,7 @@
     self.session = session;
 }
 
-- (void)saveAuthToUserDefaults:(NSString *)access_token session:(NSString *)session username:(NSString *)username
+- (void)saveAuthToUserDefaults:(NSString *)access_token session:(NSString *)session username:(NSString *)username user_id:(NSInteger)user_id
 {
     NSDate *now = [NSDate date];
     NSDate *expire = [now dateByAddingTimeInterval: 3600.0-30.0];      // -30 network timeout sec
@@ -235,6 +236,7 @@
     NSDictionary *auth_storage = @{
         @"expired": expire,
         @"username": username,
+        @"user_id": @(user_id),
         @"bearer_token": access_token,
         @"session": session,
     };
@@ -262,6 +264,12 @@
             
             self.access_token = auth_storage[@"bearer_token"];
             self.session = auth_storage[@"session"];
+            if (auth_storage[@"user_id"]) {
+                self.user_id = [auth_storage[@"user_id"] integerValue];
+            } else {
+                self.user_id = 0;
+                return NO;          // old entry, retry login
+            }
             NSLog(@"find vailed Auth:\nAccessToken=%@\nSession=%@", self.access_token, self.session);
             return YES;
         }
@@ -407,9 +415,9 @@ typedef NS_ENUM(NSInteger, PARSER_STATE) {
     NSString *api_url = @"ranking_log.php";
     NSDictionary *params = @{
         @"mode": mode,
-        @"Date_Year": @(Date_Year),
-        @"Date_Month": @(Date_Month),
-        @"Date_Day": @(Date_Day),
+        @"Date_Year": [NSString stringWithFormat:@"%ld", (long)Date_Year],
+        @"Date_Month": [NSString stringWithFormat:@"%.2ld", (long)Date_Month],
+        @"Date_Day": [NSString stringWithFormat:@"%.2ld", (long)Date_Day],
         @"p": @((page>0) ? page : 1),
     };
     return [self _SAPI_URLFetchList:api_url params:params requireAuth:requireAuth];
@@ -543,6 +551,64 @@ typedef NS_ENUM(NSInteger, PARSER_STATE) {
     }
 }
 
+- (NSArray *)_PAPI_URLPost:(NSString *)api_url payload:(NSDictionary *)payload
+{
+    NSString *url = [NSString stringWithFormat:@"%@%@", self.papi_root, api_url];
+    
+    if (![self _has_auth]) {
+        NSLog(@"Authentication required! Call login: or set_session: first!");
+        return nil;
+    }
+    NSDictionary *papi_headers = @{
+        @"Authorization": [NSString stringWithFormat:@"Bearer %@", self.access_token],
+        @"Cookie": [NSString stringWithFormat:@"PHPSESSID=%@", self.session],
+    };
+    
+    NSDictionary *response = [self URLFetch:@"POST" url:url headers:papi_headers params:nil data:payload];
+    if (!response[@"data"]) {
+        NSLog(@"POST %@ return data: nil: %@", url, response);
+        return nil;
+    }
+    
+    NSError* error;
+    NSDictionary* json_result = [NSJSONSerialization JSONObjectWithData:response[@"data"] options:kNilOptions error:&error];
+    if ((!json_result[@"status"]) || (![json_result[@"status"] isEqualToString:@"success"])) {
+        NSLog(@"POST %@ failed: %@", url, json_result);
+        return nil;
+    }
+    
+    return json_result[@"response"];
+}
+
+- (BOOL)_PAPI_URLDelete:(NSString *)api_url params:(NSDictionary *)params
+{
+    NSString *url = [NSString stringWithFormat:@"%@%@", self.papi_root, api_url];
+    
+    if (![self _has_auth]) {
+        NSLog(@"Authentication required! Call login: or set_session: first!");
+        return NO;
+    }
+    NSDictionary *papi_headers = @{
+        @"Authorization": [NSString stringWithFormat:@"Bearer %@", self.access_token],
+        @"Cookie": [NSString stringWithFormat:@"PHPSESSID=%@", self.session],
+    };
+    
+    NSDictionary *response = [self URLFetch:@"DELETE" url:url headers:papi_headers params:params data:nil];
+    if (!response[@"data"]) {
+        NSLog(@"POST %@ return data: nil: %@", url, response);
+        return NO;
+    }
+    
+    NSError* error;
+    NSDictionary* json_result = [NSJSONSerialization JSONObjectWithData:response[@"data"] options:kNilOptions error:&error];
+    if ((!json_result[@"status"]) || (![json_result[@"status"] isEqualToString:@"success"])) {
+        NSLog(@"DELETE %@ failed: %@", url, json_result);
+        return NO;
+    }
+    
+    return YES;
+}
+
 #pragma mark - Public-API define
 
 - (PAPIIllust *)PAPI_works:(NSInteger)illust_id
@@ -595,6 +661,31 @@ typedef NS_ENUM(NSInteger, PARSER_STATE) {
     };
     // response has a header outside each work, so set isWork:NO
     return [self _PAPI_URLFetchList:api_url params:params isIllust:YES isWork:NO];
+}
+
+- (NSInteger)PAPI_add_favorite_works:(NSInteger)illust_id publicity:(BOOL)publicity
+{
+    NSString *api_url = @"me/favorite_works";
+    NSDictionary *payload = @{
+        @"work_id": @(illust_id),
+        @"publicity": publicity ? @"public" : @"private",
+    };
+    
+    NSArray *response = [self _PAPI_URLPost:api_url payload:payload];
+    if ([response firstObject][@"id"]) {
+        return [[response firstObject][@"id"] integerValue];
+    } else {
+        return PIXIV_ID_INVALID;
+    }
+}
+
+- (BOOL)PAPI_del_favorite_works:(NSInteger)favorite_id
+{
+    NSString *api_url = @"me/favorite_works";
+    NSDictionary *params = @{
+        @"ids": @(favorite_id),
+    };
+    return [self _PAPI_URLDelete:api_url params:params];
 }
 
 @end

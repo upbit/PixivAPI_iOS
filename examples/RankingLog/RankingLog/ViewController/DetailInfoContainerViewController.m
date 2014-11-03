@@ -8,6 +8,7 @@
 
 #import "DetailInfoContainerViewController.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import <SVProgressHUD/SVProgressHUD.h>
 
 #import "PixivAPI.h"
 
@@ -62,7 +63,7 @@
 
         if (PAPI_illust.favorite_id != 0) {
             self.favoriteButton.imageView.image = [UIImage imageNamed:@"StarBlack"];
-            self.favoriteButton.tag = PAPI_illust.favorite_id;
+            self.favoriteButton.tag = PAPI_illust.favorite_id;      // storage favorite_id in tag, so can delete favorite later
         }
     }
 }
@@ -102,10 +103,39 @@
 {
     NSInteger illust_id = [self currentIllustId];
     if (illust_id > 0) {
-        if (sender.tag == 0) {
-            NSLog(@"add favorite: %ld", (long)illust_id);
+        NSInteger favorite_id = sender.tag;
+        if (favorite_id == 0) {
+            NSLog(@"add favorite: illustid=%ld", (long)illust_id);
+            sender.imageView.image = [UIImage imageNamed:@"StarBlack"];
+            
+            [[PixivAPI sharedInstance] asyncBlockingQueue:^{
+                NSInteger new_favorite_id = [[PixivAPI sharedInstance] PAPI_add_favorite_works:illust_id publicity:YES];
+                [[PixivAPI sharedInstance] onMainQueue:^{
+                    if (new_favorite_id > 0) {
+                        [SVProgressHUD showSuccessWithStatus:@"Add success!"];
+                    } else {
+                        [SVProgressHUD showErrorWithStatus:@"Add error!"];
+                        sender.imageView.image = [UIImage imageNamed:@"Star"];
+                    }
+                }];
+            }];
+            
         } else {
-            NSLog(@"del favorite: %ld", (long)illust_id);
+            NSLog(@"del favorite: favorite_id=%ld", (long)sender.tag);
+            sender.imageView.image = [UIImage imageNamed:@"Star"];
+            
+            [[PixivAPI sharedInstance] asyncBlockingQueue:^{
+                BOOL success = [[PixivAPI sharedInstance] PAPI_del_favorite_works:favorite_id];
+                [[PixivAPI sharedInstance] onMainQueue:^{
+                    if (success) {
+                        [SVProgressHUD showSuccessWithStatus:@"Del success!"];
+                    } else {
+                        [SVProgressHUD showErrorWithStatus:@"Del error!"];
+                        sender.imageView.image = [UIImage imageNamed:@"StarBlack"];
+                    }
+                }];
+            }];
+            
         }
     }
 }

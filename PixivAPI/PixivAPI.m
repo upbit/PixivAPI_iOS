@@ -551,6 +551,64 @@ typedef NS_ENUM(NSInteger, PARSER_STATE) {
     }
 }
 
+- (NSArray *)_PAPI_URLPost:(NSString *)api_url payload:(NSDictionary *)payload
+{
+    NSString *url = [NSString stringWithFormat:@"%@%@", self.papi_root, api_url];
+    
+    if (![self _has_auth]) {
+        NSLog(@"Authentication required! Call login: or set_session: first!");
+        return nil;
+    }
+    NSDictionary *papi_headers = @{
+        @"Authorization": [NSString stringWithFormat:@"Bearer %@", self.access_token],
+        @"Cookie": [NSString stringWithFormat:@"PHPSESSID=%@", self.session],
+    };
+    
+    NSDictionary *response = [self URLFetch:@"POST" url:url headers:papi_headers params:nil data:payload];
+    if (!response[@"data"]) {
+        NSLog(@"POST %@ return data: nil: %@", url, response);
+        return nil;
+    }
+    
+    NSError* error;
+    NSDictionary* json_result = [NSJSONSerialization JSONObjectWithData:response[@"data"] options:kNilOptions error:&error];
+    if ((!json_result[@"status"]) || (![json_result[@"status"] isEqualToString:@"success"])) {
+        NSLog(@"POST %@ failed: %@", url, json_result);
+        return nil;
+    }
+    
+    return json_result[@"response"];
+}
+
+- (BOOL)_PAPI_URLDelete:(NSString *)api_url params:(NSDictionary *)params
+{
+    NSString *url = [NSString stringWithFormat:@"%@%@", self.papi_root, api_url];
+    
+    if (![self _has_auth]) {
+        NSLog(@"Authentication required! Call login: or set_session: first!");
+        return NO;
+    }
+    NSDictionary *papi_headers = @{
+        @"Authorization": [NSString stringWithFormat:@"Bearer %@", self.access_token],
+        @"Cookie": [NSString stringWithFormat:@"PHPSESSID=%@", self.session],
+    };
+    
+    NSDictionary *response = [self URLFetch:@"DELETE" url:url headers:papi_headers params:params data:nil];
+    if (!response[@"data"]) {
+        NSLog(@"POST %@ return data: nil: %@", url, response);
+        return NO;
+    }
+    
+    NSError* error;
+    NSDictionary* json_result = [NSJSONSerialization JSONObjectWithData:response[@"data"] options:kNilOptions error:&error];
+    if ((!json_result[@"status"]) || (![json_result[@"status"] isEqualToString:@"success"])) {
+        NSLog(@"DELETE %@ failed: %@", url, json_result);
+        return NO;
+    }
+    
+    return YES;
+}
+
 #pragma mark - Public-API define
 
 - (PAPIIllust *)PAPI_works:(NSInteger)illust_id
@@ -603,6 +661,31 @@ typedef NS_ENUM(NSInteger, PARSER_STATE) {
     };
     // response has a header outside each work, so set isWork:NO
     return [self _PAPI_URLFetchList:api_url params:params isIllust:YES isWork:NO];
+}
+
+- (NSInteger)PAPI_add_favorite_works:(NSInteger)illust_id publicity:(BOOL)publicity
+{
+    NSString *api_url = @"me/favorite_works";
+    NSDictionary *payload = @{
+        @"work_id": @(illust_id),
+        @"publicity": publicity ? @"public" : @"private",
+    };
+    
+    NSArray *response = [self _PAPI_URLPost:api_url payload:payload];
+    if ([response firstObject][@"id"]) {
+        return [[response firstObject][@"id"] integerValue];
+    } else {
+        return PIXIV_ID_INVALID;
+    }
+}
+
+- (BOOL)PAPI_del_favorite_works:(NSInteger)favorite_id
+{
+    NSString *api_url = @"me/favorite_works";
+    NSDictionary *params = @{
+        @"ids": @(favorite_id),
+    };
+    return [self _PAPI_URLDelete:api_url params:params];
 }
 
 @end

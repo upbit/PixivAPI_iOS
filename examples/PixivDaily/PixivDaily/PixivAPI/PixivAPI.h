@@ -2,21 +2,18 @@
 //  PixivAPI.h
 //
 //  Created by Zhou Hao on 14-10-8.
-//  Copyright (c) 2014 Kastark. All rights reserved.
+//  Copyright (c) 2014 Zhou Hao. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-
 #import "PixivDefines.h"
-#import "SAPIIllust.h"
-#import "PAPIAuthor.h"
-#import "PAPIIllust.h"
-#import "PAPIIllustList.h"
 
 @interface PixivAPI : NSObject
 
 @property (strong, nonatomic) NSString *access_token;
 @property (strong, nonatomic) NSString *session;
+@property (nonatomic) NSInteger user_id;
+
 @property (strong, nonatomic) NSOperationQueue *operationQueue;
 
 #pragma mark - common
@@ -236,5 +233,23 @@
  */
 - (PAPIIllustList *)PAPI_users_favorite_works:(NSInteger)author_id page:(NSInteger)page publicity:(BOOL)publicity;
 
+/**
+ *  (写)新增收藏
+ *
+ *  @param illust_id        [id for work]
+ *  @param publicity        YES - public; NO - private (only auth user)
+ *
+ *  @return favorite_id for delete
+ */
+- (NSInteger)PAPI_add_favorite_works:(NSInteger)illust_id publicity:(BOOL)publicity;
+
+/**
+ *  (写)取消收藏
+ *
+ *  @param favorite_id      id return form PAPI_add_favorite_works:
+ *
+ *  @return YES - success
+ */
+- (BOOL)PAPI_del_favorite_works:(NSInteger)favorite_id;
 
 @end

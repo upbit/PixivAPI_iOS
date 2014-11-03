@@ -78,7 +78,7 @@
 
 - (BOOL)is_manga
 {
-    return self.response[@"is_manga"] ? YES : NO;
+    return [self.response[@"is_manga"] integerValue] ? YES : NO;
 }
 
 - (NSDictionary *)stats
@@ -137,7 +137,7 @@
 
 - (BOOL)is_liked
 {
-    return self.response[@"is_liked"] ? YES : NO;
+    return [self.response[@"is_liked"] integerValue] ? YES : NO;
 }
 
 - (NSInteger)page_count
@@ -206,15 +206,15 @@
 }
 - (BOOL)is_friend
 {
-    return self.user[@"is_friend"] ? YES : NO;
+    return [self.user[@"is_friend"] integerValue] ? YES : NO;
 }
 - (BOOL)is_following
 {
-    return self.user[@"is_following"] ? YES : NO;
+    return [self.user[@"is_following"] integerValue] ? YES : NO;
 }
 - (BOOL)is_follower
 {
-    return self.user[@"is_follower"] ? YES : NO;
+    return [self.user[@"is_follower"] integerValue] ? YES : NO;
 }
 - (NSDictionary *)profile_image_urls
 {
