@@ -106,13 +106,18 @@
         NSInteger favorite_id = sender.tag;
         if (favorite_id == 0) {
             NSLog(@"add favorite: illustid=%ld", (long)illust_id);
-            sender.imageView.image = [UIImage imageNamed:@"StarBlack"];
             
             [[PixivAPI sharedInstance] asyncBlockingQueue:^{
+                [[PixivAPI sharedInstance] onMainQueue:^{
+                    sender.imageView.image = [UIImage imageNamed:@"StarBlack"];
+                }];
+                
                 NSInteger new_favorite_id = [[PixivAPI sharedInstance] PAPI_add_favorite_works:illust_id publicity:YES];
+                
                 [[PixivAPI sharedInstance] onMainQueue:^{
                     if (new_favorite_id > 0) {
                         [SVProgressHUD showSuccessWithStatus:@"Add success!"];
+                        sender.tag = new_favorite_id;
                     } else {
                         [SVProgressHUD showErrorWithStatus:@"Add error!"];
                         sender.imageView.image = [UIImage imageNamed:@"Star"];
@@ -122,13 +127,18 @@
             
         } else {
             NSLog(@"del favorite: favorite_id=%ld", (long)sender.tag);
-            sender.imageView.image = [UIImage imageNamed:@"Star"];
-            
+
             [[PixivAPI sharedInstance] asyncBlockingQueue:^{
+                [[PixivAPI sharedInstance] onMainQueue:^{
+                    sender.imageView.image = [UIImage imageNamed:@"Star"];
+                }];
+                
                 BOOL success = [[PixivAPI sharedInstance] PAPI_del_favorite_works:favorite_id];
+                
                 [[PixivAPI sharedInstance] onMainQueue:^{
                     if (success) {
                         [SVProgressHUD showSuccessWithStatus:@"Del success!"];
+                        sender.tag = 0;
                     } else {
                         [SVProgressHUD showErrorWithStatus:@"Del error!"];
                         sender.imageView.image = [UIImage imageNamed:@"StarBlack"];
