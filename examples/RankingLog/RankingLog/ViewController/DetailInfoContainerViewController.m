@@ -51,6 +51,13 @@
     if ([self.illust isKindOfClass:[SAPIIllust class]]) {
         SAPIIllust *SAPI_illust = (SAPIIllust *)self.illust;
         self.label.text = SAPI_illust.authorName;
+        if (SAPI_illust.head) {
+            [self.image sd_setImageWithURL:[NSURL URLWithString:SAPI_illust.head]
+                          placeholderImage:[UIImage imageNamed:@"placeholder"] options:SDWebImageLowPriority
+                                 completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                                     NSLog(@"  fetch author=%ld profile 50x50 complete.", (long)SAPI_illust.authorId);
+                                 }];
+        }
 
     } else if ([self.illust isKindOfClass:[PAPIIllust class]]) {
         PAPIIllust *PAPI_illust = (PAPIIllust *)self.illust;

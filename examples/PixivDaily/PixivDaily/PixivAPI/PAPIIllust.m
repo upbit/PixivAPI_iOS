@@ -289,7 +289,21 @@
 - (NSString *)true_url_large
 {
     if (!self.pages) {
-        return self.url_large;
+        if (self.page_count > 1) {
+            NSString *url = self.url_large;
+            NSRange range = [url rangeOfString:@"_p0" options:NSBackwardsSearch];
+            if (range.length > 0) {
+                // New illust with _p0 ext, just return url_large
+                return url;
+            } else {
+                // Old illust storage, add _p0 in url_large.ext
+                NSString *url_base = [url substringToIndex:[url length]-4];
+                NSString *url_ext = [url substringFromIndex:[url length]-4];
+                return [NSString stringWithFormat:@"%@_p0%@", url_base, url_ext];
+            }
+        } else {
+            return self.url_large;
+        }
     } else {
         return [self.pages firstObject][@"image_urls"][@"large"];
     }

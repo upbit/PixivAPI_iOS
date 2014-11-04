@@ -54,4 +54,6 @@
 @property (nonatomic)           NSInteger       bookmarks;      // data[22]
 @property (nonatomic)           NSInteger       r18;            // data[26]
 
+@property (nonatomic)           NSString        *head;          // data[29] (illust only)
+
 @end

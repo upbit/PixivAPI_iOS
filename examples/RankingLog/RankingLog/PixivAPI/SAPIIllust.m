@@ -93,6 +93,9 @@
     illust.r18 = 0;
     if ([data count] > 26)
         illust.r18 = [(NSString *)data[26] intValue];
+    illust.head = nil;
+    if ([data count] > 29)
+        illust.head = data[29];
     
     return illust;
 }
