@@ -1,9 +1,0 @@
-platform :ios, "6.1"
-
-source 'https://github.com/CocoaPods/Specs.git'
-
-pod 'FMDB', :head
-pod 'SDWebImage', '~>3.6'
-pod 'CHTCollectionViewWaterfallLayout', :head
-pod 'REFrostedViewController', '~> 2.4.7'
-pod 'SVProgressHUD', :head
