@@ -16,4 +16,3 @@
 - (void)setNetworkActivityIndicatorVisible:(BOOL)setVisible;
 
 @end
-

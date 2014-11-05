@@ -96,4 +96,23 @@
     return [super collectionView:collectionView cellForItemAtIndexPath:indexPath];
 }
 
+#pragma mark - UI
+
+- (NSArray *)randomizedArray:(NSArray *)array
+{
+    NSMutableArray *results = [NSMutableArray arrayWithArray:array];
+    int i = (int)[results count];
+    while (--i > 0) {
+        int j = arc4random() % (i+1);
+        [results exchangeObjectAtIndex:i withObjectAtIndex:j];
+    }
+    return [NSArray arrayWithArray:results];
+}
+
+- (IBAction)randomIllustArray:(UIBarButtonItem *)sender
+{
+    self.illusts = [self randomizedArray:self.illusts];
+    [self.collectionView reloadData];
+}
+
 @end
