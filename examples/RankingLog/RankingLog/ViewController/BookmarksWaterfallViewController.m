@@ -20,14 +20,20 @@
 
 - (void)updateTitleWithPagination:(NSInteger)current pages:(NSInteger)pages
 {
+    __weak BookmarksWaterfallViewController *weakSelf = self;
     [[PixivAPI sharedInstance] onMainQueue:^{
-        self.navigationItem.title = [NSString stringWithFormat:@"Bookmarks(%ld/%ld)", (long)current, (long)pages];
+        weakSelf.navigationItem.title = [NSString stringWithFormat:@"Bookmarks(%ld/%ld)", (long)current, (long)pages];
     }];
 }
 
 - (NSArray *)fetchNextBookmarks
 {
-    PAPIIllustList *PAPI_illusts = [[PixivAPI sharedInstance] PAPI_users_favorite_works:[PixivAPI sharedInstance].user_id page:self.nextPage publicity:YES];
+    if (self.user_id <= 0) {
+        NSLog(@"Invalid user_id: %ld", (long)self.user_id);
+        return nil;
+    }
+    
+    PAPIIllustList *PAPI_illusts = [[PixivAPI sharedInstance] PAPI_users_favorite_works:self.user_id page:self.nextPage publicity:YES];
     [self updateTitleWithPagination:PAPI_illusts.current pages:PAPI_illusts.pages];
     
     NSLog(@"get Bookmarks: return %ld works, next page %ld", (long)PAPI_illusts.count, (long)PAPI_illusts.next);
@@ -61,8 +67,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    self.illusts = @[];
     
     self.nextPage = 1;
     [self asyncGetBookmarks];

@@ -9,9 +9,10 @@
 #import "RankingLogWaterfallViewController.h"
 #import <SVProgressHUD/SVProgressHUD.h>
 
+#import "ModelSettings.h"
 #import "DatePickerViewController.h"
 #import "PixivDetailScrollImageViewController.h"
-#import "ModelSettings.h"
+#import "BookmarksWaterfallViewController.h"
 
 #import "AppDelegate.h"
 #import "PixivAPI.h"
@@ -182,7 +183,16 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString:@"DatePickerSegue"]) {
+    if ([segue.identifier isEqualToString:@"ImageDetail"]) {
+        if ([segue.destinationViewController isKindOfClass:[PixivDetailScrollImageViewController class]]) {
+            PixivDetailScrollImageViewController *ivc = (PixivDetailScrollImageViewController *)segue.destinationViewController;
+            NSArray *indexPaths = [self.collectionView indexPathsForSelectedItems];
+            NSIndexPath *indexPath = [indexPaths objectAtIndex:0];
+            ivc.illusts = self.illusts;
+            ivc.index = indexPath.row;
+        }
+        
+    } else if ([segue.identifier isEqualToString:@"DatePickerSegue"]) {
         if ([segue.destinationViewController isKindOfClass:[DatePickerViewController class]]) {
             DatePickerViewController *dpvc = (DatePickerViewController *)segue.destinationViewController;
             // modeArray for RankingLog
@@ -193,17 +203,12 @@
 #endif
             ];
         }
-    } else if ([segue.identifier isEqualToString:@"ImageDetail"]) {
-        if ([segue.destinationViewController isKindOfClass:[PixivDetailScrollImageViewController class]]) {
-            PixivDetailScrollImageViewController *ivc = (PixivDetailScrollImageViewController *)segue.destinationViewController;
-            NSArray *indexPaths = [self.collectionView indexPathsForSelectedItems];
-            NSIndexPath *indexPath = [indexPaths objectAtIndex:0];
-            ivc.illusts = self.illusts;
-            ivc.index = indexPath.row;
-        }
         
-    } else if ([segue.identifier isEqualToString:@"bookmarkSegue"]) {
-        // nothing to set
+    } else if ([segue.identifier isEqualToString:@"BookmarkSegue"]) {
+        if ([segue.destinationViewController isKindOfClass:[BookmarksWaterfallViewController class]]) {
+            BookmarksWaterfallViewController *bvc = (BookmarksWaterfallViewController *)segue.destinationViewController;
+            bvc.user_id = [PixivAPI sharedInstance].user_id;
+        }
         
     }
 }

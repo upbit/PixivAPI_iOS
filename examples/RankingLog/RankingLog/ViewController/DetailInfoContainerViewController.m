@@ -16,6 +16,7 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *image;
 @property (weak, nonatomic) IBOutlet UILabel *label;
+@property (weak, nonatomic) IBOutlet UILabel *labelTags;
 @property (weak, nonatomic) IBOutlet UIButton *favoriteButton;
 @property (weak, nonatomic) IBOutlet UIProgressView *downloadProgress;
 @property (weak, nonatomic) IBOutlet UIProgressView *preloadProgress;
@@ -41,6 +42,7 @@
 - (void)updateEmbedView
 {
     self.label.text = @"";
+    self.labelTags.text = @"";
     self.image.image = nil;
     self.favoriteButton.imageView.image = [UIImage imageNamed:@"Star"];
     self.favoriteButton.tag = 0;
@@ -51,6 +53,7 @@
     if ([self.illust isKindOfClass:[SAPIIllust class]]) {
         SAPIIllust *SAPI_illust = (SAPIIllust *)self.illust;
         self.label.text = SAPI_illust.authorName;
+        self.labelTags.text = [SAPI_illust.tags componentsJoinedByString:@", "];
         if (SAPI_illust.head) {
             [self.image sd_setImageWithURL:[NSURL URLWithString:SAPI_illust.head]
                           placeholderImage:[UIImage imageNamed:@"placeholder"] options:SDWebImageLowPriority
@@ -62,6 +65,7 @@
     } else if ([self.illust isKindOfClass:[PAPIIllust class]]) {
         PAPIIllust *PAPI_illust = (PAPIIllust *)self.illust;
         self.label.text = PAPI_illust.name;
+        self.labelTags.text = [PAPI_illust.tags componentsJoinedByString:@", "];
         [self.image sd_setImageWithURL:[NSURL URLWithString:PAPI_illust.profile_url_px_50x50]
                       placeholderImage:[UIImage imageNamed:@"placeholder"] options:SDWebImageLowPriority
                              completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
@@ -83,6 +87,15 @@
     [self updatePreloadProgress:-1.0];
     
     [self updateEmbedView];
+    
+    // 为带有 WithTapGesture 的View，增加Tap手势
+    NSRange range = [self.restorationIdentifier rangeOfString:@"WithTapGesture" options:NSBackwardsSearch];
+    if (range.length > 0) {
+        self.image.userInteractionEnabled = YES;
+        [self.image addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTap:)]];
+        self.label.userInteractionEnabled = YES;
+        [self.label addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTap:)]];
+    }
 }
 
 #pragma mark - UI
@@ -155,6 +168,14 @@
             
         }
     }
+}
+
+#pragma mark - Gesture Recognizer
+
+- (void)singleTap:(UITapGestureRecognizer *)sender
+{
+    NSLog(@"singleTap");
+    [self.parentViewController performSegueWithIdentifier:@"UserWorksSegue" sender:self];
 }
 
 @end

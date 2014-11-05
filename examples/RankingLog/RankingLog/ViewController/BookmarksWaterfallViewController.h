@@ -9,5 +9,5 @@
 #import "PixivWaterfallViewController.h"
 
 @interface BookmarksWaterfallViewController : PixivWaterfallViewController
-
+@property (nonatomic) NSInteger user_id;
 @end

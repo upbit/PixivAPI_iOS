@@ -13,7 +13,9 @@
 #import "AppDelegate.h"
 #import "ModelSettings.h"
 #import "PixivAPI.h"
+
 #import "DetailInfoContainerViewController.h"
+#import "UserWorksWaterfallViewController.h"
 
 @interface PixivDetailScrollImageViewController ()
 @property (weak, nonatomic) IBOutlet UIView *contantButtomView;
@@ -23,7 +25,7 @@
 
 - (DetailInfoContainerViewController *)_embedViewController
 {
-    return (DetailInfoContainerViewController *)self.childViewControllers[0];;
+    return (DetailInfoContainerViewController *)[self.childViewControllers firstObject];
 }
 
 - (void)viewDidLoad
@@ -124,8 +126,10 @@
             
             // update embedView for PAPIIllust
             DetailInfoContainerViewController *dicvc = [weakSelf _embedViewController];
-            dicvc.illust = weakSelf.illusts[weakSelf.index];
-            [dicvc updateEmbedView];
+            if (dicvc) {
+                dicvc.illust = weakSelf.illusts[weakSelf.index];
+                [dicvc updateEmbedView];
+            }
         }];
     }];
 
@@ -169,6 +173,20 @@
     if ([segue.identifier isEqualToString:@"embedView"]) {
         DetailInfoContainerViewController *dicvc = (DetailInfoContainerViewController *)segue.destinationViewController;
         dicvc.illust = self.illusts[self.index];
+        
+    } else if ([segue.identifier isEqualToString:@"UserWorksSegue"]) {
+        UserWorksWaterfallViewController *uwvc = (UserWorksWaterfallViewController *)segue.destinationViewController;
+        id raw_illust = self.illusts[self.index];
+        if ([raw_illust isKindOfClass:[SAPIIllust class]]) {
+            SAPIIllust *illust = (SAPIIllust *)raw_illust;
+            uwvc.author_id = illust.authorId;
+        } else if ([raw_illust isKindOfClass:[PAPIIllust class]]) {
+            PAPIIllust *illust = (PAPIIllust *)raw_illust;
+            uwvc.author_id =  illust.author_id;
+        } else {
+            NSLog(@"unknow illust %@ type at index %ld", raw_illust, (long)self.index);
+            uwvc.author_id = 0;
+        }
     }
 }
 

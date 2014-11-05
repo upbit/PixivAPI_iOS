@@ -10,10 +10,6 @@
 #import <CHTCollectionViewWaterfallLayout/CHTCollectionViewWaterfallLayout.h>
 #import "PixivAPI.h"
 
-#define __MainScreenFrame   [[UIScreen mainScreen] bounds]
-#define __MainScreen_Width  __MainScreenFrame.size.width
-#define __MainScreen_Height __MainScreenFrame.size.height
-
 // Cell的最小显示大小(决定列数)
 #define MIN_CELL_COLUMN_SIZE        (96)
 #define MIN_CELL_COLUMN_SIZE_IPAD   (150)
@@ -30,6 +26,14 @@
         return [self.illusts[index][@"illust_id"] integerValue];
     }
     return -1;
+}
+
+@synthesize illusts = _illusts;
+
+- (NSArray *)illusts
+{
+    if (!_illusts) _illusts = @[];
+    return _illusts;
 }
 
 - (void)setIllusts:(NSArray *)illusts
@@ -58,6 +62,8 @@
     
     //layout.headerHeight = 44;
     //[self.collectionView registerClass:[CHTCollectionViewHeader class] forSupplementaryViewOfKind:CHTCollectionElementKindSectionHeader withReuseIdentifier:@"HeaderView"];
+    
+    self.illusts = @[];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -72,20 +78,31 @@
     [self updateLayoutForOrientation:toInterfaceOrientation];
 }
 
+// from http://stackoverflow.com/a/25088478
+- (CGSize)screenSize
+{
+    CGSize screenSize = [UIScreen mainScreen].bounds.size;
+    // #define NSFoundationVersionNumber_iOS_7_1 (1047.25)
+    if ((NSFoundationVersionNumber <= (1047.25)) && UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
+        return CGSizeMake(screenSize.height, screenSize.width);
+    } else {
+        return screenSize;
+    }
+}
+
 - (void)updateLayoutForOrientation:(UIInterfaceOrientation)orientation
 {
     CHTCollectionViewWaterfallLayout *layout = (CHTCollectionViewWaterfallLayout *)self.collectionView.collectionViewLayout;
     
-    CGFloat width = __MainScreen_Width;
-    if (UIInterfaceOrientationIsLandscape(orientation)) {
-        width = __MainScreen_Height;
-    }
+    CGFloat width = [self screenSize].width;
     
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         layout.columnCount = width / MIN_CELL_COLUMN_SIZE_IPAD;
     } else {
         layout.columnCount = width / MIN_CELL_COLUMN_SIZE;
     }
+    
+    NSLog(@"Set columnCount=%ld for width %.0f, cell size %.1f", (long)layout.columnCount, width, width/layout.columnCount);
 }
 
 #pragma mark - UICollectionViewDataSource

@@ -12,6 +12,7 @@
 		CB0593D31A0219020022E93C /* RankingLogWaterfallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB0593D11A0219020022E93C /* RankingLogWaterfallViewController.m */; };
 		CB0593D61A0219670022E93C /* PixivDetailScrollImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB0593D51A0219670022E93C /* PixivDetailScrollImageViewController.m */; };
 		CB0593D91A02279C0022E93C /* ModelSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = CB0593D81A02279C0022E93C /* ModelSettings.m */; };
+		CB57A6C61A09B675000060D9 /* UserWorksWaterfallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB57A6C51A09B675000060D9 /* UserWorksWaterfallViewController.m */; };
 		CB5E47E61A0718E700F167FE /* DetailInfoContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5E47E51A0718E700F167FE /* DetailInfoContainerViewController.m */; };
 		CB5E47E91A07649F00F167FE /* BookmarksWaterfallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5E47E81A07649F00F167FE /* BookmarksWaterfallViewController.m */; };
 		CBC653B919FFC7F7002AD057 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CBC653B819FFC7F7002AD057 /* main.m */; };
@@ -53,6 +54,8 @@
 		CB0593D51A0219670022E93C /* PixivDetailScrollImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PixivDetailScrollImageViewController.m; sourceTree = "<group>"; };
 		CB0593D71A02279C0022E93C /* ModelSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModelSettings.h; sourceTree = "<group>"; };
 		CB0593D81A02279C0022E93C /* ModelSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModelSettings.m; sourceTree = "<group>"; };
+		CB57A6C41A09B675000060D9 /* UserWorksWaterfallViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserWorksWaterfallViewController.h; sourceTree = "<group>"; };
+		CB57A6C51A09B675000060D9 /* UserWorksWaterfallViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserWorksWaterfallViewController.m; sourceTree = "<group>"; };
 		CB5E47E41A0718E700F167FE /* DetailInfoContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailInfoContainerViewController.h; sourceTree = "<group>"; };
 		CB5E47E51A0718E700F167FE /* DetailInfoContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailInfoContainerViewController.m; sourceTree = "<group>"; };
 		CB5E47E71A07649F00F167FE /* BookmarksWaterfallViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookmarksWaterfallViewController.h; sourceTree = "<group>"; };
@@ -119,8 +122,6 @@
 		CB0593CD1A0219020022E93C /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				CB5E47E71A07649F00F167FE /* BookmarksWaterfallViewController.h */,
-				CB5E47E81A07649F00F167FE /* BookmarksWaterfallViewController.m */,
 				CB0593D01A0219020022E93C /* RankingLogWaterfallViewController.h */,
 				CB0593D11A0219020022E93C /* RankingLogWaterfallViewController.m */,
 				CB0593CE1A0219020022E93C /* DatePickerViewController.h */,
@@ -129,6 +130,10 @@
 				CB0593D51A0219670022E93C /* PixivDetailScrollImageViewController.m */,
 				CB5E47E41A0718E700F167FE /* DetailInfoContainerViewController.h */,
 				CB5E47E51A0718E700F167FE /* DetailInfoContainerViewController.m */,
+				CB5E47E71A07649F00F167FE /* BookmarksWaterfallViewController.h */,
+				CB5E47E81A07649F00F167FE /* BookmarksWaterfallViewController.m */,
+				CB57A6C41A09B675000060D9 /* UserWorksWaterfallViewController.h */,
+				CB57A6C51A09B675000060D9 /* UserWorksWaterfallViewController.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -405,6 +410,7 @@
 				CB0593D21A0219020022E93C /* DatePickerViewController.m in Sources */,
 				CB0593D31A0219020022E93C /* RankingLogWaterfallViewController.m in Sources */,
 				CB5E47E61A0718E700F167FE /* DetailInfoContainerViewController.m in Sources */,
+				CB57A6C61A09B675000060D9 /* UserWorksWaterfallViewController.m in Sources */,
 				CBC6540219FFCEE4002AD057 /* CHTCollectionViewCell.m in Sources */,
 				CBC653F519FFC8E0002AD057 /* PixivWaterfallViewController.m in Sources */,
 				CBC653B919FFC7F7002AD057 /* main.m in Sources */,
