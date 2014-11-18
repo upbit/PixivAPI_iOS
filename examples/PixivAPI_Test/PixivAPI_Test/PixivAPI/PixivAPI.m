@@ -179,6 +179,9 @@
     // from response.payload get AccessToken
     NSError* error;
     NSDictionary* json_result = [NSJSONSerialization JSONObjectWithData:response[@"data"] options:kNilOptions error:&error];
+    if (error) {
+        return nil;
+    }
     self.access_token = json_result[@"response"][@"access_token"];
     self.user_id = [json_result[@"response"][@"user"][@"id"] integerValue];
     NSLog(@"AccessToken:%@", self.access_token);
@@ -517,6 +520,9 @@ typedef NS_ENUM(NSInteger, PARSER_STATE) {
     NSError* error;
     NSDictionary* json_result = [NSJSONSerialization JSONObjectWithData:response[@"data"] options:kNilOptions error:&error];
     //NSLog(@"pixiv json: %@", json_result);
+    if (error) {
+        return nil;
+    }
     
     if (isIllust) {
         return [PAPIIllust parseJsonDictionaryToModel:json_result];
@@ -542,6 +548,9 @@ typedef NS_ENUM(NSInteger, PARSER_STATE) {
     NSError* error;
     NSDictionary* json_result = [NSJSONSerialization JSONObjectWithData:response[@"data"] options:kNilOptions error:&error];
     //NSLog(@"pixiv json: %@", json_result);
+    if (error) {
+        return nil;
+    }
     
     if (isIllust) {
         return [PAPIIllustList parseJsonDictionaryToModelList:json_result isWork:isWork];
@@ -572,7 +581,7 @@ typedef NS_ENUM(NSInteger, PARSER_STATE) {
     
     NSError* error;
     NSDictionary* json_result = [NSJSONSerialization JSONObjectWithData:response[@"data"] options:kNilOptions error:&error];
-    if ((!json_result[@"status"]) || (![json_result[@"status"] isEqualToString:@"success"])) {
+    if ((error) || (!json_result[@"status"]) || (![json_result[@"status"] isEqualToString:@"success"])) {
         NSLog(@"POST %@ failed: %@", url, json_result);
         return nil;
     }
@@ -601,7 +610,7 @@ typedef NS_ENUM(NSInteger, PARSER_STATE) {
     
     NSError* error;
     NSDictionary* json_result = [NSJSONSerialization JSONObjectWithData:response[@"data"] options:kNilOptions error:&error];
-    if ((!json_result[@"status"]) || (![json_result[@"status"] isEqualToString:@"success"])) {
+    if ((error) || (!json_result[@"status"]) || (![json_result[@"status"] isEqualToString:@"success"])) {
         NSLog(@"DELETE %@ failed: %@", url, json_result);
         return NO;
     }
