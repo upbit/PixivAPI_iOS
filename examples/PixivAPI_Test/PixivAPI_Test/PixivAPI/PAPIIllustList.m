@@ -84,4 +84,26 @@
     return [self safeIntegerValue:self.pagination[@"previous"]];
 }
 
+#pragma mark - NSCoding
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super init];
+    if (!self) {
+        return nil;
+    }
+    
+    self.raw = [aDecoder decodeObjectForKey:@"raw"];
+    self.pagination = [aDecoder decodeObjectForKey:@"pagination"];
+    self.illusts = [aDecoder decodeObjectForKey:@"illusts"];
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder
+{
+    [aCoder encodeObject:self.raw forKey:@"raw"];
+    [aCoder encodeObject:self.pagination forKey:@"pagination"];
+    [aCoder encodeObject:self.illusts forKey:@"illusts"];
+}
+
 @end

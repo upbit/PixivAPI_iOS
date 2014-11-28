@@ -110,4 +110,25 @@
         return PIXIV_PAGE_URL;
 }
 
+#pragma mark - NSCoding
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [SAPIIllust parseDataArrayToModel:[aDecoder decodeObjectForKey:@"data"]];
+    if (!self) {
+        return nil;
+    }
+    
+    self.raw = [aDecoder decodeObjectForKey:@"raw"];
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder
+{
+    [aCoder encodeObject:self.raw forKey:@"raw"];
+    
+    NSArray *dataArray = [self toDataArray];
+    [aCoder encodeObject:dataArray forKey:@"data"];
+}
+
 @end

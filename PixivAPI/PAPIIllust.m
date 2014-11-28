@@ -297,8 +297,10 @@
                 return url;
             } else {
                 // Old illust storage, add _p0 in url_large.ext
-                NSString *url_base = [url substringToIndex:[url length]-4];
-                NSString *url_ext = [url substringFromIndex:[url length]-4];
+                // FIX BUG: some illust has "?timestamp" at end, so seach backward
+                NSRange ext_dot = [url rangeOfString:@"." options:NSBackwardsSearch];
+                NSString *url_base = [url substringWithRange:NSMakeRange(0, ext_dot.location)];
+                NSString *url_ext = [url substringFromIndex:ext_dot.location];
                 return [NSString stringWithFormat:@"%@_p0%@", url_base, url_ext];
             }
         } else {
@@ -307,6 +309,26 @@
     } else {
         return [self.pages firstObject][@"image_urls"][@"large"];
     }
+}
+
+#pragma mark - NSCoding
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super init];
+    if (!self) {
+        return nil;
+    }
+    
+    self.raw = [aDecoder decodeObjectForKey:@"raw"];
+    self.response = [aDecoder decodeObjectForKey:@"response"];
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder
+{
+    [aCoder encodeObject:self.raw forKey:@"raw"];
+    [aCoder encodeObject:self.response forKey:@"response"];
 }
 
 @end

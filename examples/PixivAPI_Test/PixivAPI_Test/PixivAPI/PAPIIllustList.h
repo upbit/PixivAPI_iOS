@@ -9,7 +9,7 @@
 
 #import "PAPIIllust.h"
 
-@interface PAPIIllustList : NSObject
+@interface PAPIIllustList : NSObject <NSCoding>
 
 /**
  *  Parse NSDictionary of PAPI json result to PAPIIllustList

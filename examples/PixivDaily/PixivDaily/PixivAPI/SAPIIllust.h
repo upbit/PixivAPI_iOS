@@ -10,7 +10,7 @@
 #define PIXIV_ID_INVALID   (0)
 #define MIN_PIXIV_RECORD_FIELDS_NUM (26)                        // AuthorModel(26) / IllustBaseInfo(30)
 
-@interface SAPIIllust : NSObject
+@interface SAPIIllust : NSObject <NSCoding>
 
 // Model to NSArray
 - (NSArray *)toDataArray;

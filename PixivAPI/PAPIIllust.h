@@ -7,7 +7,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface PAPIIllust : NSObject
+@interface PAPIIllust : NSObject <NSCoding>
 
 /**
  *  Parse NSDictionary of PAPI json result to PAPIIllust

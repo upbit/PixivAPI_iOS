@@ -128,4 +128,24 @@
     return [self safeIntegerValue:self.response[@"id"]];
 }
 
+#pragma mark - NSCoding
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super init];
+    if (!self) {
+        return nil;
+    }
+    
+    self.raw = [aDecoder decodeObjectForKey:@"raw"];
+    self.response = [aDecoder decodeObjectForKey:@"response"];
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder
+{
+    [aCoder encodeObject:self.raw forKey:@"raw"];
+    [aCoder encodeObject:self.response forKey:@"response"];
+}
+
 @end

@@ -7,7 +7,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface PAPIAuthor : NSObject
+@interface PAPIAuthor : NSObject <NSCoding>
 
 /**
  *  Parse NSDictionary of PAPI json result to PAPIAuthor
