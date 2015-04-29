@@ -39,6 +39,11 @@
     return list;
 }
 
+- (NSArray *)toObjectList;
+{
+    return self.illusts;
+}
+
 - (NSInteger)count
 {
     return [self.illusts count];

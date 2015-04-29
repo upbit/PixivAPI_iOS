@@ -62,6 +62,37 @@
     return array;
 }
 
+- (NSDictionary *)toObject
+{
+    NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+
+#define RawField(f) [jsonDict setObject:self.f forKey:@#f]
+#define IntegerField(f) [jsonDict setObject:[NSNumber numberWithInteger:self.f] forKey:@#f]
+
+    IntegerField(illustId);
+    IntegerField(authorId);
+    RawField(ext);
+    RawField(title);
+    RawField(server);
+    RawField(authorName);
+    RawField(thumbURL);
+    RawField(mobileURL);
+    RawField(date);
+    RawField(tags);
+    RawField(tool);
+    IntegerField(feedbacks);
+    IntegerField(points);
+    IntegerField(views);
+    RawField(comment);
+    IntegerField(pages);
+    IntegerField(bookmarks);
+    RawField(username);
+    IntegerField(r18);
+    RawField(head);
+    
+    return jsonDict;
+}
+
 + (SAPIIllust *)parseDataArrayToModel:(NSArray *)data
 {
     if ([data count] < MIN_PIXIV_RECORD_FIELDS_NUM)

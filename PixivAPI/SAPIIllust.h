@@ -14,6 +14,8 @@
 
 // Model to NSArray
 - (NSArray *)toDataArray;
+// Model to Object
+- (NSDictionary *)toObject;
 
 /**
  *  Parse NSArray of SAPI result to SAPIIllust

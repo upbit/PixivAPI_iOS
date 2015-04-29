@@ -32,6 +32,11 @@
     return author;
 }
 
+- (NSDictionary *)toObject
+{
+  return self.response;
+}
+
 #pragma mark - Author properties
 
 - (NSInteger)safeIntegerValue:(id)data

@@ -20,6 +20,8 @@
  */
 + (PAPIIllustList *)parseJsonDictionaryToModelList:(NSDictionary *)jsonData isWork:(BOOL)isWork;
 
+- (NSArray *)toObjectList;
+
 @property (strong, nonatomic) NSDictionary *raw;            // origin json data from PAPI
 @property (strong, nonatomic) NSDictionary *pagination;     // pagination info
 

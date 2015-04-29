@@ -19,6 +19,8 @@
 + (PAPIIllust *)parseJsonDictionaryToModel:(NSDictionary *)jsonData;
 + (PAPIIllust *)parseRawDictionaryToModel:(NSDictionary *)jsonData isWork:(BOOL)isWork;
 
+- (NSDictionary *)toObject;
+
 @property (strong, nonatomic) NSDictionary *raw;            // origin json data from PAPI
 @property (strong, nonatomic) NSDictionary *response;       // response[0] for illust
 

@@ -3,6 +3,7 @@ Pixiv API for iOS
 
 Pixiv API for iOS, supported both SAPI and Public-API (with OAuth / Bearer token)
 
+* [2015/04/29] add React Native support
 * [2014/10/19] new NSOperationQueue for async request, add Public-API return Model
 
 ## Pixiv API Usage:
@@ -276,7 +277,7 @@ _Tips:_ MAX_CONCURRENT_OPERATION_COUNT(2) limit only 2 operations run in queue, 
 
 **Update UI on mainQueue:**
 
-asyncBlockingQueue: run operations on operationQueue, it causing UI update delay. So use **onMainQueue:** when you reloadData for UI: 
+asyncBlockingQueue: run operations on operationQueue, it causing UI update delay. So use **onMainQueue:** when you reloadData for UI:
 
 ```objective-c
     __weak ViewController *weakSelf = self;

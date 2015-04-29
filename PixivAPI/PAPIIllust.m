@@ -61,6 +61,11 @@
     return illust;
 }
 
+- (NSDictionary *)toObject
+{
+    return self.response;
+}
+
 #pragma mark - Illust properties
 
 - (NSInteger)safeIntegerValue:(id)data
