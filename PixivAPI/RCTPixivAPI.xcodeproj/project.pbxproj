@@ -31,6 +31,7 @@
 		832C81801AAF6DEF007FA2F7 /* libRCTPixivAPI.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRCTPixivAPI.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		832C819A1AAF6E1A007FA2F7 /* RCTPixivAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTPixivAPI.h; sourceTree = "<group>"; };
 		832C819B1AAF6E1A007FA2F7 /* RCTPixivAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTPixivAPI.m; sourceTree = "<group>"; };
+		CB09404F1B2B29D600F671ED /* PixivAPI.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = PixivAPI.js; sourceTree = "<group>"; };
 		CB619AB21ADFFE3D009E6244 /* PAPIAuthor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PAPIAuthor.h; sourceTree = "<group>"; };
 		CB619AB31ADFFE3D009E6244 /* PAPIAuthor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PAPIAuthor.m; sourceTree = "<group>"; };
 		CB619AB41ADFFE3D009E6244 /* PAPIIllust.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PAPIIllust.h; sourceTree = "<group>"; };
@@ -78,6 +79,7 @@
 		CB619AC31ADFFE4F009E6244 /* PixivAPI */ = {
 			isa = PBXGroup;
 			children = (
+				CB09404F1B2B29D600F671ED /* PixivAPI.js */,
 				CB619AB21ADFFE3D009E6244 /* PAPIAuthor.h */,
 				CB619AB31ADFFE3D009E6244 /* PAPIAuthor.m */,
 				CB619AB41ADFFE3D009E6244 /* PAPIIllust.h */,

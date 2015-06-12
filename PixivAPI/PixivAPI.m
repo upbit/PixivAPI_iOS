@@ -531,7 +531,10 @@ typedef NS_ENUM(NSInteger, PARSER_STATE) {
     }
 }
 
-- (id)_PAPI_URLFetchList:(NSString *)api_url params:(NSDictionary *)params isIllust:(BOOL)isIllust isWork:(BOOL)isWork
+/**
+ *    @param isWork  YES - response is work{}; NO - response wrap and has work key
+ */
+- (id)_PAPI_URLFetchList:(NSString *)api_url params:(NSDictionary *)params isWork:(BOOL)isWork
 {
     NSString *url = [NSString stringWithFormat:@"%@%@", self.papi_root, api_url];
     
@@ -551,13 +554,8 @@ typedef NS_ENUM(NSInteger, PARSER_STATE) {
     if (error) {
         return nil;
     }
-    
-    if (isIllust) {
-        return [PAPIIllustList parseJsonDictionaryToModelList:json_result isWork:isWork];
-    } else {
-        //return [PAPIAuthorList parseJsonDictionaryToModelList:json_result isWork:isWork];
-        return nil;
-    }
+  
+    return [PAPIIllustList parseJsonDictionaryToModelList:json_result isWork:isWork];
 }
 
 - (NSArray *)_PAPI_URLPost:(NSString *)api_url payload:(NSDictionary *)payload
@@ -653,7 +651,22 @@ typedef NS_ENUM(NSInteger, PARSER_STATE) {
         @"type": @"touch_nottext",
         @"show_r18": show_r18 ? @1 : @0,
     };
-    return [self _PAPI_URLFetchList:api_url params:params isIllust:YES isWork:YES];
+    return [self _PAPI_URLFetchList:api_url params:params isWork:YES];
+}
+
+- (PAPIIllustList *)PAPI_users_works:(NSInteger)author_id page:(NSInteger)page publicity:(BOOL)publicity
+{
+  NSString *api_url = [NSString stringWithFormat:@"users/%ld/works.json", (unsigned long)author_id];
+  NSDictionary *params = @{
+      @"page": @(page),
+      @"per_page": @30,
+      @"publicity": publicity ? @"public" : @"private",
+      @"include_work": @"true",
+      @"include_stats": @"true",
+      @"image_sizes": @"px_128x128,px_480mw,large",
+      @"profile_image_sizes": @"px_170x170,px_50x50",
+  };
+  return [self _PAPI_URLFetchList:api_url params:params isWork:NO];
 }
 
 - (PAPIIllustList *)PAPI_users_favorite_works:(NSInteger)author_id page:(NSInteger)page publicity:(BOOL)publicity
@@ -669,7 +682,7 @@ typedef NS_ENUM(NSInteger, PARSER_STATE) {
         @"profile_image_sizes": @"px_170x170,px_50x50",
     };
     // response has a header outside each work, so set isWork:NO
-    return [self _PAPI_URLFetchList:api_url params:params isIllust:YES isWork:NO];
+    return [self _PAPI_URLFetchList:api_url params:params isWork:NO];
 }
 
 - (NSInteger)PAPI_add_favorite_works:(NSInteger)illust_id publicity:(BOOL)publicity
@@ -695,6 +708,37 @@ typedef NS_ENUM(NSInteger, PARSER_STATE) {
         @"ids": @(favorite_id),
     };
     return [self _PAPI_URLDelete:api_url params:params];
+}
+
+- (PAPIIllustList *)PAPI_ranking_all:(NSString *)mode page:(NSInteger)page
+{
+  NSString *api_url = @"ranking/all";
+  NSDictionary *params = @{
+      @"mode": mode,
+      @"page": @(page),
+      @"per_page": @50,
+      @"image_sizes": @"px_128x128,px_480mw,large",
+      @"profile_image_sizes": @"px_170x170,px_50x50",
+      @"include_stats": @"true",
+      @"include_sanity_level": @"true",
+  };
+  return [self _PAPI_URLFetchList:api_url params:params isWork:NO];
+}
+
+- (PAPIIllustList *)PAPI_ranking_log:(NSString *)mode page:(NSInteger)page date:(NSString *)date
+{
+  NSString *api_url = @"ranking/all";
+  NSDictionary *params = @{
+      @"mode": mode,
+      @"page": @(page),
+      @"per_page": @50,
+      @"date": date,
+      @"image_sizes": @"px_128x128,px_480mw,large",
+      @"profile_image_sizes": @"px_170x170,px_50x50",
+      @"include_stats": @"true",
+      @"include_sanity_level": @"true",
+  };
+  return [self _PAPI_URLFetchList:api_url params:params isWork:NO];
 }
 
 @end

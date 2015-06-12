@@ -8,6 +8,8 @@
 #import <Foundation/Foundation.h>
 #import "PixivDefines.h"
 
+#define DEPRECATED_API __attribute__((deprecated))
+
 @interface PixivAPI : NSObject
 
 @property (strong, nonatomic) NSString *access_token;
@@ -95,7 +97,7 @@
  *
  *  @return NSArray of SAPIIllust
  */
-- (NSArray *)SAPI_ranking:(NSInteger)page mode:(NSString *)mode content:(NSString *)content requireAuth:(BOOL)requireAuth;
+- (NSArray *)SAPI_ranking:(NSInteger)page mode:(NSString *)mode content:(NSString *)content requireAuth:(BOOL)requireAuth DEPRECATED_API;
 
 /**
  *  过去的排行
@@ -111,7 +113,7 @@
  *  @return NSArray of SAPIIllust
  */
 - (NSArray *)SAPI_ranking_log:(NSInteger)Date_Year month:(NSInteger)Date_Month day:(NSInteger)Date_Day
-                         mode:(NSString *)mode page:(NSInteger)page requireAuth:(BOOL)requireAuth;
+                         mode:(NSString *)mode page:(NSInteger)page requireAuth:(BOOL)requireAuth DEPRECATED_API;
 
 /**
  *  作品信息 (新版本已使用 PAPI_works: 代替)
@@ -122,7 +124,7 @@
  *
  *  @return SAPIIllust
  */
-- (SAPIIllust *)SAPI_illust:(NSInteger)illust_id requireAuth:(BOOL)requireAuth;
+- (SAPIIllust *)SAPI_illust:(NSInteger)illust_id requireAuth:(BOOL)requireAuth DEPRECATED_API;
 
 /**
  *  用户作品列表
@@ -134,7 +136,7 @@
  *
  *  @return NSArray of SAPIIllust
  */
-- (NSArray *)SAPI_member_illust:(NSInteger)author_id page:(NSInteger)page requireAuth:(BOOL)requireAuth;
+- (NSArray *)SAPI_member_illust:(NSInteger)author_id page:(NSInteger)page requireAuth:(BOOL)requireAuth DEPRECATED_API;
 
 /**
  *  用户资料 (新版本已使用 PAPI_users: 代替)
@@ -145,7 +147,7 @@
  *
  *  @return SAPIIllust(Author)
  */
-- (SAPIIllust *)SAPI_user:(NSInteger)author_id requireAuth:(BOOL)requireAuth;
+- (SAPIIllust *)SAPI_user:(NSInteger)author_id requireAuth:(BOOL)requireAuth DEPRECATED_API;
 
 /**
  *  用户收藏 (新版本已使用 PAPI_users_favorite_works: 代替)
@@ -157,7 +159,7 @@
  *
  *  @return NSArray of SAPIIllust
  */
-- (NSArray *)SAPI_bookmark:(NSInteger)author_id page:(NSInteger)page requireAuth:(BOOL)requireAuth;
+- (NSArray *)SAPI_bookmark:(NSInteger)author_id page:(NSInteger)page requireAuth:(BOOL)requireAuth DEPRECATED_API;
 
 /**
  *  标记书签的用户
@@ -169,7 +171,7 @@
  *
  *  @return NSArray of SAPIIllust(Author)
  */
-- (NSArray *)SAPI_illust_bookmarks:(NSInteger)illust_id page:(NSInteger)page requireAuth:(BOOL)requireAuth;
+- (NSArray *)SAPI_illust_bookmarks:(NSInteger)illust_id page:(NSInteger)page requireAuth:(BOOL)requireAuth DEPRECATED_API;
 
 /**
  *  关注
@@ -180,7 +182,7 @@
  *
  *  @return NSArray of SAPIIllust(Author)
  */
-- (NSArray *)SAPI_bookmark_user_all:(NSInteger)author_id page:(NSInteger)page requireAuth:(BOOL)requireAuth;
+- (NSArray *)SAPI_bookmark_user_all:(NSInteger)author_id page:(NSInteger)page requireAuth:(BOOL)requireAuth DEPRECATED_API;
 
 /**
  *  好P友
@@ -191,7 +193,7 @@
  *
  *  @return NSArray of SAPIIllust(Author)
  */
-- (NSArray *)SAPI_mypixiv_all:(NSInteger)author_id page:(NSInteger)page requireAuth:(BOOL)requireAuth;
+- (NSArray *)SAPI_mypixiv_all:(NSInteger)author_id page:(NSInteger)page requireAuth:(BOOL)requireAuth DEPRECATED_API;
 
 
 #pragma mark - Public-API exports
@@ -223,6 +225,17 @@
 - (PAPIIllustList *)PAPI_me_feeds:(BOOL)show_r18;
 
 /**
+ *  用户作品列表
+ *  users/<author_id>/works.json
+ *
+ *  @param page             [1-n]
+ *  @param publicity        YES - public; NO - private (only auth user)
+ *
+ *  @return PAPIIllustList
+ */
+- (PAPIIllustList *)PAPI_users_works:(NSInteger)author_id page:(NSInteger)page publicity:(BOOL)publicity;
+
+/**
  *  用户收藏
  *  users/<author_id>/favorite_works.json
  *
@@ -251,5 +264,18 @@
  *  @return YES - success
  */
 - (BOOL)PAPI_del_favorite_works:(NSInteger)favorite_id;
+
+/**
+ *  排行榜/过去排行榜
+ *  ranking/all
+ *
+ *  @param mode             [daily, weekly, monthly, male, female, rookie, daily_r18, weekly_r18, male_r18, female_r18, r18g]
+ *  @param page             [1-n]
+ *  @param date             '2015-04-01' (* ranking_log)
+ *
+ *  @return PAPIIllustList
+ */
+- (PAPIIllustList *)PAPI_ranking_all:(NSString *)mode page:(NSInteger)page;
+- (PAPIIllustList *)PAPI_ranking_log:(NSString *)mode page:(NSInteger)page date:(NSString *)date;
 
 @end
