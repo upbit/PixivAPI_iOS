@@ -666,7 +666,7 @@ typedef NS_ENUM(NSInteger, PARSER_STATE) {
       @"image_sizes": @"px_128x128,px_480mw,large",
       @"profile_image_sizes": @"px_170x170,px_50x50",
   };
-  return [self _PAPI_URLFetchList:api_url params:params isWork:NO];
+  return [self _PAPI_URLFetchList:api_url params:params isWork:YES];
 }
 
 - (PAPIIllustList *)PAPI_users_favorite_works:(NSInteger)author_id page:(NSInteger)page publicity:(BOOL)publicity

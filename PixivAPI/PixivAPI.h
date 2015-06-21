@@ -177,8 +177,8 @@
  *  关注
  *  bookmark_user_all.php (Authentication required)
  *
- *  @param author_id [id for author]
- *  @param page      [1-n]
+ *  @param author_id        [id for author]
+ *  @param page             [1-n]
  *
  *  @return NSArray of SAPIIllust(Author)
  */
@@ -188,8 +188,8 @@
  *  好P友
  *  mypixiv_all.php
  *
- *  @param author_id [id for author]
- *  @param page      [1-n]
+ *  @param author_id        [id for author]
+ *  @param page             [1-n]
  *
  *  @return NSArray of SAPIIllust(Author)
  */
