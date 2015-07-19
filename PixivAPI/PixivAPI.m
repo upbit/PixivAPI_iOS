@@ -85,6 +85,16 @@
 - (NSDictionary *)URLFetch:(NSString *)method url:(NSString *)url
                    headers:(NSDictionary *)headers params:(NSDictionary *)params data:(NSDictionary *)data
 {
+    NSString *error = nil;
+    return [self URLFetch:method url:url headers:headers params:params data:data error:&error];
+}
+
+- (NSDictionary *)URLFetch:(NSString *)method url:(NSString *)url
+                   headers:(NSDictionary *)headers params:(NSDictionary *)params
+                      data:(NSDictionary *)data error:(NSString **)errorResponseMessage
+{
+    *errorResponseMessage = nil;
+    
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     [request setHTTPMethod:method];
     [request setTimeoutInterval:MAX_PIXIVAPI_FETCH_TIMEOUT];
@@ -114,6 +124,7 @@
     NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
     if (error) {
         NSLog(@"Error sending request: %@", [error localizedDescription]);
+        *errorResponseMessage = [error localizedDescription];
         return nil;
     }
 
@@ -121,6 +132,16 @@
     if (httpResponse.statusCode != 200) {
         NSString *payload = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
         NSLog(@"Error HTTP %ld:\n%@", (long)httpResponse.statusCode, payload);
+        
+        NSError *error = nil;
+        NSDictionary* errorJsonResult = [NSJSONSerialization JSONObjectWithData:responseData
+                                                                        options:kNilOptions error:&error];
+        if (error) {
+            *errorResponseMessage = error.description;
+            return nil;
+        }
+        *errorResponseMessage = [[[errorJsonResult valueForKey:@"errors"]
+                                  valueForKey:@"system"] valueForKey:@"message"];
         return nil;
     }
     
@@ -159,6 +180,14 @@
 
 - (NSDictionary *)login:(NSString *)username password:(NSString *)password
 {
+    NSString *error = nil;
+    return [self login:username password:password error:&error];
+}
+
+- (NSDictionary *)login:(NSString *)username password:(NSString *)password error:(NSString **)errorMessage
+{
+    *errorMessage = nil;
+    
     NSString *url = self.login_root;
     NSDictionary *login_headers = @{ @"Referer": @"http://www.pixiv.net/", };
     
@@ -171,15 +200,23 @@
         @"client_secret": @"HP3RmkgAmEGro0gn1x9ioawQE8WMfvLXDz3ZqxpK",
     };
 
-    NSDictionary *response = [self URLFetch:@"POST" url:url headers:login_headers params:nil data:data];
+    NSDictionary *response = [self URLFetch:@"POST" url:url headers:login_headers
+                                     params:nil data:data error:errorMessage];
+    
+    if (*errorMessage) {
+        return nil;
+    }
+    
     if (!response || (!response[@"data"])) {
-        return nil;     // error return nil
+        *errorMessage = @"response is nil.";
+        return nil;
     }
 
     // from response.payload get AccessToken
     NSError* error;
     NSDictionary* json_result = [NSJSONSerialization JSONObjectWithData:response[@"data"] options:kNilOptions error:&error];
     if (error) {
+        *errorMessage = error.description;
         return nil;
     }
     self.access_token = json_result[@"response"][@"access_token"];
@@ -214,6 +251,15 @@
     } else {
         // load auth success
         return YES;
+    }
+}
+
+- (void)loginIfNeeded:(NSString *)username password:(NSString *)password error:(NSString **)errorMessage
+{
+    *errorMessage = nil;
+    
+    if (![self loadAuthFromUserDefaults:username]) {
+        [self login:username password:password error:errorMessage];
     }
 }
 

@@ -54,6 +54,22 @@
 - (NSDictionary *)URLFetch:(NSString *)method url:(NSString *)url
                    headers:(NSDictionary *)headers params:(NSDictionary *)params data:(NSDictionary *)data;
 
+/**
+ *  API Fetch URL
+ *
+ *  @param method  HTTP/HTTPS method (GET or POST)
+ *  @param url     base url
+ *  @param headers header for request
+ *  @param params  url encode params for GET/POST
+ *  @param data    payload for POST
+ *  @param error   responsive error message from server
+ *
+ *  @return _buildResponse: encoded NSDictionary
+ */
+- (NSDictionary *)URLFetch:(NSString *)method url:(NSString *)url
+                   headers:(NSDictionary *)headers params:(NSDictionary *)params
+                      data:(NSDictionary *)data error:(NSString **)error;
+
 #pragma mark - login
 
 /**
@@ -65,11 +81,21 @@
 - (NSDictionary *)login:(NSString *)username password:(NSString *)password;
 
 /**
+ *  login
+ *  oauth.secure.pixiv.net/auth/token
+ *
+ *  @return json dictionary from auth/token
+ */
+- (NSDictionary *)login:(NSString *)username password:(NSString *)password error:(NSString **)error;
+
+/**
  *  login (if local auth expired)
  *
  *  @return YES - success; NO - error
  */
 - (BOOL)loginIfNeeded:(NSString *)username password:(NSString *)password;
+- (void)loginIfNeeded:(NSString *)username password:(NSString *)password error:(NSString **)error;
+
 - (BOOL)loadAuthFromUserDefaults:(NSString *)username;
 - (void)dropAuthFromUserDefaults;
 
